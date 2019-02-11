@@ -1,0 +1,13 @@
+1. Give me all the tasks that ran.
+2. Give me all the tasks that ran successfully.
+3. Give me all the tasks that failed.
+4. Give me the lifetime of task t.
+5. Give me all the tasks that ran on worker w.
+6. Which worker had the most tasks fail?
+7. Which task took longest?
+8. Which task had the most retries?
+9. Which worker had the slowest network/disk/etc.?
+10. Which files did task t open?
+11. Which tasks opened file f?
+12. What set environment variable e which was used in task t?
+13. What created file f which was opened in task t?

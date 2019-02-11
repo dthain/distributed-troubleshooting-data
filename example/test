@@ -1,0 +1,91 @@
+#!/usr/bin/perl
+#
+#Copyright (C) 2016- The University of Notre Dame
+#This software is distributed under the GNU General Public License.
+#
+
+use strict; 
+use Scalar::Util qw(looks_like_number);
+use Error qw(:try);
+use Error::Simple;
+use Getopt::Long qw(:config no_ignore_case);
+
+$SIG{INT} = \&cleanup;
+$SIG{TERM} = \&cleanup;
+
+my $usage = "Application Test Options:
+
+Required:
+	--tasks    <integer>        Sets the number of tasks.
+	--sleep    <integer>        Sets the sleep time per task.
+	--name     <string>         Sets the name of the Work Queue master.
+
+Optional:
+	--help			Display this message.
+
+Example Usage:
+
+	perl test --tasks 10 --sleep 1 --name wq_trace
+
+";
+
+my %OPT;
+try {
+    GetOptions(
+		"tasks=s" => \$OPT{tasks},
+        	"sleep=s" => \$OPT{sleep},
+        	"name=s" => \$OPT{name},
+	   	"help|?" => sub {print $usage; exit(0)}
+	);
+} 
+catch Error::Simple with {
+    my $E = shift;
+    print STDERR $E->{-text};
+    die "Failed to parse command line options.\n";
+};
+
+my $tasks = $OPT{tasks};
+my $sleep = $OPT{sleep};
+my $name = $OPT{name};
+my $err = 0;
+
+if(!$tasks) { print(STDERR "Missing --cores option.\n"); $err++; }
+if(!$sleep) { print(STDERR "Missing --workers option.\n"); $err++; }
+if(!$name) { print(STDERR "Missing --file option.\n"); $err++; }
+if($err) {
+    print(STDERR "Could not find $err required arguments.\n");
+    print_help();
+}
+
+my $usr = $ENV{USER};
+my $result = system("./tasks $tasks $sleep $name");
+cleanup();
+exit 0;
+
+sub cleanup {
+    system("ps -AF | grep \"$usr\" > cleanup");
+    my $i = 0;
+    open(INPUT, "cleanup");
+    while(my $line = <INPUT>) {
+	    chomp $line;
+	    my @parts = split(" ",$line);
+	    foreach my $part (@parts) {
+		    if($part =~ m/work_queue_.+/) {
+			    kill("KILL", @parts[1]);
+			    last;
+		    }
+		    $i++;
+	    }
+    }
+    close(INPUT);
+    unlink("cleanup");
+    unlink("in.dat");
+    system("condor_rm $usr");
+    print(STDERR "Cleaning up workers.\n");
+    sleep(1);
+}
+
+sub print_help {
+	print $usage;
+	exit 1;
+}

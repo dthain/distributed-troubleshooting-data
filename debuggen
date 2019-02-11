@@ -1,0 +1,289 @@
+#! /usr/bin/env perl
+
+use 5.10.0;
+use strict;
+use Error qw(:try);
+use Error::Simple;
+use Getopt::Long qw(:config no_ignore_case);
+use Scalar::Util qw(looks_like_number);
+use Time::HiRes qw(time);
+use DateTime;
+
+my $usage = "Work Queue Log Graph Generator Options:
+
+Required:
+    --input,-i  <path>  Sets the path to the Work Queue debug log for graph generation.
+
+Optional:
+    --dot,-d    <path>  Enables printing of graph in Dot format to specified file.
+    --out,-o    <path>  Enables printing of graph to specified file.
+    --help              Display this message.
+
+Example Usage:
+
+    perl debuggen --input wq.debug
+
+";
+
+my %OPT;
+try {
+    GetOptions(
+        "input=s" => \$OPT{in},
+        "dot=s" => \$OPT{dot},
+        "out=s" => \$OPT{out},
+        "help|?" => sub { print $usage; exit(0); },
+    );
+}
+catch Error::Simple with {
+    my $E = shift;
+    print STDERR $E->{-text};
+    die "Failed to parse command line options.\n";
+};
+
+my $in = $OPT{in};
+my $dot = $OPT{dot};
+my $out = $OPT{out};
+my $err = 0;
+
+if(!$in) { print(STDERR "Missing --input option.\n"); $err++; }
+if($err) {
+    print(STDERR "Could not find $err required arguments.\n");
+    print_help();
+}
+
+my %master;
+my %workers;
+my %tasks;
+my @debugs = <task*debug>;
+my @envtraces = <env*trace>;
+
+my %root;
+my $nacc = 0;
+my $eacc = 0;
+my $prev = 0;
+my $first = 1;
+my $timestamp;
+open(INPUT, $in) or die "Could not open file $in for reading.\n";
+while(my $line = <INPUT>) {
+    #2018/12/19 14:25:53.97 [20643] wq: Master advertising as disc01.crc.nd.edu:9000
+    if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/) {
+        $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
+        $timestamp = $timestamp->epoch();
+        if($first) {
+            $first = 0;
+            $master{'starttime'} = $timestamp;
+        }
+        else {
+            $master{'endtime'} = $timestamp;
+        }
+    }
+    #2018/12/19 14:25:53.97 [20643] wq: Master advertising as disc01.crc.nd.edu:9000
+    if($line =~ m/wq: Master advertising as (?<master>[a-zA-Z0-9\-]+\.crc\.nd\.edu:\d+)/) {
+        $master{'address'} = $+{master};
+        $master{'workers'} = "";
+        $master{'tasks'} = "";
+        $master{'files'} = "";
+        $master{'envvars'} = "";
+        $master{'errors'} = 0;
+        next;
+    }
+    #2019/01/01 17:26:14.67 [10333] wq: Task 1 state change: UNKNOWN (0) to WAITING (1)
+    elsif($line =~ m/wq: Task (?<tid>\d+) state change: UNKNOWN \(0\) to WAITING \(1\)/) {
+        my %task;
+        my $tid = $+{tid};
+        $task{'taskid'} = $tid;
+        $task{'master'} = $master{'address'};
+        $tasks{$tid} = \%task;
+        $master{'tasks'} = $master{'tasks'} . "$tid;";
+        $nacc++;
+        next;
+    }
+    #2019/01/01 17:26:57.58 [10333] wq: tx to d8civy148.crc.nd.edu (10.32.80.45:56808): task 10
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.crc\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): task (?<tid>\d+)/) {
+        my $err = 0;
+        my $tid = $+{tid};
+        my $waddr = $+{waddr};
+        my $wport = $+{wport};
+        my $worker = "$waddr:$wport";
+
+        $workers{$worker}{'address'} = $worker;
+        $workers{$worker}{'master'} = $master{'address'};
+        if(!$workers{$worker}{'starttime'}) {
+            $workers{$worker}{'starttime'} = $timestamp;
+        }
+        $workers{$worker}{'endtime'} = $timestamp;
+        $workers{$worker}{'tasks'} = $workers{$worker}{'tasks'} . "$tid;";
+
+        if(index($master{'workers'}, $worker) == -1) {
+            $master{'workers'} = $master{'workers'} . "$worker;";
+        }
+        
+        $tasks{$tid}{'master'} = $master{'address'};
+        $tasks{$tid}{'workers'} = $tasks{$tid}{'workers'} . "$worker;";
+        $tasks{$tid}{'errors'} = 0;
+        next;
+    }
+    #2019/01/06 19:14:39.52 [9484] wq: Task 1 state change: WAITING (1) to RUNNING (2)
+    elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
+        my $tid = $+{tid};
+        $tasks{$tid}{'msent'} = 1;
+        next;
+    }
+    #2019/01/06 19:14:41.24 [9484] wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
+    elsif($line =~ m/wq: Task (?<tid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
+        my $tid = $+{tid};
+        $tasks{$tid}{'wsent'} = 1;
+        $tasks{$tid}{'wrecv'} = 1;
+        next;
+    }
+    #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
+    elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
+        my $tid = $+{tid};
+        $tasks{$tid}{'mrecv'} = 1;
+        next;
+    }
+    #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: RETRIEVED (4) to DONE (5)
+    elsif($line =~ m/wq: Task (?<tid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
+        my $tid = $+{tid};
+        $tasks{$tid}{'err'} = 0;
+        next;
+    }
+}
+close(INPUT);
+
+foreach my $debug (@debugs) {
+
+}
+
+foreach my $envtrace (@envtraces) {
+
+}
+
+if($dot) {
+    open(DOT, ">>$dot") or die "Could not open output Dot file for writing.\n";
+    print(DOT "digraph {\n\noverlap=\"scale\";\nnode [shape=box,color=black,style=unfilled,fixedsize=false];\n\n");
+    foreach my $t (sort {$a <=> $b} keys(%tasks)) {
+        if($tasks{$t}{'msent'}) {
+            print(DOT "<$master{'address'}> -> <$tasks{$t}{'waddr'}> [label=\"Task $t\"]\n");
+        }
+        if($tasks{$t}{'wsent'}) {
+            print(DOT "<$tasks{$t}{'waddr'}> -> <Task $t> [label=\"Task $t\"]\n");
+        }
+        if($tasks{$t}{'wrecv'}) {
+            print(DOT "<Task $t> -> <$tasks{$t}{'waddr'}> [label=\"Task $t\"]\n");
+        }
+        if($tasks{$t}{'mrecv'}) {
+            print(DOT "<$tasks{$t}{'waddr'}> -> <$master{'address'}> [label=\"Task $t\"]\n");
+        }
+    }
+    print(DOT "}");
+    close(DOT);
+}
+
+if($out) {
+    
+    open(OUTPUT, ">>$out") or die "Could not open output output file for writing.\n";
+    print(OUTPUT "{\n\t");
+    
+    print(OUTPUT "\"master\": {\n\t\t\"address\": \"$master{'address'}\",\n\t\t\"workers\": [");
+    my $i = 0;
+    my @master_workers = split(";", $master{'workers'});
+    foreach my $w (@master_workers) {
+        if($w) {
+            if($i < scalar @master_workers - 1) {
+                print(OUTPUT "{\"address\": \"$w\"}, ");
+            }
+            else {
+                print(OUTPUT "{\"address\": \"$w\"}");
+            }
+        }
+        $i++;
+    }
+    print(OUTPUT "],\n\t\t\"tasks\": [");
+    $i = 0;
+    my @master_tasks = split(";", $master{'tasks'});
+    foreach my $t (@master_tasks) {
+        if($t) {
+            if($i < scalar @master_tasks - 1) {
+                print(OUTPUT "{\"taskid\": $t},");
+            }
+            else {
+                print(OUTPUT "{\"taskid\": $t}");
+            }
+        }
+        $i++;
+    }
+    print(OUTPUT "],\n\t\t\"files\": [");
+    $i = 0;
+    my @master_files = split(";", $master{'files'});
+    foreach my $f (@master_files - 1) {
+        if($f) {
+            if($i < scalar @master_files) {
+                print(OUTPUT "$f,");
+            }
+            else {
+                print(OUTPUT "$f");
+            }
+        }
+        $i++;
+    }
+    print(OUTPUT "],\n\t\t\"errors\": $master{'errors'},\n\t\t\"starttime\": $master{'starttime'},\n\t\t\"endtime\": $master{'endtime'}\n\t},\n\n\t");
+
+    print(OUTPUT "\"workers\": [\n\t\t");
+    my $j = 0;
+    foreach my $w (sort {$a <=> $b} keys(%workers)) {
+        print(OUTPUT "{\"address\": \"$workers{$w}{'address'}\",\n\t\t\t\"master\": \"$workers{$w}{'master'}\",\n\t\t\t\"tasks\": [");
+        $i = 0;
+        my @task_workers = split(";", $workers{$w}{'tasks'});
+        foreach my $t (@task_workers) {
+            if($t) {
+                if($i < scalar @task_workers - 1) {
+                    print(OUTPUT "{\"taskid\": $t}, ");
+                }
+                else {
+                    print(OUTPUT "{\"taskid\": $t}");
+                }
+            }
+            $i++;
+        }
+        print(OUTPUT "]\n\t\t\t");
+        if($j < (scalar keys %workers) - 1) { print(OUTPUT "}, "); }
+        else { print(OUTPUT "}\n\t],\n\n\t"); }
+        $j++;
+    }
+
+
+    print(OUTPUT "\"tasks\": [\n\t\t");
+    $j = 0;
+    foreach my $t (sort {$a <=> $b} keys(%tasks)) {
+        print(OUTPUT "{\"taskid\": $tasks{$t}{'taskid'},\n\t\t\t\"master\": \"$tasks{$t}{'master'}\",\n\t\t\t\"workers\": [");
+        $i = 0;
+        my @task_workers = split(";", $tasks{$t}{'workers'});
+        foreach my $w (@task_workers) {
+            if($w) {
+                if($i < scalar @task_workers - 1) {
+                    print(OUTPUT "{\"address\": \"$w\"}, ");
+                }
+                else {
+                    print(OUTPUT "{\"address\": \"$w\"}");
+                }
+            }
+            $i++;
+        }
+        print(OUTPUT "],\n\t\t\t\"command\": \"$tasks{$t}{'command'}\"");
+        if($j < (scalar keys %tasks) - 1) { print(OUTPUT "}, "); }
+        else { print(OUTPUT "}\n\t]\n\n"); }
+        $j++;
+    }
+
+    print(OUTPUT "}");
+    close(OUTPUT);
+}
+
+exit(0);
+
+sub print_help {
+    print $usage;
+    exit(1);
+}
+# vim: tabstop=8 shiftwidth=4 softtabstop=4 expandtab shiftround autoindent
