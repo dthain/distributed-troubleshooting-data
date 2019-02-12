@@ -6,6 +6,66 @@ const {
   GraphQLList
 } = require('graphql')
 
+const MasterType = new GraphQLObjectType({
+  name: 'Master',
+  description: '...',
+
+  fields: () => ({
+    address: {
+      type: GraphQLString,
+      resolve: json => json.address
+    },
+    starttime: {
+      type: GraphQLInt,
+      resolve: json => json.starttime
+    },
+    endtime: {
+      type: GraphQLInt,
+      resolve: json => json.endtime
+    },
+    errors: {
+      type: GraphQLInt,
+      resolve: json => json.errors
+    },
+    tasks: {
+      type: new GraphQLList(TaskType),
+      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => {
+        var tasksReturn
+        var conditional
+        if(args.taskid) {
+          var id = []
+          id.push(args.taskid)
+          tasksReturn = context.taskLoader.loadMany(id)
+        }
+        if(args.conditional) {
+          if(args.conditional.localeCompare(">") == 0) { conditional = 1 }
+        }
+        
+        if(tasksReturn && conditional == 0) { return tasksReturn }
+        var ids = json.tasks.map(elem => { return elem.taskid } )
+        if(conditional == 1) {
+          var newIds = []
+          for(var i = 0; i < ids.length; i++) {
+            if(ids[i] > args.taskid) { newIds.push(ids[i]) }
+          }
+          ids = newIds
+        }
+        return context.taskLoader.loadMany(ids)
+      }
+    },
+    workers: {
+      type: new GraphQLList(WorkerType),
+      args: {address: { type: GraphQLString } },
+      resolve: (json, args, context) => {
+        const ids = json.workers.map(elem => { return elem.address } )
+        tasksReturn = context.workerLoader.loadMany(ids)
+        return tasksReturn
+      }
+    }
+  })
+})
+
 const TaskType = new GraphQLObjectType({
   name: 'Task',
   description: '...',
@@ -72,46 +132,6 @@ const WorkerType = new GraphQLObjectType({
         const masterElements = json.master
         const id = 0
         return context.masterLoader.load(id)
-      }
-    }
-  })
-})
-
-const MasterType = new GraphQLObjectType({
-  name: 'Master',
-  description: '...',
-
-  fields: () => ({
-    address: {
-      type: GraphQLString,
-      resolve: json => json.address
-    },
-    starttime: {
-      type: GraphQLInt,
-      resolve: json => json.starttime
-    },
-    endtime: {
-      type: GraphQLInt,
-      resolve: json => json.endtime
-    },
-    errors: {
-      type: GraphQLInt,
-      resolve: json => json.errors
-    },
-    tasks: {
-      type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt } },
-      resolve: (json, args, context) => {
-        const ids = json.tasks.map(elem => { return elem.taskid } )
-        return context.taskLoader.loadMany(ids)
-      }
-    },
-    workers: {
-      type: new GraphQLList(WorkerType),
-      args: {address: { type: GraphQLString } },
-      resolve: (json, args, context) => {
-        const ids = json.workers.map(elem => { return elem.address } )
-        return context.workerLoader.loadMany(ids)
       }
     }
   })
