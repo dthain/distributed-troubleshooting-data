@@ -6,6 +6,37 @@ const {
   GraphQLList
 } = require('graphql')
 
+function compare(a, b, operator) {
+  if(operator.localeCompare("==") == 0) {
+    return a == b
+  }
+  else if(operator.localeCompare(">") == 0) {
+    return a > b
+  }
+  else if(operator.localeCompare("<") == 0) {
+    return a < b
+  }
+  else if(operator.localeCompare(">=") == 0) {
+    return a >= b
+  }
+  else if(operator.localeCompare("<=") == 0) {
+    return a <= b
+  }
+  else if(operator.localeCompare("!=") == 0) {
+    return a != b
+  }
+  else if(operator.localeCompare("===") == 0) {
+    return a === b
+  }
+  else if(operator.localeCompare("!==") == 0) {
+    return a !== b
+  }
+  else {
+    console.log("Unhandled Operator: ".concat(operator).concat("\n"))
+    return false
+  }
+}
+
 const MasterType = new GraphQLObjectType({
   name: 'Master',
   description: '...',
@@ -42,12 +73,14 @@ const MasterType = new GraphQLObjectType({
           if(args.conditional.localeCompare(">") == 0) { conditional = 1 }
         }
         
-        if(tasksReturn && conditional == 0) { return tasksReturn }
+        //if(tasksReturn && conditional == 0) { return tasksReturn }
+        if(args.taskid && !args.conditional) { args.conditional = "==" }
         var ids = json.tasks.map(elem => { return elem.taskid } )
-        if(conditional == 1) {
+        if(args.conditional) {
           var newIds = []
           for(var i = 0; i < ids.length; i++) {
-            if(ids[i] > args.taskid) { newIds.push(ids[i]) }
+            //if(ids[i] > args.taskid) { newIds.push(ids[i]) }
+            if(compare(ids[i], args.taskid, args.conditional)) { newIds.push(ids[i]) }
           }
           ids = newIds
         }

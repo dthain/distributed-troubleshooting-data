@@ -1,14 +1,14 @@
 CC=gcc
 CFLAGS=-Wall -g
-IQUOTE = -iquotecctools_source/dttools/src -iquotecctools_source/work_queue/src -iquotecctools_source/batch_job/src
-L = -Lcctools_source/dttools/src -Lcctools_source/work_queue/src -Lcctools_source/batch_job/src
+IQUOTE = -iquote../cctools-source/dttools/src -iquote../cctools-source/work_queue/src -iquote../cctools-source/batch_job/src
+L = -L../cctools-source/dttools/src -L../cctools-source/work_queue/src -L../cctools-source/batch_job/src
 l = -lbatch_job -lwork_queue -ldttools -lz
 LDDFLAGS = $(IQUOTE) $(L) $(l) -lm
 
-CCTOOLS = cctools_source
-LIB = cctools_source/dttools/src/libdttools.a cctools_source/work_queue/src/libwork_queue.a
+CCTOOLS = ../cctools-source
+LIB = ../cctools-source/dttools/src/libdttools.a ../cctools-source/work_queue/src/libwork_queue.a
 LOGS = *.wqlog *.debug *.trace *.dag *.dot
-PROG = tasks
+PROG = example
 PERL = test
 INPUT = in.dat
 OUTPUT = out.*.dat
@@ -16,6 +16,8 @@ DATA = master.debug
 DOT = master.dot
 DAG = master.dag
 PNG = master.png
+
+CLEANUP = $(DAG) $(DATA) $(DOT) $(INPUT) $(OUTPUT) $(PNG)
 
 all: $(PROG) $(DATA) $(DOT) $(PNG)
 
@@ -31,7 +33,7 @@ $(DATA): $(PROG) $(INPUT) $(PERL)
 	perl test --tasks 20 --sleep 1 --name wq_trace
 
 $(DOT): $(DATA)
-	perl debuggen -i master.debug -o master.dag -d master.dot
+	perl ../../debuggen -i master.debug -o master.dag -d master.dot
 
 $(PNG): $(DOT)
 	dot -T png -o master.png master.dot
@@ -39,13 +41,7 @@ $(PNG): $(DOT)
 build: $(PROG)
 
 clean:
-	rm -rf $(CCTOOLS) $(DATA) $(INPUT) $(OUTPUT) $(PROG) $(LOGS) $(PNG)
-
-lean:
-	rm -rf $(DATA) $(INPUT) $(OUTPUT) $(PROG) $(LOGS) $(PNG)
-
-plean:
-	rm -rf $(PNG) $(DOT) $(DAG)
+	rm -rf $(CLEANUP) $(LOGS) $(PROG)
 
 .PHONY: all clean
 

@@ -2,12 +2,24 @@ const fs = require('fs')
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const app = express()
-const fetch = require('node-fetch')
+//const fetch = require('node-fetch')
 const schema = require('./schema')
 const DataLoader = require('dataloader')
 const util = require('util')
-var json = fs.readFileSync("query.json")
-json = JSON.parse(json)
+
+var json
+
+function setup(question) {
+  var stdin = process.stdin
+  var stdout = process.stdout
+  stdin.resume()
+  stdout.write(question)
+  stdin.once('data', function (data) {
+    json = fs.readFileSync(data.toString().trim())
+    json = JSON.parse(json)
+    console.log('Node Service Listening ...')
+  })
+}
 
 function getMaster() {
   return json.master
@@ -61,7 +73,7 @@ app.use('/graphql', graphqlHTTP( req => {
   }
 }))
 
+setup("Specify input JSON file: ")
 app.listen(4000)
-console.log('Listening ...')
 
 // vim: tabstop=4 shiftwidth=2 softtabstop=2 expandtab shiftround autoindent

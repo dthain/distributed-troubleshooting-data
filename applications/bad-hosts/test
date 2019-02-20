@@ -58,7 +58,7 @@ if($err) {
 }
 
 my $usr = $ENV{USER};
-my $result = system("./tasks $tasks $sleep $name");
+my $result = system("./bad-hosts $tasks $sleep $name");
 cleanup();
 exit 0;
 
@@ -79,7 +79,7 @@ sub cleanup {
     }
     close(INPUT);
     unlink("cleanup");
-    unlink("in.dat");
+    #unlink("in.dat");
     system("condor_rm $usr");
     print(STDERR "Cleaning up workers.\n");
     sleep(1);

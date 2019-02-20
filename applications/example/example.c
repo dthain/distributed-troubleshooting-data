@@ -20,7 +20,7 @@
 #include "list.h"
 #include "debug.h"
 
-int capacity_test(int tasks, int sleep_time, char *name) {
+int test(int tasks, int sleep_time, char *name) {
 
 	//char *debug_file = string_format("%s.debug", name);
 	//char *log_file = string_format("%s.wqlog", name);
@@ -63,17 +63,21 @@ int capacity_test(int tasks, int sleep_time, char *name) {
 			char *out = string_format("out.%d.dat", i + 1);
 			char *env = string_format("env.%d.trace", i + 1);
 			char *wdb = string_format("task.%d.debug", i + 1);
-			char *cmd = string_format("make -f envtrace_makefile && ./envtrace dd if=in.dat of=out.dat bs=4096 count=2500 && sleep %d && cp ../../worker.debug %s", sleep_time, wdb);
+			char *ldb = string_format("ltrace.%d.debug", i + 1);
+			char *cmd = string_format("source /afs/crc.nd.edu/group/ccl/software/cclsetup.sh && cclimport ltrace current && ltrace -f -r -o ltrace.debug dd if=in.dat of=out.dat bs=4096 count=2500 && sleep %d && cp ../../worker.debug %s", sleep_time, wdb);
 			struct work_queue_task *t = work_queue_task_create(cmd);
 
 			work_queue_task_specify_file(t, "in.dat", "in.dat", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
-			work_queue_task_specify_file(t, "envtrace", "envtrace", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
-			work_queue_task_specify_file(t, "envtrace_makefile", "envtrace_makefile", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
-			work_queue_task_specify_file(t, "envtrace-helper.c", "envtrace-helper.c", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
+			//work_queue_task_specify_file(t, "../envtrace/envtrace", "envtrace", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
+			//work_queue_task_specify_file(t, "../envtrace/Makefile", "Makefile", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
+			//work_queue_task_specify_file(t, "../envtrace/envtrace-helper.c", "envtrace-helper.c", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			work_queue_task_specify_file(t, out, "out.dat", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
-			work_queue_task_specify_file(t, env, "env.trace", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
+			//work_queue_task_specify_file(t, env, "env.trace", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
+			work_queue_task_specify_file(t, ldb, "ltrace.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_file(t, wdb, wdb, WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_max_retries (t, 0);	
+
+			//char *cmd = string_format("source /afs/crc.nd.edu/group/ccl/software/cclsetup.sh && cclimport ltrace current && ltrace -f -r -o ltrace.debug ./fscheck runtime.config && sleep %d ; cp ../../worker.debug %s", sleep_time, wdb);
 
 			taskid = work_queue_submit(wq, t);
 			fprintf(stderr, "Task %d submitted.\n", taskid);	
@@ -129,7 +133,7 @@ int main(int argc, char *argv[]) {
 	int tasks = atoi(argv[1]);
 	int sleep_time = atoi(argv[2]);
 	char *name = argv[3];
-	capacity_test(tasks, sleep_time, name);
+	test(tasks, sleep_time, name);
 
 	fprintf(stderr, "Testing complete.\n");
 	return 0;

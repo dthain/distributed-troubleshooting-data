@@ -183,9 +183,9 @@ if($dot) {
 if($out) {
     
     open(OUTPUT, ">>$out") or die "Could not open output output file for writing.\n";
-    print(OUTPUT "{\n\t");
+    print(OUTPUT "{\n");
     
-    print(OUTPUT "\"master\": {\n\t\t\"address\": \"$master{'address'}\",\n\t\t\"workers\": [");
+    print(OUTPUT "\"master\": {\n\"address\": \"$master{'address'}\",\n\"workers\": [");
     my $i = 0;
     my @master_workers = split(";", $master{'workers'});
     foreach my $w (@master_workers) {
@@ -199,7 +199,7 @@ if($out) {
         }
         $i++;
     }
-    print(OUTPUT "],\n\t\t\"tasks\": [");
+    print(OUTPUT "],\n\"tasks\": [");
     $i = 0;
     my @master_tasks = split(";", $master{'tasks'});
     foreach my $t (@master_tasks) {
@@ -213,7 +213,7 @@ if($out) {
         }
         $i++;
     }
-    print(OUTPUT "],\n\t\t\"files\": [");
+    print(OUTPUT "],\n\"files\": [");
     $i = 0;
     my @master_files = split(";", $master{'files'});
     foreach my $f (@master_files - 1) {
@@ -227,12 +227,12 @@ if($out) {
         }
         $i++;
     }
-    print(OUTPUT "],\n\t\t\"errors\": $master{'errors'},\n\t\t\"starttime\": $master{'starttime'},\n\t\t\"endtime\": $master{'endtime'}\n\t},\n\n\t");
+    print(OUTPUT "],\n\"errors\": $master{'errors'},\n\"starttime\": $master{'starttime'},\n\"endtime\": $master{'endtime'}\n},\n\n");
 
-    print(OUTPUT "\"workers\": [\n\t\t");
+    print(OUTPUT "\"workers\": [\n");
     my $j = 0;
     foreach my $w (sort {$a <=> $b} keys(%workers)) {
-        print(OUTPUT "{\"address\": \"$workers{$w}{'address'}\",\n\t\t\t\"master\": \"$workers{$w}{'master'}\",\n\t\t\t\"tasks\": [");
+        print(OUTPUT "{\"address\": \"$workers{$w}{'address'}\",\n\"master\": \"$workers{$w}{'master'}\",\n\"tasks\": [");
         $i = 0;
         my @task_workers = split(";", $workers{$w}{'tasks'});
         foreach my $t (@task_workers) {
@@ -246,17 +246,17 @@ if($out) {
             }
             $i++;
         }
-        print(OUTPUT "]\n\t\t\t");
+        print(OUTPUT "]\n");
         if($j < (scalar keys %workers) - 1) { print(OUTPUT "}, "); }
-        else { print(OUTPUT "}\n\t],\n\n\t"); }
+        else { print(OUTPUT "}\n],\n\n"); }
         $j++;
     }
 
 
-    print(OUTPUT "\"tasks\": [\n\t\t");
+    print(OUTPUT "\"tasks\": [\n");
     $j = 0;
     foreach my $t (sort {$a <=> $b} keys(%tasks)) {
-        print(OUTPUT "{\"taskid\": $tasks{$t}{'taskid'},\n\t\t\t\"master\": \"$tasks{$t}{'master'}\",\n\t\t\t\"workers\": [");
+        print(OUTPUT "{\"taskid\": $tasks{$t}{'taskid'},\n\"master\": \"$tasks{$t}{'master'}\",\n\"workers\": [");
         $i = 0;
         my @task_workers = split(";", $tasks{$t}{'workers'});
         foreach my $w (@task_workers) {
@@ -270,9 +270,9 @@ if($out) {
             }
             $i++;
         }
-        print(OUTPUT "],\n\t\t\t\"command\": \"$tasks{$t}{'command'}\"");
+        print(OUTPUT "],\n\"command\": \"$tasks{$t}{'command'}\"");
         if($j < (scalar keys %tasks) - 1) { print(OUTPUT "}, "); }
-        else { print(OUTPUT "}\n\t]\n\n"); }
+        else { print(OUTPUT "}\n]\n\n"); }
         $j++;
     }
 
