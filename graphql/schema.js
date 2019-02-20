@@ -46,10 +46,48 @@ function tasksResolver(json, args, context) {
   return context.taskLoader.loadMany(ids)
 }
 
+function filesResolver(json, args, context) {
+
+}
+
 const MasterType = new GraphQLObjectType({
   name: 'Master',
-  description: '...',
+  fields: () => ({
+    address: {
+      type: GraphQLString,
+      resolve: json => json.address
+    },
+    starttime: {
+      type: GraphQLInt,
+      resolve: json => json.starttime
+    },
+    endtime: {
+      type: GraphQLInt,
+      resolve: json => json.endtime
+    },
+    errors: {
+      type: GraphQLInt,
+      resolve: json => json.errors
+    }, 
+    workers: {
+      type: new GraphQLList(WorkerType),
+      args: {address: { type: GraphQLString } },
+      resolve: (json, args, context) => { return workersResolver(json, args, context) }
+    },
+    tasks: {
+      type: new GraphQLList(TaskType),
+      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
+    },
+    files: {
+      type: new GraphQLList(FileType),
+      resolve: (json, args, context) => { return filesResolver(json, args, context) }
+    }
+  })
+})
 
+const WorkerType = new GraphQLObjectType({
+  name: 'Worker',
   fields: () => ({
     address: {
       type: GraphQLString,
@@ -67,61 +105,32 @@ const MasterType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: json => json.errors
     },
-    tasks: {
-      type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
-    },
-    workers: {
-      type: new GraphQLList(WorkerType),
-      args: {address: { type: GraphQLString } },
-      resolve: (json, args, context) => { return workersResolver(json, args, context) }
-    }
-  })
-})
-
-const TaskType = new GraphQLObjectType({
-  name: 'Task',
-  description: '...',
-
-  fields: () => ({
-    taskid: {
-      type: GraphQLInt,
-      args: {
-        taskid: { 
-          type: GraphQLInt } },
-          resolve: (json, args) => json.taskid
+    bandwidth: {
+      type: GraphQLString,
+      resolve: json => json.bandwidth
     },
     master: {
       type: MasterType,
       resolve: (json, args, context) => { return masterResolver(json, args, context) }
     },
-    workers: {
-      type: new GraphQLList(WorkerType),
-      args: {address: { type: GraphQLString } },
-      resolve: (json, args, context) => { return workersResolver(json, args, context) }
+    tasks: {
+      type: new GraphQLList(TaskType),
+      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
     },
     files: {
       type: new GraphQLList(FileType),
-      args: {name: { type: GraphQLString } },
-      resolve: (json, args, context) => { return fileResolver(json, args, context) }
-    },
-    envVars: {
-      type: new GraphQLList(EnvVarType),
-      args: {value: { type: GraphQLString } },
-      resolve: (json, args, context) => { return envVarResolver(json, args, context) }
-    }
+      resolve: (json, args, context) => { return filesResolver(json, args, context) }
+    } 
   })
 })
 
-const WorkerType = new GraphQLObjectType({
-  name: 'Worker',
-  description: '...',
-
+const TaskType = new GraphQLObjectType({
+  name: 'Task',
   fields: () => ({
-    address: {
-      type: GraphQLString,
-      resolve: json => json.address
+    taskid: {
+      type: GraphQLInt,
+      resolve: (json, args) => json.taskid
     },
     starttime: {
       type: GraphQLInt,
@@ -131,44 +140,112 @@ const WorkerType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: json => json.endtime
     },
+    retries: {
+      type: GraphQLInt,
+      resolve: json => json.retries
+    },
     errors: {
       type: GraphQLInt,
-      resolve: jsons => json.errors
+      resolve: json => json.errors
     },
-    tasks: {
-      type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
+    command: {
+      type: GraphQLString,
+      resolve: json => json.command
     },
     master: {
       type: MasterType,
       resolve: (json, args, context) => { return masterResolver(json, args, context) }
+    },
+    workers: {
+      type: new GraphQLList(WorkerType),
+      args: {address: { type: GraphQLString } },
+      resolve: (json, args, context) => { return workersResolver(json, args, context) }
+    },
+    inputs: {
+      type: new GraphQLList(FileType),
+      args: {name: { type: GraphQLString } },
+      resolve: (json, args, context) => { return filesResolver(json, args, context) }
+    },
+    outputs: {
+      type: new GraphQLList(FileType),
+      args: {name: { type: GraphQLString } },
+      resolve: (json, args, context) => { return filesResolver(json, args, context) }
+    },
+    files: {
+      type: new GraphQLList(FileType),
+      args: {name: { type: GraphQLString } },
+      resolve: (json, args, context) => { return filesResolver(json, args, context) }
+    },
+    envVars: {
+      type: new GraphQLList(EnvVarType),
+      args: {value: { type: GraphQLString } },
+      resolve: (json, args, context) => { return envVarsResolver(json, args, context) }
     }
   })
 })
 
 const FileType = new GraphQLObjectType({
   name: 'File',
-  description: '...',
-
   fields: () => ({
     tasks: {
       type: new GraphQLList(TaskType),
       args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
       resolve: (json, args, context) => { return tasksResolver(json, args, context) }
+    },
+    fd: {
+      type: GraphQLInt,
+      resolve: json => json.fd
+    },
+    name: {
+      type: GraphQLString,
+      resolve: json => json.name
+    },
+    size: {
+      type: GraphQLInt,
+      resolve: json => json.size
+    },
+    errors: {
+      type: GraphQLInt,
+      resolve: json => json.errors
+    },
+    firstTask: {
+      type: TaskType,
+      resolve: (json, args, context) => { return taskResolver(json, args, context) }
+    },
+    lastTask: {
+      type: TaskType,
+      resolve: (json, args, context) => { return taskResolver(json, args, context) }
     }
   })
 })
 
 const EnvVarType = new GraphQLObjectType({
   name: 'EnvVar',
-  description: '...',
-
   fields: () => ({
     tasks: {
       type: new GraphQLList(TaskType),
       args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
       resolve: (json, args, context) => { return tasksResolver(json, args, context) }
+    },
+    name: {
+      type: GraphQLString,
+      resolve: json => json.name
+    },
+    value: {
+      type: GraphQLString,
+      resolve: json => json.value
+    },
+    errors: {
+      type: GraphQLInt,
+      resolve: json => json.errors
+    },
+    firstTask: {
+      type: TaskType,
+      resolve: (json, args, context) => { return taskResolver(json, args, context) }
+    },
+    lastTask: {
+      type: TaskType,
+      resolve: (json, args, context) => { return taskResolver(json, args, context) }
     }
   })
 })
@@ -176,8 +253,6 @@ const EnvVarType = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
-    description: '...',
-
     fields: () => ({
       master: {
         type: MasterType,
