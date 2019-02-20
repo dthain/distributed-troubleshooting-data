@@ -7,34 +7,43 @@ const {
 } = require('graphql')
 
 function compare(a, b, operator) {
-  if(operator.localeCompare("==") == 0) {
-    return a == b
-  }
-  else if(operator.localeCompare(">") == 0) {
-    return a > b
-  }
-  else if(operator.localeCompare("<") == 0) {
-    return a < b
-  }
-  else if(operator.localeCompare(">=") == 0) {
-    return a >= b
-  }
-  else if(operator.localeCompare("<=") == 0) {
-    return a <= b
-  }
-  else if(operator.localeCompare("!=") == 0) {
-    return a != b
-  }
-  else if(operator.localeCompare("===") == 0) {
-    return a === b
-  }
-  else if(operator.localeCompare("!==") == 0) {
-    return a !== b
-  }
+  if(operator.localeCompare("==") == 0) { return a == b }
+  else if(operator.localeCompare(">") == 0) { return a > b }
+  else if(operator.localeCompare("<") == 0) { return a < b }
+  else if(operator.localeCompare(">=") == 0) { return a >= b }
+  else if(operator.localeCompare("<=") == 0) { return a <= b }
+  else if(operator.localeCompare("!=") == 0) { return a != b }
+  else if(operator.localeCompare("===") == 0) { return a === b }
+  else if(operator.localeCompare("!==") == 0) { return a !== b }
   else {
     console.log("Unhandled Operator: ".concat(operator).concat("\n"))
     return false
   }
+}
+
+function masterResolver(json, args, context) {
+  const masterElements = json.master
+  const id = 0
+  return context.masterLoader.load(id)
+}
+
+function workersResolver(json, args, context) {
+  const ids = json.workers.map(elem => { return elem.address } )
+  return context.workerLoader.loadMany(ids)
+}
+
+function tasksResolver(json, args, context) {
+  var conditional
+  if(args.taskid && !args.conditional) { args.conditional = "==" }
+  var ids = json.tasks.map(elem => { return elem.taskid } )
+  if(args.conditional) {
+    var newIds = []
+    for(var i = 0; i < ids.length; i++) {
+      if(compare(ids[i], args.taskid, args.conditional)) { newIds.push(ids[i]) }
+    }
+    ids = newIds
+  }
+  return context.taskLoader.loadMany(ids)
 }
 
 const MasterType = new GraphQLObjectType({
@@ -61,40 +70,12 @@ const MasterType = new GraphQLObjectType({
     tasks: {
       type: new GraphQLList(TaskType),
       args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => {
-        var tasksReturn
-        var conditional
-        if(args.taskid) {
-          var id = []
-          id.push(args.taskid)
-          tasksReturn = context.taskLoader.loadMany(id)
-        }
-        if(args.conditional) {
-          if(args.conditional.localeCompare(">") == 0) { conditional = 1 }
-        }
-        
-        //if(tasksReturn && conditional == 0) { return tasksReturn }
-        if(args.taskid && !args.conditional) { args.conditional = "==" }
-        var ids = json.tasks.map(elem => { return elem.taskid } )
-        if(args.conditional) {
-          var newIds = []
-          for(var i = 0; i < ids.length; i++) {
-            //if(ids[i] > args.taskid) { newIds.push(ids[i]) }
-            if(compare(ids[i], args.taskid, args.conditional)) { newIds.push(ids[i]) }
-          }
-          ids = newIds
-        }
-        return context.taskLoader.loadMany(ids)
-      }
+      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
     },
     workers: {
       type: new GraphQLList(WorkerType),
       args: {address: { type: GraphQLString } },
-      resolve: (json, args, context) => {
-        const ids = json.workers.map(elem => { return elem.address } )
-        tasksReturn = context.workerLoader.loadMany(ids)
-        return tasksReturn
-      }
+      resolve: (json, args, context) => { return workersResolver(json, args, context) }
     }
   })
 })
@@ -113,19 +94,22 @@ const TaskType = new GraphQLObjectType({
     },
     master: {
       type: MasterType,
-      resolve: (json, args, context) => {
-        const masterElements = json.master
-        const id = 0
-        return context.masterLoader.load(id)
-      }
+      resolve: (json, args, context) => { return masterResolver(json, args, context) }
     },
     workers: {
       type: new GraphQLList(WorkerType),
       args: {address: { type: GraphQLString } },
-      resolve: (json, args, context) => {
-        const ids = json.workers.map(elem => { return elem.address } )
-        return context.workerLoader.loadMany(ids)
-      }
+      resolve: (json, args, context) => { return workersResolver(json, args, context) }
+    },
+    files: {
+      type: new GraphQLList(FileType),
+      args: {name: { type: GraphQLString } },
+      resolve: (json, args, context) => { return fileResolver(json, args, context) }
+    },
+    envVars: {
+      type: new GraphQLList(EnvVarType),
+      args: {value: { type: GraphQLString } },
+      resolve: (json, args, context) => { return envVarResolver(json, args, context) }
     }
   })
 })
@@ -153,19 +137,38 @@ const WorkerType = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt } },
-      resolve: (json, args, context) => {
-        const ids = json.tasks.map(elem => { return elem.taskid } )
-        return context.taskLoader.loadMany(ids)
-      }
+      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
     },
     master: {
       type: MasterType,
-      resolve: (json, args, context) => {
-        const masterElements = json.master
-        const id = 0
-        return context.masterLoader.load(id)
-      }
+      resolve: (json, args, context) => { return masterResolver(json, args, context) }
+    }
+  })
+})
+
+const FileType = new GraphQLObjectType({
+  name: 'File',
+  description: '...',
+
+  fields: () => ({
+    tasks: {
+      type: new GraphQLList(TaskType),
+      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
+    }
+  })
+})
+
+const EnvVarType = new GraphQLObjectType({
+  name: 'EnvVar',
+  description: '...',
+
+  fields: () => ({
+    tasks: {
+      type: new GraphQLList(TaskType),
+      args: {taskid: { type: GraphQLInt }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => { return tasksResolver(json, args, context) }
     }
   })
 })
