@@ -1,28 +1,28 @@
 {
 	"master": {
 		"address": "disc01.crc.nd.edu:9000",
-		"workers": [{"address": "disc11.crc.nd.edu:48788"}, {"address": "disc11.crc.nd.edu:48790"}, {"address": "disc02.crc.nd.edu:36866"}, {"address": "camd01.crc.nd.edu:60952"}, {"address": "camd04.crc.nd.edu:34168"}],
+		"workers": [{"wid": 1}, {"wid": 5}, {"wid": 4}, {"address": 2}, {"wid": 3}],
 		"tasks": [{"taskid": 1},{"taskid": 2},{"taskid": 3},{"taskid": 4},{"taskid": 5},{"taskid": 6},{"taskid": 7},{"taskid": 8},{"taskid": 9},{"taskid": 10},{"taskid": 11},{"taskid": 12},{"taskid": 13},{"taskid": 14},{"taskid": 15},{"taskid": 16},{"taskid": 17},{"taskid": 18},{"taskid": 19},{"taskid": 20}],
 		"files": [-1],
 		"errors": 0,
-		"starttime": 1546802053,
-		"endtime": 1546802087
+		"start": 1546802053,
+		"end": 1546802087
 	},
 
 	"workers": [
-		{"address": "disc11.crc.nd.edu:48788",
+		{"wid": 1, "address": "disc11.crc.nd.edu:48788",
 			"master": "disc01.crc.nd.edu:9000",
 			"tasks": [{"taskid": 1}, {"taskid": 4}, {"taskid": 8}, {"taskid": 13}, {"taskid": 18}]
-			}, {"address": "camd01.crc.nd.edu:60952",
+			}, {"wid": 2, "address": "camd01.crc.nd.edu:60952",
 			"master": "disc01.crc.nd.edu:9000",
 			"tasks": [{"taskid": 5}, {"taskid": 9}, {"taskid": 15}, {"taskid": 20}]
-			}, {"address": "camd04.crc.nd.edu:34168",
+			}, {"wid": 3, "address": "camd04.crc.nd.edu:34168",
 			"master": "disc01.crc.nd.edu:9000",
 			"tasks": [{"taskid": 7}, {"taskid": 12}, {"taskid": 17}]
-			}, {"address": "disc02.crc.nd.edu:36866",
+			}, {"wid": 4, "address": "disc02.crc.nd.edu:36866",
 			"master": "disc01.crc.nd.edu:9000",
 			"tasks": [{"taskid": 3}, {"taskid": 10}, {"taskid": 16}]
-			}, {"address": "disc11.crc.nd.edu:48790",
+			}, {"wid": 5, "address": "disc11.crc.nd.edu:48790",
 			"master": "disc01.crc.nd.edu:9000",
 			"tasks": [{"taskid": 2}, {"taskid": 6}, {"taskid": 11}, {"taskid": 14}, {"taskid": 19}]
 			}
