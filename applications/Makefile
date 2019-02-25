@@ -39,7 +39,17 @@ clean:
 	cd bad-hosts && make clean
 	rm -rf $(CCTOOLS) $(DATA)
 
+exclean:
+	cd example && make clean
+	rm example.complete
+
+bhclean:
+	cd bad-hosts && make clean
+	rm bad-hosts.complete
+
 lean:
+	cd example && make clean
+	cd bad-hosts && make clean
 	rm -rf $(DATA)
 
 .PHONY: all clean

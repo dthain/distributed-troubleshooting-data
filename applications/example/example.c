@@ -61,23 +61,22 @@ int test(int tasks, int sleep_time, char *name) {
 
 		while(i < tasks) {
 			char *out = string_format("out.%d.dat", i + 1);
-			char *env = string_format("env.%d.trace", i + 1);
+			//char *env = string_format("env.%d.trace", i + 1);
 			char *wdb = string_format("task.%d.debug", i + 1);
 			char *ldb = string_format("ltrace.%d.debug", i + 1);
-			char *cmd = string_format("source /afs/crc.nd.edu/group/ccl/software/cclsetup.sh && cclimport ltrace current && ltrace -f -r -o ltrace.debug dd if=in.dat of=out.dat bs=4096 count=2500 && sleep %d && cp ../../worker.debug %s", sleep_time, wdb);
+			char *cmd = string_format("./ltrace-wrapper dd if=in.dat of=out.dat bs=4096 count=2500 && sleep %d", sleep_time);
 			struct work_queue_task *t = work_queue_task_create(cmd);
 
 			work_queue_task_specify_file(t, "in.dat", "in.dat", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
+			work_queue_task_specify_file(t, "../ltrace-wrapper", "ltrace-wrapper", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			//work_queue_task_specify_file(t, "../envtrace/envtrace", "envtrace", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			//work_queue_task_specify_file(t, "../envtrace/Makefile", "Makefile", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			//work_queue_task_specify_file(t, "../envtrace/envtrace-helper.c", "envtrace-helper.c", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			work_queue_task_specify_file(t, out, "out.dat", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			//work_queue_task_specify_file(t, env, "env.trace", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_file(t, ldb, "ltrace.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
-			work_queue_task_specify_file(t, wdb, wdb, WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
+			work_queue_task_specify_file(t, wdb, "worker.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_max_retries (t, 0);	
-
-			//char *cmd = string_format("source /afs/crc.nd.edu/group/ccl/software/cclsetup.sh && cclimport ltrace current && ltrace -f -r -o ltrace.debug ./fscheck runtime.config && sleep %d ; cp ../../worker.debug %s", sleep_time, wdb);
 
 			taskid = work_queue_submit(wq, t);
 			fprintf(stderr, "Task %d submitted.\n", taskid);	
