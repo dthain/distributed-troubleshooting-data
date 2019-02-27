@@ -4,6 +4,6 @@ source /afs/crc.nd.edu/group/ccl/software/cclsetup.sh
 
 cclimport ltrace current
 
-ltrace -f -r -o ltrace.debug -e open+stat+getenv+setenv $@ && cp ../../worker.debug .
+ltrace -f -r -s 256 -o ltrace.debug -e *open+*stat+*getenv+*setenv $@ && cp ../../worker.debug .
 
 exit 1

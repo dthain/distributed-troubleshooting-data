@@ -61,7 +61,6 @@ int test(int tasks, int sleep_time, char *name) {
 
 		while(i < tasks) {
 			char *out = string_format("out.%d.dat", i + 1);
-			//char *env = string_format("env.%d.trace", i + 1);
 			char *wdb = string_format("task.%d.debug", i + 1);
 			char *ldb = string_format("ltrace.%d.debug", i + 1);
 			char *cmd = string_format("./ltrace-wrapper dd if=in.dat of=out.dat bs=4096 count=2500 && sleep %d", sleep_time);
@@ -69,11 +68,7 @@ int test(int tasks, int sleep_time, char *name) {
 
 			work_queue_task_specify_file(t, "in.dat", "in.dat", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			work_queue_task_specify_file(t, "../ltrace-wrapper", "ltrace-wrapper", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
-			//work_queue_task_specify_file(t, "../envtrace/envtrace", "envtrace", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
-			//work_queue_task_specify_file(t, "../envtrace/Makefile", "Makefile", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
-			//work_queue_task_specify_file(t, "../envtrace/envtrace-helper.c", "envtrace-helper.c", WORK_QUEUE_INPUT, WORK_QUEUE_CACHE);
 			work_queue_task_specify_file(t, out, "out.dat", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
-			//work_queue_task_specify_file(t, env, "env.trace", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_file(t, ldb, "ltrace.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_file(t, wdb, "worker.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_max_retries (t, 0);	
@@ -86,7 +81,10 @@ int test(int tasks, int sleep_time, char *name) {
 		}
 
 		struct work_queue_task *t = work_queue_wait(wq, WORK_QUEUE_WAITFORTASK);
-		if(t) {	
+		if(t) {
+			/*if(t->output) {
+				fprintf(stderr, "Task %d: %s\n", t->taskid, t->output);
+			}*/
 			if(t->result == WORK_QUEUE_RESULT_SUCCESS) {
 				fprintf(stderr, "Task %d complete. Collecting output.\n", t->taskid);
 				struct work_queue_file *out_file;

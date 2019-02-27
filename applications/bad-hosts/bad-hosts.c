@@ -61,7 +61,6 @@ int test(int tasks, int sleep_time, char *name) {
 			char *out = string_format("out.%d.dat", i + 1);
 			char *wdb = string_format("task.%d.debug", i + 1);
 			char *ldb = string_format("ltrace.%d.debug", i + 1);
-			//char *cmd = string_format("source /afs/crc.nd.edu/group/ccl/software/cclsetup.sh && cclimport ltrace current && ltrace -f -r -o ltrace.debug ./fscheck runtime.config && sleep %d ; cp ../../worker.debug %s", sleep_time, wdb);
 			char *cmd = string_format("./ltrace-wrapper ./fscheck runtime.config && sleep %d", sleep_time);
 			struct work_queue_task *t = work_queue_task_create(cmd);
 
