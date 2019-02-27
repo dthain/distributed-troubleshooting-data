@@ -13,13 +13,11 @@ PERL = test
 INPUT = in.dat
 OUTPUT = out.*.dat
 DATA = master.debug
-DOT = master.dot
-DAG = master.dag
-PNG = master.png
+JSON = master.json
 
-CLEANUP = $(DAG) $(DATA) $(DOT) $(INPUT) $(OUTPUT) $(PNG)
+CLEANUP = $(JSON) $(DATA) $(INPUT) $(OUTPUT)
 
-all: $(PROG) $(DATA) $(DOT) $(PNG)
+all: $(PROG) $(DATA) $(JSON)
 
 $(PROG): $(LIB) $(CCTOOLS)
 	$(CC) $(CFLAGS) $@.c $(LDDFLAGS) -o $@
@@ -32,11 +30,8 @@ $(DATA): $(PROG) $(INPUT) $(PERL)
 	#work_queue_worker -N wq_trace -t 10 -d all -o worker.debug --debug-rotate-max 0 &
 	perl test --tasks 20 --sleep 1 --name wq_trace
 
-$(DOT): $(DATA)
-	perl ../../debuggen -i master.debug -o master.dag -d master.dot
-
-$(PNG): $(DOT)
-	dot -T png -o master.png master.dot
+$(JSON): $(DATA)
+	perl ../../debuggen -i master.debug -o master.json
 
 build: $(PROG)
 
