@@ -183,6 +183,13 @@ function objectResolver(json, args, context, type) {
         }
       }
     }
+    else if(args.gpus) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].gpus, argument, conditional)) {
+          ids.push(json[i].taskid)
+        }
+      }
+    }
   }
   //Else give me everything
   else {
@@ -322,6 +329,10 @@ const TaskType = new GraphQLObjectType({
     disk: {
       type: GraphQLInt,
       resolve: json => json.disk
+    },
+    gpus: {
+      type: GraphQLInt,
+      resolve: json => json.gpus
     },
     master: {
       type: MasterType,

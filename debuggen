@@ -8,6 +8,7 @@ use Getopt::Long qw(:config no_ignore_case);
 use Scalar::Util qw(looks_like_number);
 use Time::HiRes qw(time);
 use DateTime;
+use JSON;
 
 my $usage = "Work Queue Log Graph Generator Options:
 
@@ -15,13 +16,12 @@ Required:
     --input,-i  <path>  Sets the path to the Work Queue debug log for graph generation.
 
 Optional:
-    --dot,-d    <path>  Enables printing of graph in Dot format to specified file.
     --out,-o    <path>  Enables printing of graph to specified file.
     --help              Display this message.
 
 Example Usage:
 
-    perl debuggen --input wq.debug
+    perl debuggen --input wq.debug --output wq.json
 
 ";
 
@@ -54,227 +54,219 @@ if($err) {
 my %master;
 my %workers;
 my %tasks;
-my @debugs = <task*debug>;
-my @envtraces = <env*trace>;
+my %files;
+my %envs;
 
-my %root;
-my $nacc = 0;
-my $eacc = 0;
-my $prev = 0;
+my @debugs = <task*debug>;
+my @ltraces = <ltrace*debug>;
+
 my $first = 1;
+my $workerid = 1;
+my $fileid = 1;
+my $envid = 1;
+my $currtask = 1;
 my $timestamp;
 open(INPUT, $in) or die "Could not open file $in for reading.\n";
 while(my $line = <INPUT>) {
-    #2018/12/19 14:25:53.97 [20643] wq: Master advertising as disc01.crc.nd.edu:9000
+    print(STDERR "$currtask\n");
+    #wq: Master advertising as disc01.crc.nd.edu:9000
     if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/) {
         $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
         $timestamp = $timestamp->epoch();
         if($first) {
             $first = 0;
-            $master{'starttime'} = $timestamp;
+            $master{starttime} = $timestamp;
         }
         else {
-            $master{'endtime'} = $timestamp;
+            $master{endtime} = $timestamp;
         }
     }
-    #2018/12/19 14:25:53.97 [20643] wq: Master advertising as disc01.crc.nd.edu:9000
+    #wq: Master advertising as disc01.crc.nd.edu:9000
     if($line =~ m/wq: Master advertising as (?<master>[a-zA-Z0-9\-]+\.crc\.nd\.edu:\d+)/) {
-        $master{'address'} = $+{master};
-        $master{'workers'} = "";
-        $master{'tasks'} = "";
-        $master{'files'} = "";
-        $master{'envvars'} = "";
-        $master{'errors'} = 0;
+        $master{address} = $+{master};
+        $master{workers} = [()];
+        $master{tasks} = [()];
+        $master{files} = "";
+        $master{envvars} = "";
+        $master{errors} = 0;
         next;
     }
-    #2019/01/01 17:26:14.67 [10333] wq: Task 1 state change: UNKNOWN (0) to WAITING (1)
+    #wq: Task 1 state change: UNKNOWN (0) to WAITING (1)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: UNKNOWN \(0\) to WAITING \(1\)/) {
-        my %task;
         my $tid = $+{tid};
-        $task{'taskid'} = $tid;
-        $task{'master'} = $master{'address'};
-        $tasks{$tid} = \%task;
-        $master{'tasks'} = $master{'tasks'} . "$tid;";
-        $nacc++;
+        $tasks{$tid}{taskid} = $tid;
+        $tasks{$tid}{master} = $master{address};
+        $tasks{$tid}{workers} = [()];
+        my %task;
+        $task{taskid} = int($tid);
+        push($master{tasks}, \%task);
         next;
     }
-    #2019/01/01 17:26:57.58 [10333] wq: tx to d8civy148.crc.nd.edu (10.32.80.45:56808): task 10
-    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.crc\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): task (?<tid>\d+)/) {
+    #wq: tx to d8civy148.crc.nd.edu (10.32.80.45:56808): task 10
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): task (?<tid>\d+)/) {
         my $err = 0;
         my $tid = $+{tid};
         my $waddr = $+{waddr};
         my $wport = $+{wport};
-        my $worker = "$waddr:$wport";
+        my $address = "$waddr:$wport";
+        my %worker;
 
-        $workers{$worker}{'address'} = $worker;
-        $workers{$worker}{'master'} = $master{'address'};
-        if(!$workers{$worker}{'starttime'}) {
-            $workers{$worker}{'starttime'} = $timestamp;
+        if(!$workers{$address}) {
+            $workers{$address}{workerid} = $workerid;
+            $worker{workerid} = int($workerid);
+            push($master{workers}, \%worker);
+            $workerid++;
+            $workers{$address}{workerid} = $workerid;
+            $workers{$address}{address} = $address;
+            $workers{$address}{master} = $master{address};
+            $workers{$address}{starttime} = $timestamp;
+            $workers{$address}{tasks} = [()];
         }
-        $workers{$worker}{'endtime'} = $timestamp;
-        $workers{$worker}{'tasks'} = $workers{$worker}{'tasks'} . "$tid;";
+        $workers{$address}{endtime} = $timestamp;
+        my %task;
+        $task{taskid} = int($tid);
+        push($workers{$address}{tasks}, \%task);
 
-        if(index($master{'workers'}, $worker) == -1) {
-            $master{'workers'} = $master{'workers'} . "$worker;";
+        $tasks{$tid}{master} = $master{address};
+        if(!$worker{workerid}) {
+            $worker{workerid} = $workers{$address}{workerid};
         }
-        
-        $tasks{$tid}{'master'} = $master{'address'};
-        $tasks{$tid}{'workers'} = $tasks{$tid}{'workers'} . "$worker;";
-        $tasks{$tid}{'errors'} = 0;
+        push($tasks{$tid}{workers}, \%worker);
+        $tasks{$tid}{errors} = 0;
+        $currtask = $tid;
         next;
     }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): category default
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): category (?<category>[a-zA-Z0-9\-]+)/) {
+        my $category = $+{category};
+        $tasks{$currtask}{category} = $category;
+        next;
+    }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): cores 1
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): cores (?<cores>\d+)/) {
+        my $cores = $+{cores};
+        $tasks{$currtask}{cores} = int($cores);
+        next;
+    }
+    
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): memory 412
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): memory (?<memory>\d+)/) {
+        my $memory = $+{memory};
+        $tasks{$currtask}{memory} = int($memory);
+        next;   
+    }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): disk 3347
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): disk (?<disk>\d+)/) {
+         my $disk = $+{disk};
+        $tasks{$currtask}{disk} = int($disk);
+        next;   
+    }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): gpus 0
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): gpus (?<gpus>\d+)/) {
+         my $gpus = $+{gpus};
+        $tasks{$currtask}{gpus} = int($gpus);
+        next;   
+    }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): infile file-0-e8cda3a52b8b08010832b5283fc747d6-in.dat in.dat 1
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): task (?<tid>\d+)/) {
+
+    }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): infile file-0-92391b795e0abd40f6fb354d4da6fb8f-ltrace-wrapper ltrace-wrapper 1
+
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): outfile file-13-768751f261701ea3092d4f2ca0afe4d7-out.3.dat out.dat 0
+    elsif($line =~ m/wq: tx to (?<waddr>[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+\.nd\.edu) \([0-9\.]+:(?<wport>\d+)\): task (?<tid>\d+)/) {
+
+    }
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): outfile file-14-7201a3f5dda7e65b8ec5e8a66e947c82-ltrace.3.debug ltrace.debug 0
+
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): outfile file-15-e50207265a5f2942484c82204f50780c-task.3.debug worker.debug 0
+
+
+    #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): end
+
+
+    #wq: cclws08.cse.nd.edu (129.74.155.166:57768) busy on './ltrace-wrapper dd if=in.dat of=out.dat bs=4096 count=2500 && sleep 1'
+
+
     #2019/01/06 19:14:39.52 [9484] wq: Task 1 state change: WAITING (1) to RUNNING (2)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{'msent'} = 1;
+        $tasks{$tid}{msent} = 1;
         next;
     }
     #2019/01/06 19:14:41.24 [9484] wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{'wsent'} = 1;
-        $tasks{$tid}{'wrecv'} = 1;
+        $tasks{$tid}{wsent} = 1;
+        $tasks{$tid}{wrecv} = 1;
         next;
     }
     #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{'mrecv'} = 1;
+        $tasks{$tid}{mrecv} = 1;
         next;
     }
     #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: RETRIEVED (4) to DONE (5)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{'err'} = 0;
+        $tasks{$tid}{err} = 0;
         next;
     }
 }
 close(INPUT);
 
 foreach my $debug (@debugs) {
+    open(DEBUG, $debug);
+    while(my $line = <DEBUG>) {
 
-}
-
-foreach my $envtrace (@envtraces) {
-
-}
-
-if($dot) {
-    open(DOT, ">>$dot") or die "Could not open output Dot file for writing.\n";
-    print(DOT "digraph {\n\noverlap=\"scale\";\nnode [shape=box,color=black,style=unfilled,fixedsize=false];\n\n");
-    foreach my $t (sort {$a <=> $b} keys(%tasks)) {
-        if($tasks{$t}{'msent'}) {
-            print(DOT "<$master{'address'}> -> <$tasks{$t}{'waddr'}> [label=\"Task $t\"]\n");
-        }
-        if($tasks{$t}{'wsent'}) {
-            print(DOT "<$tasks{$t}{'waddr'}> -> <Task $t> [label=\"Task $t\"]\n");
-        }
-        if($tasks{$t}{'wrecv'}) {
-            print(DOT "<Task $t> -> <$tasks{$t}{'waddr'}> [label=\"Task $t\"]\n");
-        }
-        if($tasks{$t}{'mrecv'}) {
-            print(DOT "<$tasks{$t}{'waddr'}> -> <$master{'address'}> [label=\"Task $t\"]\n");
-        }
     }
-    print(DOT "}");
-    close(DOT);
+    close(DEBUG);
+}
+
+foreach my $ltrace (@ltraces) {
+    open(LTRACE, $ltrace);
+    while(my $line = <DEBUG>) {
+
+    }
+    close(LTRACE);
 }
 
 if($out) {
     
     open(OUTPUT, ">>$out") or die "Could not open output output file for writing.\n";
     print(OUTPUT "{\n");
-    
-    print(OUTPUT "\"master\": {\n\"address\": \"$master{'address'}\",\n\"workers\": [");
-    my $i = 0;
-    my @master_workers = split(";", $master{'workers'});
-    foreach my $w (@master_workers) {
-        if($w) {
-            if($i < scalar @master_workers - 1) {
-                print(OUTPUT "{\"address\": \"$w\"}, ");
-            }
-            else {
-                print(OUTPUT "{\"address\": \"$w\"}");
-            }
-        }
-        $i++;
-    }
-    print(OUTPUT "],\n\"tasks\": [");
-    $i = 0;
-    my @master_tasks = split(";", $master{'tasks'});
-    foreach my $t (@master_tasks) {
-        if($t) {
-            if($i < scalar @master_tasks - 1) {
-                print(OUTPUT "{\"taskid\": $t},");
-            }
-            else {
-                print(OUTPUT "{\"taskid\": $t}");
-            }
-        }
-        $i++;
-    }
-    print(OUTPUT "],\n\"files\": [");
-    $i = 0;
-    my @master_files = split(";", $master{'files'});
-    foreach my $f (@master_files - 1) {
-        if($f) {
-            if($i < scalar @master_files) {
-                print(OUTPUT "$f,");
-            }
-            else {
-                print(OUTPUT "$f");
-            }
-        }
-        $i++;
-    }
-    print(OUTPUT "],\n\"errors\": $master{'errors'},\n\"starttime\": $master{'starttime'},\n\"endtime\": $master{'endtime'}\n},\n\n");
 
-    print(OUTPUT "\"workers\": [\n");
-    my $j = 0;
-    foreach my $w (sort {$a <=> $b} keys(%workers)) {
-        print(OUTPUT "{\"address\": \"$workers{$w}{'address'}\",\n\"master\": \"$workers{$w}{'master'}\",\n\"tasks\": [");
-        $i = 0;
-        my @task_workers = split(";", $workers{$w}{'tasks'});
-        foreach my $t (@task_workers) {
-            if($t) {
-                if($i < scalar @task_workers - 1) {
-                    print(OUTPUT "{\"taskid\": $t}, ");
-                }
-                else {
-                    print(OUTPUT "{\"taskid\": $t}");
-                }
-            }
-            $i++;
-        }
-        print(OUTPUT "]\n");
-        if($j < (scalar keys %workers) - 1) { print(OUTPUT "}, "); }
-        else { print(OUTPUT "}\n],\n\n"); }
-        $j++;
+    my @workers_info;
+    foreach my $w (keys(%workers)) {
+        push(@workers_info, $workers{$w});
     }
-
-
-    print(OUTPUT "\"tasks\": [\n");
-    $j = 0;
-    foreach my $t (sort {$a <=> $b} keys(%tasks)) {
-        print(OUTPUT "{\"taskid\": $tasks{$t}{'taskid'},\n\"master\": \"$tasks{$t}{'master'}\",\n\"workers\": [");
-        $i = 0;
-        my @task_workers = split(";", $tasks{$t}{'workers'});
-        foreach my $w (@task_workers) {
-            if($w) {
-                if($i < scalar @task_workers - 1) {
-                    print(OUTPUT "{\"address\": \"$w\"}, ");
-                }
-                else {
-                    print(OUTPUT "{\"address\": \"$w\"}");
-                }
-            }
-            $i++;
-        }
-        print(OUTPUT "],\n\"command\": \"$tasks{$t}{'command'}\"");
-        if($j < (scalar keys %tasks) - 1) { print(OUTPUT "}, "); }
-        else { print(OUTPUT "}\n]\n\n"); }
-        $j++;
+    my @tasks_info;
+    foreach my $t (keys(%tasks)) {
+        push(@tasks_info, $tasks{$t});
     }
+    my @files_info;
+    my @envs_info;
+
+    my $master_string = JSON->new->pretty->encode(\%master);
+    print(OUTPUT "\"master\": $master_string,\n\n");
+    my $workers_string = JSON->new->pretty->encode(\@workers_info);
+    print(OUTPUT "\"workers\": $workers_string,\n\n");
+    my $tasks_string = JSON->new->pretty->encode(\@tasks_info);
+    print(OUTPUT "\"tasks\": $tasks_string,\n\n");
+    my $files_string = JSON->new->pretty->encode(\@files_info);
+    print(OUTPUT "\"files\": $files_string,\n\n");
+    my $envs_string = JSON->new->pretty->encode(\@envs_info);
+    print(OUTPUT "\"envVars\": $envs_string\n\n");
 
     print(OUTPUT "}");
     close(OUTPUT);
