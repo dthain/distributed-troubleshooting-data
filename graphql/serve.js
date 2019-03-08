@@ -75,7 +75,9 @@ app.use('/graphql', graphqlHTTP( req => {
     context: {
       masterLoader,
       workerLoader,
-      taskLoader
+      taskLoader,
+      fileLoader,
+      envVarLoader
     },
     graphiql: true
   }

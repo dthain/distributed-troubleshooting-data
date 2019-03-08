@@ -26,12 +26,13 @@ in.dat: /usr/bin/dd
 	dd if=/dev/zero of=in.dat bs=4096 count=25000
 
 $(DATA): $(PROG) $(INPUT) $(PERL) 
-	condor_submit_workers -N wq_trace -E "-d all -o worker.debug --debug-rotate-max 0" 5
+	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 5
 	#work_queue_worker -N wq_trace -t 10 -d all -o worker.debug --debug-rotate-max 0 &
-	perl test --tasks 20 --sleep 1 --name wq_trace
+	perl test --tasks 20 --sleep 1 --name wq-trace
 
 $(JSON): $(DATA)
-	perl ../../debuggen -i master.debug -o master.json
+	perl ../logdedup
+	perl ../debuggen -i master.debug -o master.json
 
 build: $(PROG)
 

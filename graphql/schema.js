@@ -22,6 +22,12 @@ function compare(a, b, operator) {
 }
 
 function objectResolver(json, args, context, type) {
+
+  //console.log(json)
+  //console.log(args)
+  //console.log(context)
+  //console.log(type)
+
   //Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == EnvVar
   if(type == 1) {
     return context.load(0)
@@ -242,7 +248,9 @@ const MasterType = new GraphQLObjectType({
     },
     files: {
       type: new GraphQLList(FileType),
-      resolve: (json, args, context) => { return filesResolver(json.files, args, context.fileLoader, 4) }
+      args: {name: { type: GraphQLString }, size: { type: GraphQLInt }, accesses: { type: GraphQLInt },
+        errors: { type: GraphQLInt }, conditional: { type: GraphQLString } },
+      resolve: (json, args, context) => { return objectResolver(json.files, args, context.fileLoader, 4) }
     }
   })
 })
@@ -286,6 +294,8 @@ const WorkerType = new GraphQLObjectType({
     },
     files: {
       type: new GraphQLList(FileType),
+      args: {name: { type: GraphQLString }, size: { type: GraphQLInt }, accesses: { type: GraphQLInt },
+        errors: { type: GraphQLInt }, conditional: { type: GraphQLString } },
       resolve: (json, args, context) => { return objectResolver(json.files, args, context.fileLoader, 4) }
     } 
   })
@@ -346,17 +356,20 @@ const TaskType = new GraphQLObjectType({
     },
     inputs: {
       type: new GraphQLList(FileType),
-      args: {name: { type: GraphQLString } },
+      args: {name: { type: GraphQLString }, size: { type: GraphQLInt }, accesses: { type: GraphQLInt },
+        errors: { type: GraphQLInt }, conditional: { type: GraphQLString } },
       resolve: (json, args, context) => { return objectResolver(json.files, args, context.fileLoader, 4) }
     },
     outputs: {
       type: new GraphQLList(FileType),
-      args: {name: { type: GraphQLString } },
+      args: {name: { type: GraphQLString }, size: { type: GraphQLInt }, accesses: { type: GraphQLInt },
+        errors: { type: GraphQLInt }, conditional: { type: GraphQLString } },
       resolve: (json, args, context) => { return objectResolver(json.files, args, context.fileLoader, 4) }
     },
     files: {
       type: new GraphQLList(FileType),
-      args: {name: { type: GraphQLString } },
+      args: {name: { type: GraphQLString }, size: { type: GraphQLInt }, accesses: { type: GraphQLInt },
+        errors: { type: GraphQLInt }, conditional: { type: GraphQLString } },
       resolve: (json, args, context) => { return objectResolver(json.files, args, context.fileLoader, 4) }
     },
     envVars: {
@@ -385,6 +398,10 @@ const FileType = new GraphQLObjectType({
     size: {
       type: GraphQLInt,
       resolve: json => json.size
+    },
+    accesses: {
+      type: GraphQLInt,
+      resolve: json => json.accesses
     },
     errors: {
       type: GraphQLInt,
@@ -460,6 +477,24 @@ module.exports = new GraphQLSchema({
       master: {
         type: MasterType,
         resolve: (root, args, context) => context.masterLoader.load(0)
+      },
+      workers: {
+        type: new GraphQLList(WorkerType),
+        args: {address: { type: GraphQLString }, start: { type: GraphQLInt }, end: { type: GraphQLInt },
+          errors: { type: GraphQLInt }, bandwidth: { type: GraphQLString }, conditional: { type: GraphQLString }},
+        resolve: (json, args, context) => { return objectResolver(json.workers, args, context.workerLoader, 2) }
+      },
+      tasks: {
+        type: new GraphQLList(TaskType),
+        args: {taskid: { type: GraphQLInt }, start: { type: GraphQLInt }, end: { type: GraphQLInt }, retries: { type: GraphQLInt },
+          errors: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
+        resolve: (json, args, context) => { return objectResolver(json.tasks, args, context.taskLoader, 3) }
+      },
+      files: {
+        type: new GraphQLList(FileType),
+        args: {name: { type: GraphQLString }, size: { type: GraphQLInt }, accesses: { type: GraphQLInt },
+          errors: { type: GraphQLInt }, conditional: { type: GraphQLString } },
+        resolve: (json, args, context) => { return objectResolver(json.files, args, context.fileLoader, 4) }
       }
     })
   })

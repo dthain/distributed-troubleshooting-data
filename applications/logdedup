@@ -1,0 +1,54 @@
+#! /usr/bin/env perl
+
+use 5.10.0;
+use strict;
+
+my %workers;
+my @debugs = <task*debug>;
+my $timestamp;
+
+foreach my $debug (@debugs) {
+    my @filename = split(/\./, $debug);
+    my $task = $filename[1];
+    my $worker;
+    my $addr;
+    my $port;
+    
+    open(DEBUG, $debug);
+    while(my $line = <DEBUG>) {
+        if($worker) {
+            last;
+        }
+
+        #wq: connected to master 10.32.74.140:9000 via local address 10.32.74.164:36500
+        elsif($line =~ m/wq: connected to master \S+ via local address \S+:(?<port>\d+)/) {
+            $port = $+{port};
+            next;
+        }
+
+        #dns: finding my hostname: uname = disc13.crc.nd.edu, address = 10.32.74.164, hostname = disc13.crc.nd.edu
+        elsif($line =~ m/dns: finding my hostname: uname = \S+, address = \S+, hostname = (?<addr>\S+)/) {
+            $addr = $+{addr};
+            $worker = "$addr:$port";
+            next;
+        }
+    }
+    close(DEBUG);
+
+    if(exists $workers{$worker} and $task > $workers{$worker}) {
+        print(STDERR "$debug contains output for already defined $worker but task $task is newer than task $workers{$worker}.\n");
+        unlink("task.$workers{$worker}.debug");
+        $workers{$worker} = $task;
+    }
+    elsif(exists $workers{$worker} and $task < $workers{$worker}) {
+        print(STDERR "$debug contains output for already defined $worker but task $task is older than task $workers{$worker}.\n");
+        unlink($debug); 
+    }
+    else {
+        $workers{$worker} = $task;
+    }
+}
+
+exit(0);
+
+# vim: tabstop=8 shiftwidth=4 softtabstop=4 expandtab shiftround autoindent

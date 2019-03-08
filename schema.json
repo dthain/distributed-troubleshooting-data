@@ -26,6 +26,7 @@
 {
   "type": "task",
   "taskid": 1,
+  "pid": 2933,
   "master": "disc01.crc.nd.edu:9000",
   "worker": "disc04.crc.nd.edu:1024",
   "command": "perl run.pl > out.log",
@@ -48,6 +49,7 @@
   "name": "run.pl",
   "size": 1327,
   "tasks": [{"taskid": 1}],
+  "accesses": 10,
   "errors": 0,
   "first-task": 1,
   "first-access": 28102942,

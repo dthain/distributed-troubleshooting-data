@@ -71,7 +71,7 @@ int test(int tasks, int sleep_time, char *name) {
 			work_queue_task_specify_file(t, out, "out.dat", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_file(t, ldb, "ltrace.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
 			work_queue_task_specify_file(t, wdb, "worker.debug", WORK_QUEUE_OUTPUT, WORK_QUEUE_NOCACHE);
-			work_queue_task_specify_max_retries (t, 0);	
+			work_queue_task_specify_max_retries (t, 2);	
 
 			taskid = work_queue_submit(wq, t);
 			fprintf(stderr, "Task %d submitted.\n", taskid);	
