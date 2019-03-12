@@ -7,10 +7,9 @@
 use strict; 
 use Scalar::Util qw(looks_like_number);
 
-$SIG{INT} = \&cleanup;
-$SIG{TERM} = \&cleanup;
-
 my $usr = $ENV{USER};
+
+$ENV{USER} = "NOTME";
 
 open(OUT, ">>", "test.txt");
 print(OUT "Test.\n");

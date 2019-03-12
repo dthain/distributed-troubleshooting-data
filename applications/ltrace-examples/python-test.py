@@ -3,9 +3,13 @@
 #Copyright (C) 2016- The University of Notre Dame
 #This software is distributed under the GNU General Public License.
 #
+import os
 
-f = open("test.txt", "a+");
-f.write("Test.\n");
-f.close();
+me = os.environ["USER"]
+os.environ["USER"] = "NOTME"
 
-exit(0);
+f = open("test.txt", "a+")
+f.write("Test.\n")
+f.close()
+
+exit(0)

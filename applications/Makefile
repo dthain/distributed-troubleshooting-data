@@ -6,7 +6,7 @@ BADENV = bad-env.complete
 
 DATA = $(EXAMPLE) $(BADHOSTS) $(BADENV)
 
-all: $(CCTOOLS) $(EXAMPLE)
+all: $(CCTOOLS) $(DATA)
 
 $(CCTOOLS): /usr/bin/git
 	git clone git@github.com:cooperative-computing-lab/cctools.git cctools-source || git clone https://github.com/cooperative-computing-lab/cctools.git cctools-source
@@ -14,14 +14,17 @@ $(CCTOOLS): /usr/bin/git
 
 $(EXAMPLE): $(CCTOOLS) example/Makefile
 	cd example && make
+	cp example/master.json ../graphql/example.json
 	touch example.complete
 
 $(BADHOSTS): $(CCTOOLS) bad-hosts/Makefile
 	cd bad-hosts && make
+	cp bad-hosts/master.json ../graphql/bad-hosts.json
 	touch bad-hosts.complete
 
 $(BADENV): $(CCTOOLS) bad-env/Makefile
 	cd bad-env && make
+	cp bad-env/master.json ../graphql/bad-env.json
 	touch bad-env.complete
 
 build: $(CCTOOLS) $(ENVTRACE)
@@ -46,6 +49,10 @@ exclean:
 bhclean:
 	cd bad-hosts && make clean
 	rm bad-hosts.complete
+
+beclean:
+	cd bad-env && make clean
+	rm bad-env.complete
 
 lean:
 	cd example && make clean

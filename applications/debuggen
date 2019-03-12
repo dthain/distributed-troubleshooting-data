@@ -84,7 +84,7 @@ while(my $line = <INPUT>) {
         $master{address} = $+{master};
         $master{workers} = [()];
         $master{tasks} = [()];
-        $master{files} = [()];
+        $master{files} = {};
         $master{errors} = 0;
         next;
     }
@@ -94,11 +94,11 @@ while(my $line = <INPUT>) {
         my $tid = $+{tid};
         $tasks{$tid}{taskid} = int($tid);
         $tasks{$tid}{master} = $master{address};
-        $tasks{$tid}{workers} = [()];
-        $tasks{$tid}{files} = [()];
-        $tasks{$tid}{inputs} = [()];
-        $tasks{$tid}{outputs} = [()];
-        $tasks{$tid}{envvars} = [()];
+        #$tasks{$tid}{workers} = [()];
+        $tasks{$tid}{files} = {};
+        $tasks{$tid}{inputs} = {};
+        $tasks{$tid}{outputs} = {};
+        $tasks{$tid}{envs} = {};
         my %task;
         $task{taskid} = int($tid);
         push($master{tasks}, \%task);
@@ -135,7 +135,8 @@ while(my $line = <INPUT>) {
         if(not exists $worker{workerid}) {
             $worker{workerid} = $workers{$address}{workerid};
         }
-        push($tasks{$tid}{workers}, \%worker);
+        $tasks{$tid}{worker}{workerid} = $worker{workerid};
+        $tasks{$tid}{worker}{address} = $address;
         $tasks{$tid}{errors} = 0;
         $currtask = $tid;
         next;
@@ -183,25 +184,25 @@ while(my $line = <INPUT>) {
         my $wport = $+{wport};
         my $address = "$waddr:$wport";
         my $fid = -1;
-        my %file;
+        #my %file;
         if(not exists $files{$fname}) {
             $fid = $fileid;
             $files{$fname}{fileid} = int($fid);
             $files{$fname}{name} = $fname;
             $files{$fname}{accesses} = 1;
             $fileid++;
-            push($master{files}, \%file);
+            $master{files}{$fname} = $fid;
         }
         else {
             $files{$fname}{accesses}++;
             $fid = $files{$fname}{fileid};
         }
-        $file{fileid} = $fid;
+        #$file{fileid} = $fid;
         if(not exists $workers{$address}{files}{$fname}) {
             $workers{$address}{files}{$fname} = $fid;
         }
-        push($tasks{$currtask}{files}, \%file);
-        push($tasks{$currtask}{inputs}, \%file);
+        $tasks{$currtask}{files}{$fname} = $fid;
+        $tasks{$currtask}{inputs}{$fname} = $fid;
         next;
     }
 
@@ -213,7 +214,7 @@ while(my $line = <INPUT>) {
         my $wport = $+{wport};
         my $address = "$waddr:$wport";
         my $fid = -1;
-        my %file;
+        #my %file;
 
         foreach my $fname (($local, $remote)) {
             if(not exists $files{$fname}) {
@@ -222,18 +223,18 @@ while(my $line = <INPUT>) {
                 $files{$fname}{name} = $fname;
                 $files{$fname}{accesses} = 1;
                 $fileid++;
-                push($master{files}, \%file);
+                $master{files}{$fname} = $fid;
             }
             else {
                 $files{$fname}{accesses}++;
                 $fid = $files{$fname}{fileid};
             }
-            $file{fileid} = $fid;
+            #$file{fileid} = $fid;
             if(not exists $workers{$address}{files}{$fname}) {
                 $workers{$address}{files}{$fname} = $fid;
             }
-            push($tasks{$currtask}{files}, \%file);
-            push($tasks{$currtask}{outputs}, \%file);
+            $tasks{$currtask}{files}{$fname} = $fid;
+            $tasks{$currtask}{outputs}{$fname} = $fid;
         }
         next;
     }
@@ -276,17 +277,6 @@ while(my $line = <INPUT>) {
 }
 close(INPUT);
 
-#Transform file hash to array for usable JSON
-foreach my $w (keys(%workers)) {
-    my @worker_files;
-    foreach my $f (keys($workers{$w}{files})) {
-        my %file;
-        $file{fileid} = $workers{$w}{files}{$f};
-        push(@worker_files, \%file);
-    }
-    $workers{$w}{files} = \@worker_files;
-}
-
 foreach my $debug (@debugs) {
     my $currworker;
     my $addr;
@@ -298,7 +288,6 @@ foreach my $debug (@debugs) {
             $timestamp = $timestamp->epoch();
             $workers{$currworker}{endtime} = $timestamp;
         }
-
 
         #wq: connected to master 10.32.74.140:9000 via local address 10.32.74.164:36500
         if($line =~ m/wq: connected to master \S+ via local address \S+:(?<port>\d+)/) {
@@ -332,12 +321,110 @@ foreach my $debug (@debugs) {
 }
 
 foreach my $ltrace (@ltraces) {
-    open(LTRACE, $ltrace);
-    while(my $line = <DEBUG>) {
+    my %tracefiles;
+    my %tracevars;
 
+    my $cmd;
+    my $pid;
+    my $ppid;
+    my $host;
+
+    open(LTRACE, $ltrace);
+    while(my $line = <LTRACE>) {
+        #Wrote an ltrace for command: "dd if=in.dat of=out.dat bs=4096 count=2500" with PID 12539 from PPID 12538
+        if($line =~ m/Wrote an ltrace for command: \"(?<cmd>.*)\" with PID (?<pid>\d+) from PPID (?<ppid>\d+) on (?<host>\S+)/) {
+            $cmd = $+{cmd};
+            $pid = $+{pid};
+            $ppid = $+{ppid};
+            $host = $+{host};
+        }
+
+        #16226   0.000550 fscheck->open("in.dat", 0, 00)  = 3
+        elsif($line =~ m/\S->open\d*\(\"(?<fname>\S+)\", \d+, \d+\)\s+=\s+(?<result>\d+)/) {
+            my $fname = $+{fname};
+            my $result = $+{result};
+            if(not exists $files{$fname}) {
+                $files{$fname}{fileid} = $fileid;
+                $fileid++;
+                $files{$fname}{result} = int($result);
+                $files{$fname}{accesses}++;
+            }
+            $tracefiles{$fname}{result} = int($result);
+        }
+
+        #3111   0.000672 libpython2.7.so.1.0->fopen64("test.txt", "a+")  = 0x8b22a0
+        elsif($line =~ m/\S->fopen\d*\(\"(?<fname>\S+)\", \S+\)\s+=\s+(?<result>\S+)/) {
+            my $fname = $+{fname};
+            my $result = $+{result};
+            if(not exists $files{$fname}) {
+                $files{$fname}{fileid} = $fileid;
+                $files{$fname}{name} = $fname;
+                $fileid++;
+                $files{$fname}{result} = hex($result);
+                $files{$fname}{accesses}++;
+            }
+            $tracefiles{$fname} = hex($result);
+        }
+
+        #8853   0.005074 fscheck->getenv("POSIXLY_CORRECT") = nil
+        elsif($line =~ m/\S->getenv\(\"(?<env>\S+)\"\)\s+=\s+(?<value>\S+)/) {
+            my $env = $+{env};
+            my $value = $+{value};
+            my $result = 1;
+
+            if($value eq "nil") { $result = 0; }
+            if(not exists $envs{$env}) {
+                $envs{$env}{envid} = $envid;
+                $envs{$env}{name} = $env;
+                $envs{$env}{errors} = 0;
+                $envs{$env}{values}{$value}++;
+                $envid++;
+                $envs{$env}{accesses}++;
+                if(!$result) { $envs{$env}{errors}++; }
+            }
+        }
+
+        #20956   0.001037 fscheck->setenv("PYTHONPATH", "NONE", 1) = 0
+        elsif($line =~ m/\S->setenv\(\"(?<env>\S+)\", \"(?<value>.*)\", \d+\)\s+=\s+(?<result>\S+)/) {
+            my $env = $+{env};
+            my $value = $+{value};
+            my $result = $+{result};
+
+            if(not exists $envs{$env}) {
+                $envs{$env}{envid} = $envid;
+                $envs{$env}{name} = $env;
+                $envs{$env}{errors} = 0;
+                $envs{$env}{values}{$value}++;
+                $envid++;
+                $envs{$env}{accesses}++;
+                if($result == -1) { $envs{$env}{errors}++; }
+            }
+        }
+    }
+
+    foreach my $task (keys(%tasks)) {
+        if(index($tasks{$task}{command}, $cmd) != -1 and $ppid == $tasks{$task}{pid} and index($tasks{$task}{worker}{address}, $host) != -1) {
+            foreach my $f (keys(%tracefiles)) {
+                if(not exists $tasks{$task}{files}{$f}) {
+                    $tasks{$task}{files}{$f} = $files{$f}{fileid};
+                }
+            }
+            foreach my $v (keys(%tracevars)) {
+                if(not exists $tasks{$task}{envs}{$v}) {
+                    $tasks{$task}{envs}{$v} = $envs{$v}{envid};
+                }
+            }
+            #print(STDERR "Found \"$cmd\" on worker $tasks{$task}{worker}{address} with PID $ppid.\n");
+        }
     }
     close(LTRACE);
 }
+
+#Transform file hash to array for usable JSON
+#Types: 1 == Master, 2 == Worker, 3 == Task
+%master = files_to_array(1, %master);
+%workers = files_to_array(2, %workers);
+%tasks = files_to_array(3, %tasks);
 
 if($out) {
     
@@ -357,17 +444,23 @@ if($out) {
         push(@files_info, $files{$f});
     }
     my @envs_info;
+    foreach my $e (keys(%envs)) {
+        push(@envs_info, $envs{$e});
+    }
 
     #my $master_string = JSON->new->pretty->encode(\%master);
     my $master_string = JSON->new->encode(\%master);
     print(OUTPUT "\"master\": $master_string,\n\n");
     my $workers_string = JSON->new->encode(\@workers_info);
     print(OUTPUT "\"workers\": $workers_string,\n\n");
+    #my $tasks_string = JSON->new->pretty->encode(\@tasks_info);
     my $tasks_string = JSON->new->encode(\@tasks_info);
     print(OUTPUT "\"tasks\": $tasks_string,\n\n");
-    my $files_string = JSON->new->encode(\@files_info);
+    my $files_string = JSON->new->pretty->encode(\@files_info);
+    #my $files_string = JSON->new->encode(\@files_info);
     print(OUTPUT "\"files\": $files_string,\n\n");
-    my $envs_string = JSON->new->encode(\@envs_info);
+    my $envs_string = JSON->new->pretty->encode(\@envs_info);
+    #my $envs_string = JSON->new->encode(\@envs_info);
     print(OUTPUT "\"envVars\": $envs_string\n\n");
 
     print(OUTPUT "}");
@@ -375,6 +468,50 @@ if($out) {
 }
 
 exit(0);
+
+sub files_to_array {
+    my ($type, %hash) = @_;
+    my @files_array;
+    
+    if($type == 1) {
+        foreach my $f (keys($hash{files})) {
+            my %file;
+            $file{fileid} = $hash{files}{$f};
+            push(@files_array, \%file);
+        }
+        $hash{files} = \@files_array;
+        return %hash;
+    }
+    
+    foreach my $k (keys(%hash)) {
+        foreach my $f (keys($hash{$k}{files})) {
+            my %file;
+            $file{fileid} = $hash{$k}{files}{$f};
+            push(@files_array, \%file);
+        }
+        $hash{$k}{files} = \@files_array;
+
+        if($type == 3) {
+            @files_array = ();
+            foreach my $f (keys($hash{$k}{inputs})) {
+                my %file;
+                $file{fileid} = $hash{$k}{inputs}{$f};
+                push(@files_array, \%file);
+            }
+            $hash{$k}{inputs} = \@files_array;
+
+            @files_array = ();
+            foreach my $f (keys($hash{$k}{outputs})) {
+                my %file;
+                $file{fileid} = $hash{$k}{outputs}{$f};
+                push(@files_array, \%file);
+            }
+            $hash{$k}{outputs} = \@files_array;
+        }
+    }
+
+    return %hash;
+}
 
 sub print_help {
     print $usage;
