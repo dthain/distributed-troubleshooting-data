@@ -203,6 +203,7 @@ while(my $line = <INPUT>) {
         }
         $tasks{$currtask}{files}{$fname} = $fid;
         $tasks{$currtask}{inputs}{$fname} = $fid;
+        $files{$fname}{tasks}{$currtask}++;
         next;
     }
 
@@ -235,6 +236,7 @@ while(my $line = <INPUT>) {
             }
             $tasks{$currtask}{files}{$fname} = $fid;
             $tasks{$currtask}{outputs}{$fname} = $fid;
+            $files{$fname}{tasks}{$currtask}++;
         }
         next;
     }
@@ -340,7 +342,7 @@ foreach my $ltrace (@ltraces) {
         }
 
         #16226   0.000550 fscheck->open("in.dat", 0, 00)  = 3
-        elsif($line =~ m/\S->open\d*\(\"(?<fname>\S+)\", \d+, \d+\)\s+=\s+(?<result>\d+)/) {
+        elsif($line =~ m/\S->open\d*\(\"(?<fname>\S+)\", \d+, \d+\)\s+=\s+(?<result>\S+)/) {
             my $fname = $+{fname};
             my $result = $+{result};
             if(not exists $files{$fname}) {
@@ -366,6 +368,24 @@ foreach my $ltrace (@ltraces) {
             $tracefiles{$fname} = hex($result);
         }
 
+        #12396   0.000368 fscheck->__xstat(1, "/disk/", 0x7ffd931d20d0) = 0
+        elsif($line =~ m/\S->__xstat(\d+, \"(?<file>\S+)\", \S+)\s+=\s+(?<value>\S+)/) {
+            my $fname = $+{file};
+            my $value = $+{value};
+            my $result = 1;
+
+            if($value == -1) { $result = 0; }
+            if(not exists $files{$fname}) {
+                $files{$fname}{fileid} = $fileid;
+                $files{$fname}{name} = $fname;
+                $files{$fname}{errors} = 0;
+                $fileid++;
+                $files{$fname}{accesses}++;
+                if(!$result) { $files{$fname}{errors}++; }
+            }
+            $tracefiles{$fname} = int($result);
+        }
+        
         #8853   0.005074 fscheck->getenv("POSIXLY_CORRECT") = nil
         elsif($line =~ m/\S->getenv\(\"(?<env>\S+)\"\)\s+=\s+(?<value>\S+)/) {
             my $env = $+{env};
@@ -382,6 +402,7 @@ foreach my $ltrace (@ltraces) {
                 $envs{$env}{accesses}++;
                 if(!$result) { $envs{$env}{errors}++; }
             }
+            $tracevars{$env} = int($result);
         }
 
         #20956   0.001037 fscheck->setenv("PYTHONPATH", "NONE", 1) = 0
@@ -399,6 +420,7 @@ foreach my $ltrace (@ltraces) {
                 $envs{$env}{accesses}++;
                 if($result == -1) { $envs{$env}{errors}++; }
             }
+            $tracevars{$env} = int($result);
         }
     }
 
@@ -407,11 +429,13 @@ foreach my $ltrace (@ltraces) {
             foreach my $f (keys(%tracefiles)) {
                 if(not exists $tasks{$task}{files}{$f}) {
                     $tasks{$task}{files}{$f} = $files{$f}{fileid};
+                    $files{$f}{tasks}{$task} = $tasks{$task}{taskid};
                 }
             }
             foreach my $v (keys(%tracevars)) {
                 if(not exists $tasks{$task}{envs}{$v}) {
                     $tasks{$task}{envs}{$v} = $envs{$v}{envid};
+                    $envs{$v}{tasks}{$task} = $tasks{$task}{taskid};
                 }
             }
             #print(STDERR "Found \"$cmd\" on worker $tasks{$task}{worker}{address} with PID $ppid.\n");
@@ -421,10 +445,12 @@ foreach my $ltrace (@ltraces) {
 }
 
 #Transform file hash to array for usable JSON
-#Types: 1 == Master, 2 == Worker, 3 == Task
-%master = files_to_array(1, %master);
-%workers = files_to_array(2, %workers);
-%tasks = files_to_array(3, %tasks);
+#Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == Env. Var.
+%master = hash_to_array(1, %master);
+%workers = hash_to_array(2, %workers);
+%tasks = hash_to_array(3, %tasks);
+%files = hash_to_array(4, %files);
+%envs = hash_to_array(5, %envs);
 
 if($out) {
     
@@ -469,44 +495,57 @@ if($out) {
 
 exit(0);
 
-sub files_to_array {
+sub hash_to_array {
     my ($type, %hash) = @_;
-    my @files_array;
+    my @array;
     
     if($type == 1) {
         foreach my $f (keys($hash{files})) {
             my %file;
             $file{fileid} = $hash{files}{$f};
-            push(@files_array, \%file);
+            push(@array, \%file);
         }
-        $hash{files} = \@files_array;
-        return %hash;
+        $hash{files} = \@array;
     }
-    
-    foreach my $k (keys(%hash)) {
-        foreach my $f (keys($hash{$k}{files})) {
-            my %file;
-            $file{fileid} = $hash{$k}{files}{$f};
-            push(@files_array, \%file);
+   
+    elsif($type == 2 or $type == 3) {
+        foreach my $k (keys(%hash)) {
+            foreach my $f (keys($hash{$k}{files})) {
+                my %file;
+                $file{fileid} = $hash{$k}{files}{$f};
+                push(@array, \%file);
+            }
+            $hash{$k}{files} = \@array;
+
+            if($type == 3) {
+                @array = ();
+                foreach my $f (keys($hash{$k}{inputs})) {
+                    my %file;
+                    $file{fileid} = $hash{$k}{inputs}{$f};
+                    push(@array, \%file);
+                }
+                $hash{$k}{inputs} = \@array;
+
+                @array = ();
+                foreach my $f (keys($hash{$k}{outputs})) {
+                    my %file;
+                    $file{fileid} = $hash{$k}{outputs}{$f};
+                    push(@array, \%file);
+                }
+                $hash{$k}{outputs} = \@array;
+            }
         }
-        $hash{$k}{files} = \@files_array;
+    }
 
-        if($type == 3) {
-            @files_array = ();
-            foreach my $f (keys($hash{$k}{inputs})) {
-                my %file;
-                $file{fileid} = $hash{$k}{inputs}{$f};
-                push(@files_array, \%file);
+    elsif($type == 4 or $type == 5) {
+        foreach my $k (keys(%hash)) {
+            foreach my $t (sort {int($hash{$k}{tasks}{$a}) <=> int($hash{$k}{tasks}{$b})} keys($hash{$k}{tasks})) {
+                my %task;
+                $task{taskid} = int($t);
+                print(STDERR "Adding task $t.\n");
+                push(@array, \%task);
             }
-            $hash{$k}{inputs} = \@files_array;
-
-            @files_array = ();
-            foreach my $f (keys($hash{$k}{outputs})) {
-                my %file;
-                $file{fileid} = $hash{$k}{outputs}{$f};
-                push(@files_array, \%file);
-            }
-            $hash{$k}{outputs} = \@files_array;
+            $hash{$k}{tasks} = \@array;
         }
     }
 

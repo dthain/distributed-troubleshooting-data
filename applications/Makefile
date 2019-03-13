@@ -1,10 +1,10 @@
 CCTOOLS = cctools-source
 ENVTRACE = envtrace
 EXAMPLE = example.complete
-BADHOSTS = bad-hosts.complete
+SHAREDFS = shared-fs.complete
 BADENV = bad-env.complete
 
-DATA = $(EXAMPLE) $(BADHOSTS) $(BADENV)
+DATA = $(EXAMPLE) $(SHAREDFS) $(BADENV)
 
 all: $(CCTOOLS) $(DATA)
 
@@ -17,10 +17,10 @@ $(EXAMPLE): $(CCTOOLS) example/Makefile
 	cp example/master.json ../graphql/example.json
 	touch example.complete
 
-$(BADHOSTS): $(CCTOOLS) bad-hosts/Makefile
-	cd bad-hosts && make
-	cp bad-hosts/master.json ../graphql/bad-hosts.json
-	touch bad-hosts.complete
+$(SHAREDFS): $(CCTOOLS) shared-fs/Makefile
+	cd shared-fs && make
+	cp shared-fs/master.json ../graphql/shared-fs.json
+	touch shared-fs.complete
 
 $(BADENV): $(CCTOOLS) bad-env/Makefile
 	cd bad-env && make
@@ -31,7 +31,7 @@ build: $(CCTOOLS) $(ENVTRACE)
 
 example: $(EXAMPLE)
 
-badhosts: $(BADHOSTS)
+sharedfs: $(SHAREDFS)
 
 badenv: $(BADENV)
 
@@ -39,7 +39,7 @@ data: $(DATA)
 
 clean:
 	cd example && make clean
-	cd bad-hosts && make clean
+	cd shared-fs && make clean
 	rm -rf $(CCTOOLS) $(DATA)
 
 exclean:
@@ -47,8 +47,8 @@ exclean:
 	rm example.complete
 
 bhclean:
-	cd bad-hosts && make clean
-	rm bad-hosts.complete
+	cd shared-fs && make clean
+	rm shared-fs.complete
 
 beclean:
 	cd bad-env && make clean
@@ -56,7 +56,7 @@ beclean:
 
 lean:
 	cd example && make clean
-	cd bad-hosts && make clean
+	cd shared-fs && make clean
 	rm -rf $(DATA)
 
 .PHONY: all clean

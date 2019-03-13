@@ -58,7 +58,7 @@ if($err) {
 }
 
 my $usr = $ENV{USER};
-my $result = system("./bad-hosts $tasks $sleep $name");
+my $result = system("./shared-fs $tasks $sleep $name");
 cleanup();
 exit 0;
 
