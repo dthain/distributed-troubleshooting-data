@@ -1,0 +1,137 @@
+#! /usr/bin/env perl
+
+use 5.10.0;
+use strict;
+use Error qw(:try);
+use Error::Simple;
+use Getopt::Long qw(:config no_ignore_case);
+use POSIX qw/ceil floor/;
+
+my $usage = "Bad Environment Variable Makeflow Generator Options:
+
+Required:
+    --rules,-r  <integer>  Sets the number of rules to generate in the makeflow.
+    --out,-o    <path>     Enables printing of the makeflow to specified file.
+
+Optional:
+    --help                 Display this message.
+
+Example Usage:
+
+    perl makeflowgen --rules 10 --output bad-envs.makeflow
+
+";
+
+my %OPT;
+try {
+    GetOptions(
+        "rules=s" => \$OPT{rules},
+        "out=s" => \$OPT{out},
+        "help|?" => sub { print $usage; exit(0); },
+    );
+}
+catch Error::Simple with {
+    my $E = shift;
+    print STDERR $E->{-text};
+    die "Failed to parse command line options.\n";
+};
+
+my $rules = $OPT{rules};
+my $out = $OPT{out};
+my $err = 0;
+
+if(!$rules) { print(STDERR "Missing --rules option.\n"); $err++; }
+if(!$out) { print(STDERR "Missing --out option.\n"); $err++; }
+if($err) {
+    print(STDERR "Could not find $err required arguments.\n");
+    print_help();
+}
+
+my $i = 0;
+my $halfway = floor($rules / 2.0);
+my $remainder = floor($rules / 2.0);
+my $layer = floor($halfway / 2.0);
+my $layers = 1;
+my @lastlayer;
+
+open(OUT, ">>", $out);
+while($i < $halfway) {
+    my $j = 0;
+    my @currlayer;
+    while($j < $layer) {
+        my $inputs = "";
+        if(scalar(@lastlayer)) {
+            $inputs = pop(@lastlayer);
+            if($j == $layer - 1) {
+                while(scalar(@lastlayer)) {
+                    my $input = pop(@lastlayer);
+                    $inputs = $inputs . " $input";
+                }
+            }
+        }
+        else {
+            $inputs = "in.dat";
+        }
+        my $outputs = "out.$layers.$j.dat";
+        my $command = "sim $inputs > $outputs";
+        push(@currlayer, $outputs);
+        print(OUT "$outputs : $inputs\n\t$command\n\n");
+        $j++;
+        $i++;
+    }
+    @lastlayer = @currlayer;
+    $layer = ceil($layer / 2.0);
+    $layers++;
+}
+
+my $halfouts = "spec.config";
+my $halfins = "";
+foreach my $l (@lastlayer) {
+    $halfins = $halfins . "$l ";
+}
+my $halfcmd = "midpoint > spec.config";
+print(OUT "$halfouts : $halfins\n\t$halfcmd\n\n");
+
+if($i % 2) {
+    $i = 1;
+}
+else {
+    $i = 0;
+}
+
+$layer = ceil($layer * 2.0);
+@lastlayer = ();
+push(@lastlayer, $halfouts);
+
+while($i < $remainder) {
+    my $j = 0;
+    my @currlayer;
+    while($j < $layer and $i < $remainder) {
+        my $inputs;
+        if(scalar(@lastlayer)) {
+            $inputs = "";
+            foreach my $l (@lastlayer) {
+                $inputs = $inputs . "$l ";
+            }
+        }
+        else {
+            $inputs = "in.dat";
+        }
+        my $outputs = "out.$layers.$j.dat";
+        my $command = "sim $inputs > $outputs";
+        push(@currlayer, $outputs);
+        print(OUT "$outputs : $inputs\n\t$command\n\n");
+        $j++;
+        $i++;
+    }
+    @lastlayer = @currlayer;
+    $layer = floor($layer * 2.0);
+    $layers++;
+}
+close(OUT);
+
+sub print_help {
+    print $usage;
+    exit(1);
+}
+# vim: tabstop=8 shiftwidth=4 softtabstop=4 expandtab shiftround autoindent
