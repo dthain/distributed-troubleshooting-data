@@ -4,9 +4,9 @@ IQUOTE = -iquote../cctools-source/dttools/src -iquote../cctools-source/work_queu
 L = -L../cctools-source/dttools/src -L../cctools-source/work_queue/src -L../cctools-source/batch_job/src
 l = -lbatch_job -lwork_queue -ldttools -lz
 LDDFLAGS = $(IQUOTE) $(L) $(l) -lm
-
 CCTOOLS = ../cctools-source
 LIB = ../cctools-source/dttools/src/libdttools.a ../cctools-source/work_queue/src/libwork_queue.a
+
 LOGS = *.wqlog *.debug *.trace *.dag *.dot
 PROG = shared-fs fscheck
 PERL = test
@@ -14,6 +14,8 @@ INPUT = in.dat
 OUTPUT = out.*.dat
 DATA = master.debug
 JSON = master.json
+
+CLEANUP = $(JSON) $(DATA) $(INPUT) $(OUTPUT)
 
 all: $(PROG) $(INPUT) $(DATA) $(JSON)
 
@@ -34,13 +36,7 @@ $(JSON): $(DATA)
 build: $(PROG)
 
 clean:
-	rm -rf $(DATA) $(INPUT) $(OUTPUT) $(PROG) $(LOGS) $(PNG)
-
-lean:
-	rm -rf $(DATA) $(INPUT) $(OUTPUT) $(PROG) $(LOGS) $(PNG)
-
-plean:
-	rm -rf $(PNG) $(DOT) $(JSON)
+	rm -rf $(CLEANUP) $(PROG) $(LOGS)
 
 .PHONY: all clean
 

@@ -59,9 +59,10 @@ while($i < $halfway) {
     my $j = 0;
     my @currlayer;
     while($j < $layer) {
-        my $inputs = "";
+        my $inputs = "sim";
         if(scalar(@lastlayer)) {
-            $inputs = pop(@lastlayer);
+            my $firstinput = pop(@lastlayer);
+            $inputs = $inputs . " $firstinput";
             if($j == $layer - 1) {
                 while(scalar(@lastlayer)) {
                     my $input = pop(@lastlayer);
@@ -70,10 +71,10 @@ while($i < $halfway) {
             }
         }
         else {
-            $inputs = "in.dat";
+            $inputs = "sim in.dat";
         }
         my $outputs = "out.$layers.$j.dat";
-        my $command = "sim $inputs > $outputs";
+        my $command = "LOCAL ./sim $inputs > $outputs";
         push(@currlayer, $outputs);
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
@@ -85,11 +86,11 @@ while($i < $halfway) {
 }
 
 my $halfouts = "spec.config";
-my $halfins = "";
+my $halfins = "midpoint";
 foreach my $l (@lastlayer) {
-    $halfins = $halfins . "$l ";
+    $halfins = $halfins . " $l";
 }
-my $halfcmd = "midpoint > spec.config";
+my $halfcmd = "LOCAL ./midpoint > spec.config";
 print(OUT "$halfouts : $halfins\n\t$halfcmd\n\n");
 
 if($i % 2) {
@@ -102,29 +103,37 @@ else {
 $layer = ceil($layer * 2.0);
 @lastlayer = ();
 push(@lastlayer, $halfouts);
+my $prevlayer = 1;
 
 while($i < $remainder) {
     my $j = 0;
     my @currlayer;
+    my $currinput;
     while($j < $layer and $i < $remainder) {
-        my $inputs;
+        my $inputs = "sim";
         if(scalar(@lastlayer)) {
-            $inputs = "";
-            foreach my $l (@lastlayer) {
-                $inputs = $inputs . "$l ";
+            if($j % $prevlayer == 0) {
+                $currinput = pop(@lastlayer);
             }
+            $inputs = $inputs . " $currinput";
         }
         else {
-            $inputs = "in.dat";
+            if($currinput) {
+                $inputs = $inputs . " $currinput";
+            }
+            else {
+                $inputs = "sim in.dat";
+            }
         }
         my $outputs = "out.$layers.$j.dat";
-        my $command = "sim $inputs > $outputs";
+        my $command = "LOCAL ./sim $inputs > $outputs";
         push(@currlayer, $outputs);
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;
     }
     @lastlayer = @currlayer;
+    $prevlayer = $layer;
     $layer = floor($layer * 2.0);
     $layers++;
 }

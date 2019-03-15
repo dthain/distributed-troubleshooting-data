@@ -8,26 +8,33 @@ CCTOOLS = ../cctools-source
 LIB = ../cctools-source/dttools/src/libdttools.a ../cctools-source/work_queue/src/libwork_queue.a
 
 LOGS = *.wqlog *.debug *.trace *.dag *.dot
-PROG = example
+PROG = sim midpoint
 PERL = test
+MAKEFLOW = bad-env.makeflow
 INPUT = in.dat
-OUTPUT = out.*.dat
+OUTPUT = out.*.dat spec.config makeflow.failed.* bad-env.makeflow.*
 DATA = master.debug
 JSON = master.json
 
 CLEANUP = $(JSON) $(DATA) $(INPUT) $(OUTPUT)
 
-all: $(PROG) $(DATA) $(JSON)
+all: $(PROG) $(INPUT) $(DATA) $(JSON)
 
-$(PROG): $(LIB) $(CCTOOLS)
-	$(CC) $(CFLAGS) $@.c $(LDDFLAGS) -o $@
+$(PROG): $(CCTOOLS)
+	$(CC) $(CFLAGS) $@.c -o $@
+	
+#$(PROG): $(LIB) $(CCTOOLS)
+#	$(CC) $(CFLAGS) $@.c $(LDDFLAGS) -o $@
 
-in.dat: /usr/bin/dd
-	dd if=/dev/zero of=in.dat bs=4096 count=25000
+$(INPUT): /usr/bin/dd
+	echo "TEST" > in.dat
 
-$(DATA): $(PROG) $(INPUT) $(PERL) 
+$(MAKEFLOW): $(PROG) $(INPUT)
+	perl makeflowgen -r 5 -o $@
+
+$(DATA): $(PROG) $(INPUT) $(PERL) $(MAKEFLOW)
 	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 5
-	perl test --tasks 20 --sleep 1 --name wq-trace
+	perl test --name wq-trace
 
 $(JSON): $(DATA)
 	perl ../logdedup
@@ -36,7 +43,7 @@ $(JSON): $(DATA)
 build: $(PROG)
 
 clean:
-	rm -rf $(CLEANUP) $(LOGS) $(PROG)
+	rm -rf $(CLEANUP) $(MAKEFLOW) $(PROG) $(LOGS)
 
 .PHONY: all clean
 
