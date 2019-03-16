@@ -40,6 +40,7 @@ data: $(DATA)
 clean:
 	cd example && make clean
 	cd shared-fs && make clean
+	cd bad-env && make clean
 	rm -rf $(CCTOOLS) $(DATA)
 
 exclean:

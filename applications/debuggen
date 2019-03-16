@@ -82,10 +82,10 @@ while(my $line = <INPUT>) {
     #wq: Master advertising as disc01.crc.nd.edu:9000
     if($line =~ m/wq: Master advertising as (?<master>[a-zA-Z0-9\-]+\.crc\.nd\.edu:\d+)/) {
         $master{address} = $+{master};
-        $master{workers} = [()];
-        $master{tasks} = [()];
+        $master{workers} = {};
+        $master{tasks} = {};
         $master{files} = {};
-        $master{errors} = 0;
+        $master{failures} = 0;
         next;
     }
 
@@ -94,14 +94,13 @@ while(my $line = <INPUT>) {
         my $tid = $+{tid};
         $tasks{$tid}{taskid} = int($tid);
         $tasks{$tid}{master} = $master{address};
-        #$tasks{$tid}{workers} = [()];
         $tasks{$tid}{files} = {};
         $tasks{$tid}{inputs} = {};
         $tasks{$tid}{outputs} = {};
         $tasks{$tid}{envs} = {};
-        my %task;
-        $task{taskid} = int($tid);
-        push($master{tasks}, \%task);
+        $tasks{$tid}{status} = 1;
+        $master{tasks}{$tid} = int($tid);
+
         next;
     }
 
@@ -115,21 +114,17 @@ while(my $line = <INPUT>) {
         my %worker;
 
         if(not exists $workers{$address}) {
-            $workers{$address}{workerid} = $workerid;
-            $worker{workerid} = int($workerid);
-            push($master{workers}, \%worker);
+            $master{workers}{$workerid} = int($workerid);
+            $workers{$address}{workerid} = int($workerid);
             $workerid++;
-            $workers{$address}{workerid} = $workerid;
             $workers{$address}{address} = $address;
             $workers{$address}{master} = $master{address};
             $workers{$address}{starttime} = $timestamp;
-            $workers{$address}{tasks} = [()];
+            $workers{$address}{tasks} = {};
             $workers{$address}{files} = {};
         }
         $workers{$address}{endtime} = $timestamp;
-        my %task;
-        $task{taskid} = int($tid);
-        push($workers{$address}{tasks}, \%task);
+        $workers{$address}{tasks}{$tid} = int($tid);
 
         $tasks{$tid}{master} = $master{address};
         if(not exists $worker{workerid}) {
@@ -137,7 +132,7 @@ while(my $line = <INPUT>) {
         }
         $tasks{$tid}{worker}{workerid} = $worker{workerid};
         $tasks{$tid}{worker}{address} = $address;
-        $tasks{$tid}{errors} = 0;
+        $tasks{$tid}{failures} = 0;
         $currtask = $tid;
         next;
     }
@@ -184,20 +179,21 @@ while(my $line = <INPUT>) {
         my $wport = $+{wport};
         my $address = "$waddr:$wport";
         my $fid = -1;
-        #my %file;
         if(not exists $files{$fname}) {
             $fid = $fileid;
             $files{$fname}{fileid} = int($fid);
             $files{$fname}{name} = $fname;
+            $files{$fname}{workers} = {};
             $files{$fname}{accesses} = 1;
             $fileid++;
             $master{files}{$fname} = $fid;
         }
         else {
             $files{$fname}{accesses}++;
-            $fid = $files{$fname}{fileid};
+            $fid = $files{$fname}{fileid}; 
         }
-        #$file{fileid} = $fid;
+        my $wid = $workers{$address}{workerid};
+        $files{$fname}{workers}{$wid} = int($wid);
         if(not exists $workers{$address}{files}{$fname}) {
             $workers{$address}{files}{$fname} = $fid;
         }
@@ -215,7 +211,6 @@ while(my $line = <INPUT>) {
         my $wport = $+{wport};
         my $address = "$waddr:$wport";
         my $fid = -1;
-        #my %file;
 
         foreach my $fname (($local, $remote)) {
             if(not exists $files{$fname}) {
@@ -230,7 +225,8 @@ while(my $line = <INPUT>) {
                 $files{$fname}{accesses}++;
                 $fid = $files{$fname}{fileid};
             }
-            #$file{fileid} = $fid;
+            my $wid = $workers{$address}{workerid};
+            $files{$fname}{workers}{$wid} = int($wid);
             if(not exists $workers{$address}{files}{$fname}) {
                 $workers{$address}{files}{$fname} = $fid;
             }
@@ -248,31 +244,53 @@ while(my $line = <INPUT>) {
         next;
     }
 
+
+    #wq: rx from cclvm06.virtual.crc.nd.edu (129.74.246.126:45930): missing file-298-f52f56dfdf65074d38f151ee4c184dad-out.50.dat 2
+    elsif($line =~ m/wq: rx from (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): missing file-/) {
+        my $waddr = $+{waddr};
+        my $wport = $+{wport};
+        my $address = "$waddr:$wport";
+        $tasks{$currtask}{failures}++;
+        $workers{$address}{failures}++;
+        $master{failures}++;
+        next;
+    }
+
+    #wq: camd03.crc.nd.edu (10.32.77.84:38460) received 0.00 MB in 0.00s (3.35s MB/s) average 120.09s MB/s
+    elsif($line =~ m/wq: (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\) received \S+ MB in \S+ \(\S+ MB\/s\) average (?<bandwidth>\S+) MB\/s/) {
+        my $waddr = $+{waddr};
+        my $wport = $+{wport};
+        my $bandwidth = $+{bandwidth};
+        my $address = "$waddr:$wport";
+        $workers{$address}{bandwidth} = ($bandwidth / 1.0);
+        next;
+    }
+
     #2019/01/06 19:14:39.52 [9484] wq: Task 1 state change: WAITING (1) to RUNNING (2)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{msent} = 1;
+        $tasks{$tid}{status} = 2;
         next;
     }
 
     #2019/01/06 19:14:41.24 [9484] wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{wsent} = 1;
-        $tasks{$tid}{wrecv} = 1;
+        $tasks{$tid}{status} = 3;
         next;
     }
 
     #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
         my $tid = $+{tid};
-        $tasks{$tid}{mrecv} = 1;
+        $tasks{$tid}{status} = 4;
         next;
     }
 
     #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: RETRIEVED (4) to DONE (5)
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
         my $tid = $+{tid};
+        $tasks{$tid}{status} = 5;
         $tasks{$tid}{err} = 0;
         next;
     }
@@ -349,6 +367,7 @@ foreach my $ltrace (@ltraces) {
                 $files{$fname}{fileid} = $fileid;
                 $fileid++;
                 $files{$fname}{result} = int($result);
+                $files{$fname}{workers} = {};
                 $files{$fname}{accesses}++;
             }
             $tracefiles{$fname}{result} = int($result);
@@ -361,6 +380,7 @@ foreach my $ltrace (@ltraces) {
             if(not exists $files{$fname}) {
                 $files{$fname}{fileid} = $fileid;
                 $files{$fname}{name} = $fname;
+                $files{$fname}{workers} = {};
                 $fileid++;
                 $files{$fname}{result} = hex($result);
                 $files{$fname}{accesses}++;
@@ -378,10 +398,11 @@ foreach my $ltrace (@ltraces) {
             if(not exists $files{$fname}) {
                 $files{$fname}{fileid} = $fileid;
                 $files{$fname}{name} = $fname;
-                $files{$fname}{errors} = 0;
+                $files{$fname}{workers} = {};
+                $files{$fname}{failures} = 0;
                 $fileid++;
                 $files{$fname}{accesses}++;
-                if(!$result) { $files{$fname}{errors}++; }
+                if(!$result) { $files{$fname}{failures}++; }
             }
             $tracefiles{$fname} = int($result);
         }
@@ -396,11 +417,11 @@ foreach my $ltrace (@ltraces) {
             if(not exists $envs{$env}) {
                 $envs{$env}{envid} = $envid;
                 $envs{$env}{name} = $env;
-                $envs{$env}{errors} = 0;
+                $envs{$env}{failures} = 0;
                 $envs{$env}{values}{$value}++;
                 $envid++;
                 $envs{$env}{accesses}++;
-                if(!$result) { $envs{$env}{errors}++; }
+                if(!$result) { $envs{$env}{failures}++; }
             }
             $tracevars{$env} = int($result);
         }
@@ -414,11 +435,11 @@ foreach my $ltrace (@ltraces) {
             if(not exists $envs{$env}) {
                 $envs{$env}{envid} = $envid;
                 $envs{$env}{name} = $env;
-                $envs{$env}{errors} = 0;
+                $envs{$env}{failures} = 0;
                 $envs{$env}{values}{$value}++;
                 $envid++;
                 $envs{$env}{accesses}++;
-                if($result == -1) { $envs{$env}{errors}++; }
+                if($result == -1) { $envs{$env}{failures}++; }
             }
             $tracevars{$env} = int($result);
         }
@@ -438,7 +459,6 @@ foreach my $ltrace (@ltraces) {
                     $envs{$v}{tasks}{$task} = $tasks{$task}{taskid};
                 }
             }
-            #print(STDERR "Found \"$cmd\" on worker $tasks{$task}{worker}{address} with PID $ppid.\n");
         }
     }
     close(LTRACE);
@@ -474,13 +494,14 @@ if($out) {
         push(@envs_info, $envs{$e});
     }
 
-    #my $master_string = JSON->new->pretty->encode(\%master);
-    my $master_string = JSON->new->encode(\%master);
+    my $master_string = JSON->new->pretty->encode(\%master);
+    #my $master_string = JSON->new->encode(\%master);
     print(OUTPUT "\"master\": $master_string,\n\n");
-    my $workers_string = JSON->new->encode(\@workers_info);
+    my $workers_string = JSON->new->pretty->encode(\@workers_info);
+    #my $workers_string = JSON->new->encode(\@workers_info);
     print(OUTPUT "\"workers\": $workers_string,\n\n");
-    #my $tasks_string = JSON->new->pretty->encode(\@tasks_info);
-    my $tasks_string = JSON->new->encode(\@tasks_info);
+    my $tasks_string = JSON->new->pretty->encode(\@tasks_info);
+    #my $tasks_string = JSON->new->encode(\@tasks_info);
     print(OUTPUT "\"tasks\": $tasks_string,\n\n");
     my $files_string = JSON->new->pretty->encode(\@files_info);
     #my $files_string = JSON->new->encode(\@files_info);
@@ -497,55 +518,43 @@ exit(0);
 
 sub hash_to_array {
     my ($type, %hash) = @_;
-    my @array;
-    
+    my @attributes;
+
+    #Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == Env. Var.
     if($type == 1) {
-        foreach my $f (keys($hash{files})) {
-            my %file;
-            $file{fileid} = $hash{files}{$f};
-            push(@array, \%file);
-        }
-        $hash{files} = \@array;
-    }
-   
-    elsif($type == 2 or $type == 3) {
-        foreach my $k (keys(%hash)) {
-            foreach my $f (keys($hash{$k}{files})) {
-                my %file;
-                $file{fileid} = $hash{$k}{files}{$f};
-                push(@array, \%file);
+        @attributes = ("file", "task", "worker");
+        foreach my $a (@attributes) {
+            my @array;
+            my $attr = $a . "s";
+            foreach my $k (keys($hash{$attr})) {
+                my $index = $a . "id";
+                my %obj;
+                $obj{$index} = $hash{$attr}{$k};
+                push(@array, \%obj);
             }
-            $hash{$k}{files} = \@array;
-
-            if($type == 3) {
-                @array = ();
-                foreach my $f (keys($hash{$k}{inputs})) {
-                    my %file;
-                    $file{fileid} = $hash{$k}{inputs}{$f};
-                    push(@array, \%file);
-                }
-                $hash{$k}{inputs} = \@array;
-
-                @array = ();
-                foreach my $f (keys($hash{$k}{outputs})) {
-                    my %file;
-                    $file{fileid} = $hash{$k}{outputs}{$f};
-                    push(@array, \%file);
-                }
-                $hash{$k}{outputs} = \@array;
-            }
+            $hash{$attr} = \@array;
         }
     }
+    else {
+        if($type == 2) { @attributes = ("file", "task"); }
+        elsif($type == 3) { @attributes = ("file", "env", "input", "output"); }
+        elsif($type == 4) { @attributes = ("task", "worker"); }
+        else { @attributes = ("task"); }
 
-    elsif($type == 4 or $type == 5) {
         foreach my $k (keys(%hash)) {
-            foreach my $t (sort {int($hash{$k}{tasks}{$a}) <=> int($hash{$k}{tasks}{$b})} keys($hash{$k}{tasks})) {
-                my %task;
-                $task{taskid} = int($t);
-                print(STDERR "Adding task $t.\n");
-                push(@array, \%task);
+            if($type == 3) { delete($hash{$k}{worker}{address}); }
+            foreach my $a (@attributes) {
+                my @array;
+                my $attr = $a . "s";
+                foreach my $v (keys($hash{$k}{$attr})) {
+                    my $index = $a . "id";
+                    if($a eq "input" or $a eq "output") { $index = "fileid"; }
+                    my %obj;
+                    $obj{$index} = $hash{$k}{$attr}{$v};
+                    push(@array, \%obj);
+                }
+                $hash{$k}{$attr} = \@array;
             }
-            $hash{$k}{tasks} = \@array;
         }
     }
 

@@ -36,12 +36,10 @@ foreach my $debug (@debugs) {
     close(DEBUG);
 
     if(exists $workers{$worker} and $task > $workers{$worker}) {
-        print(STDERR "$debug contains output for already defined $worker but task $task is newer than task $workers{$worker}.\n");
         unlink("task.$workers{$worker}.debug");
         $workers{$worker} = $task;
     }
     elsif(exists $workers{$worker} and $task < $workers{$worker}) {
-        print(STDERR "$debug contains output for already defined $worker but task $task is older than task $workers{$worker}.\n");
         unlink($debug); 
     }
     else {
