@@ -111,9 +111,8 @@ while(my $line = <INPUT>) {
         my $waddr = $+{waddr};
         my $wport = $+{wport};
         my $address = "$waddr:$wport";
-        my %worker;
 
-        if(not exists $workers{$address}) {
+        if(not exists $workers{$address}{workerid}) {
             $master{workers}{$workerid} = int($workerid);
             $workers{$address}{workerid} = int($workerid);
             $workerid++;
@@ -126,11 +125,9 @@ while(my $line = <INPUT>) {
         $workers{$address}{endtime} = $timestamp;
         $workers{$address}{tasks}{$tid} = int($tid);
 
+        my $wid = $workers{$address}{workerid};
         $tasks{$tid}{master} = $master{address};
-        if(not exists $worker{workerid}) {
-            $worker{workerid} = $workers{$address}{workerid};
-        }
-        $tasks{$tid}{worker}{workerid} = $worker{workerid};
+        $tasks{$tid}{worker}{workerid} = $wid;
         $tasks{$tid}{worker}{address} = $address;
         $tasks{$tid}{failures} = 0;
         $currtask = $tid;
@@ -179,7 +176,7 @@ while(my $line = <INPUT>) {
         my $wport = $+{wport};
         my $address = "$waddr:$wport";
         my $fid = -1;
-        if(not exists $files{$fname}) {
+        if(not exists $files{$fname}{fileid}) {
             $fid = $fileid;
             $files{$fname}{fileid} = int($fid);
             $files{$fname}{name} = $fname;
@@ -213,7 +210,7 @@ while(my $line = <INPUT>) {
         my $fid = -1;
 
         foreach my $fname (($local, $remote)) {
-            if(not exists $files{$fname}) {
+            if(not exists $files{$fname}{fileid}) {
                 $fid = $fileid;
                 $files{$fname}{fileid} = int($fid);
                 $files{$fname}{name} = $fname;
@@ -291,7 +288,6 @@ while(my $line = <INPUT>) {
     elsif($line =~ m/wq: Task (?<tid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
         my $tid = $+{tid};
         $tasks{$tid}{status} = 5;
-        $tasks{$tid}{err} = 0;
         next;
     }
 }
@@ -363,7 +359,7 @@ foreach my $ltrace (@ltraces) {
         elsif($line =~ m/\S->open\d*\(\"(?<fname>\S+)\", \d+, \d+\)\s+=\s+(?<result>\S+)/) {
             my $fname = $+{fname};
             my $result = $+{result};
-            if(not exists $files{$fname}) {
+            if(not exists $files{$fname}{fileid}) {
                 $files{$fname}{fileid} = $fileid;
                 $fileid++;
                 $files{$fname}{result} = int($result);
@@ -377,7 +373,7 @@ foreach my $ltrace (@ltraces) {
         elsif($line =~ m/\S->fopen\d*\(\"(?<fname>\S+)\", \S+\)\s+=\s+(?<result>\S+)/) {
             my $fname = $+{fname};
             my $result = $+{result};
-            if(not exists $files{$fname}) {
+            if(not exists $files{$fname}{fileid}) {
                 $files{$fname}{fileid} = $fileid;
                 $files{$fname}{name} = $fname;
                 $files{$fname}{workers} = {};
@@ -395,7 +391,7 @@ foreach my $ltrace (@ltraces) {
             my $result = 1;
 
             if($value == -1) { $result = 0; }
-            if(not exists $files{$fname}) {
+            if(not exists $files{$fname}{fileid}) {
                 $files{$fname}{fileid} = $fileid;
                 $files{$fname}{name} = $fname;
                 $files{$fname}{workers} = {};
@@ -414,7 +410,7 @@ foreach my $ltrace (@ltraces) {
             my $result = 1;
 
             if($value eq "nil") { $result = 0; }
-            if(not exists $envs{$env}) {
+            if(not exists $envs{$env}{envid}) {
                 $envs{$env}{envid} = $envid;
                 $envs{$env}{name} = $env;
                 $envs{$env}{failures} = 0;
@@ -432,7 +428,7 @@ foreach my $ltrace (@ltraces) {
             my $value = $+{value};
             my $result = $+{result};
 
-            if(not exists $envs{$env}) {
+            if(not exists $envs{$env}{envid}) {
                 $envs{$env}{envid} = $envid;
                 $envs{$env}{name} = $env;
                 $envs{$env}{failures} = 0;
