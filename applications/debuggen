@@ -72,10 +72,10 @@ while(my $line = <INPUT>) {
         $timestamp = $timestamp->epoch();
         if($first) {
             $first = 0;
-            $master{starttime} = $timestamp;
+            $master{starttime} = int($timestamp);
         }
         else {
-            $master{endtime} = $timestamp;
+            $master{endtime} = int($timestamp);
         }
     }
 
@@ -97,7 +97,7 @@ while(my $line = <INPUT>) {
         $tasks{$tid}{files} = {};
         $tasks{$tid}{inputs} = {};
         $tasks{$tid}{outputs} = {};
-        $tasks{$tid}{envs} = {};
+        $tasks{$tid}{envVars} = {};
         $tasks{$tid}{status} = 1;
         $master{tasks}{$tid} = int($tid);
 
@@ -118,11 +118,11 @@ while(my $line = <INPUT>) {
             $workerid++;
             $workers{$address}{address} = $address;
             $workers{$address}{master} = $master{address};
-            $workers{$address}{starttime} = $timestamp;
+            $workers{$address}{starttime} = int($timestamp);
             $workers{$address}{tasks} = {};
             $workers{$address}{files} = {};
         }
-        $workers{$address}{endtime} = $timestamp;
+        $workers{$address}{endtime} = int($timestamp);
         $workers{$address}{tasks}{$tid} = int($tid);
 
         my $wid = $workers{$address}{workerid};
@@ -181,6 +181,7 @@ while(my $line = <INPUT>) {
             $files{$fname}{fileid} = int($fid);
             $files{$fname}{name} = $fname;
             $files{$fname}{workers} = {};
+            $files{$fname}{master} = $master{address};
             $files{$fname}{accesses} = 1;
             $fileid++;
             $master{files}{$fname} = $fid;
@@ -215,6 +216,7 @@ while(my $line = <INPUT>) {
                 $files{$fname}{fileid} = int($fid);
                 $files{$fname}{name} = $fname;
                 $files{$fname}{accesses} = 1;
+                $files{$fname}{master} = $master{address};
                 $fileid++;
                 $master{files}{$fname} = $fid;
             }
@@ -302,7 +304,7 @@ foreach my $debug (@debugs) {
         if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/ and $currworker) {
             $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
             $timestamp = $timestamp->epoch();
-            $workers{$currworker}{endtime} = $timestamp;
+            $workers{$currworker}{endtime} = int($timestamp);
         }
 
         #wq: connected to master 10.32.74.140:9000 via local address 10.32.74.164:36500
@@ -396,6 +398,7 @@ foreach my $ltrace (@ltraces) {
                 $files{$fname}{name} = $fname;
                 $files{$fname}{workers} = {};
                 $files{$fname}{failures} = 0;
+                $files{$fname}{firstAccess} = int($timestamp);
                 $fileid++;
                 $files{$fname}{accesses}++;
                 if(!$result) { $files{$fname}{failures}++; }
@@ -450,8 +453,8 @@ foreach my $ltrace (@ltraces) {
                 }
             }
             foreach my $v (keys(%tracevars)) {
-                if(not exists $tasks{$task}{envs}{$v}) {
-                    $tasks{$task}{envs}{$v} = $envs{$v}{envid};
+                if(not exists $tasks{$task}{envVars}{$v}) {
+                    $tasks{$task}{envVars}{$v} = $envs{$v}{envid};
                     $envs{$v}{tasks}{$task} = $tasks{$task}{taskid};
                 }
             }
