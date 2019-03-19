@@ -12,7 +12,7 @@ PROG = sim midpoint
 PERL = test
 MAKEFLOW = bad-env.makeflow
 INPUT = in.dat
-OUTPUT = out.*.dat spec.config makeflow.failed.* bad-env.makeflow.*
+OUTPUT = out.*.dat spec.config makeflow.failed.* bad-env.makeflow.* ltrace-wrapper
 DATA = master.debug
 JSON = master.json
 
@@ -30,10 +30,11 @@ $(INPUT): /usr/bin/dd
 	echo "TEST" > in.dat
 
 $(MAKEFLOW): $(PROG) $(INPUT)
-	perl makeflowgen -r 5 -o $@
+	cp ../ltrace-wrapper .
+	perl makeflowgen -r 7 -o $@
 
 $(DATA): $(PROG) $(INPUT) $(PERL) $(MAKEFLOW)
-	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 5
+	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 1
 	perl test --name wq-trace
 
 $(JSON): $(DATA)

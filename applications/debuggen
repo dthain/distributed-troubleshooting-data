@@ -466,10 +466,10 @@ foreach my $ltrace (@ltraces) {
 #Transform file hash to array for usable JSON
 #Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == Env. Var.
 %master = hash_to_array(1, %master);
-%workers = hash_to_array(2, %workers);
-%tasks = hash_to_array(3, %tasks);
-%files = hash_to_array(4, %files);
-%envs = hash_to_array(5, %envs);
+if(scalar(keys(%workers))) { %workers = hash_to_array(2, %workers); }
+if(scalar(keys(%tasks))) { %tasks = hash_to_array(3, %tasks); }
+if(scalar(keys(%files))) { %files = hash_to_array(4, %files); }
+if(scalar(keys(%envs))) { %envs = hash_to_array(5, %envs); }
 
 if($out) {
     
@@ -545,6 +545,7 @@ sub hash_to_array {
             foreach my $a (@attributes) {
                 my @array;
                 my $attr = $a . "s";
+                if(not exists $hash{$k}{$attr}) { next; }
                 foreach my $v (keys($hash{$k}{$attr})) {
                     my $index = $a . "id";
                     if($a eq "input" or $a eq "output") { $index = "fileid"; }

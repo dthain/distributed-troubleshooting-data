@@ -74,8 +74,9 @@ while($i < $halfway) {
             $inputs = "sim in.dat";
         }
         my $outputs = "out.$layers.$j.dat";
-        my $command = "LOCAL ./sim $inputs > $outputs";
+        my $command = "./ltrace-wrapper ./$inputs > $outputs";
         push(@currlayer, $outputs);
+        $inputs = $inputs . " ltrace-wrapper";
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;
@@ -90,7 +91,8 @@ my $halfins = "midpoint";
 foreach my $l (@lastlayer) {
     $halfins = $halfins . " $l";
 }
-my $halfcmd = "LOCAL ./midpoint > spec.config";
+my $halfcmd = "./ltrace-wrapper ./$halfins > spec.config";
+$halfins = $halfins . " ltrace-wrapper";
 print(OUT "$halfouts : $halfins\n\t$halfcmd\n\n");
 
 if($i % 2) {
@@ -126,8 +128,9 @@ while($i < $remainder) {
             }
         }
         my $outputs = "out.$layers.$j.dat";
-        my $command = "LOCAL ./sim $inputs > $outputs";
+        my $command = "./ltrace-wrapper ./$inputs > $outputs";
         push(@currlayer, $outputs);
+        $inputs = $inputs . " ltrace-wrapper";
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;

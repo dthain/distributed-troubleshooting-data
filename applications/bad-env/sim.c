@@ -6,13 +6,15 @@
 int run(char *in) {
    
     FILE *input = fopen(in, "r");
-    char *line;
-    size_t len;
-    ssize_t read;
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read = 0;
 
     if(!input) { return 1; }
-    while((read = getline(&line, &len, input)) != -1) {
+    read = getline(&line, &len, input);
+    while(read != -1) {
         strtok(line, "\n");
+        read = getline(&line, &len, input);
     }
     fclose(input);
 
@@ -32,9 +34,10 @@ int run(char *in) {
 
 int main(int argc, char *argv[]) {
     
-    if(argc < 2) {
+    if(argc < 1) {
 		fprintf(stderr, "Must provide the input files to read.\n");
 		fprintf(stderr, "Example: sim in.dat > out.dat\n");
+        fprintf(stderr, "Found %d arguments.\n", argc);
 		exit(1);
 	}
 	
