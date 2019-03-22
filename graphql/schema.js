@@ -349,8 +349,9 @@ const TaskType = new GraphQLObjectType({
       type: MasterType,
       resolve: (json, args, context) => { return objectResolver(json.master, args, context.masterLoader, 1) }
     },
-    workers: {
-      type: new GraphQLList(WorkerType),
+    worker: {
+      //type: new GraphQLList(WorkerType),
+      type: WorkerType,
       args: {address: { type: GraphQLString }, start: { type: GraphQLInt }, end: { type: GraphQLInt },
         failures: { type: GraphQLInt }, bandwidth: { type: GraphQLFloat }, conditional: { type: GraphQLString }},
       resolve: (json, args, context) => { return objectResolver(json.workers, args, context.workerLoader, 2) }

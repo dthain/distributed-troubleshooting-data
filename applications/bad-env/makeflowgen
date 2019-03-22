@@ -48,10 +48,11 @@ if($err) {
 }
 
 my $i = 0;
+my $rule = 0;
 my $halfway = floor($rules / 2.0);
 my $remainder = floor($rules / 2.0);
 my $layer = floor($halfway / 2.0);
-my $layers = 1;
+#my $layers = 1;
 my @lastlayer;
 
 open(OUT, ">>", $out);
@@ -73,17 +74,19 @@ while($i < $halfway) {
         else {
             $inputs = "sim in.dat";
         }
-        my $outputs = "out.$layers.$j.dat";
+        my $outputs = "out.$rule.dat";
         my $command = "./ltrace-wrapper ./$inputs > $outputs";
         push(@currlayer, $outputs);
         $inputs = $inputs . " ltrace-wrapper";
+        $outputs = $outputs . " ltrace.$rule.debug->ltrace.debug";
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;
+        $rule++;
     }
     @lastlayer = @currlayer;
     $layer = ceil($layer / 2.0);
-    $layers++;
+    #$layers++;
 }
 
 my $halfouts = "spec.config";
@@ -92,8 +95,12 @@ foreach my $l (@lastlayer) {
     $halfins = $halfins . " $l";
 }
 my $halfcmd = "./ltrace-wrapper ./$halfins > spec.config";
+@lastlayer = ();
+push(@lastlayer, $halfouts);
 $halfins = $halfins . " ltrace-wrapper";
+$halfouts = $halfouts . " ltrace.$rule.debug->ltrace.debug";
 print(OUT "$halfouts : $halfins\n\t$halfcmd\n\n");
+$rule++;
 
 if($i % 2) {
     $i = 1;
@@ -103,8 +110,6 @@ else {
 }
 
 $layer = ceil($layer * 2.0);
-@lastlayer = ();
-push(@lastlayer, $halfouts);
 my $prevlayer = 1;
 
 while($i < $remainder) {
@@ -127,18 +132,20 @@ while($i < $remainder) {
                 $inputs = "sim in.dat";
             }
         }
-        my $outputs = "out.$layers.$j.dat";
+        my $outputs = "out.$rule.dat";
         my $command = "./ltrace-wrapper ./$inputs > $outputs";
         push(@currlayer, $outputs);
         $inputs = $inputs . " ltrace-wrapper";
+        $outputs = $outputs . " ltrace.$rule.debug->ltrace.debug";
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;
+        $rule++;
     }
     @lastlayer = @currlayer;
     $prevlayer = $layer;
     $layer = floor($layer * 2.0);
-    $layers++;
+    #$layers++;
 }
 close(OUT);
 

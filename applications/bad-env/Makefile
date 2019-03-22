@@ -29,9 +29,11 @@ $(PROG): $(CCTOOLS)
 $(INPUT): /usr/bin/dd
 	echo "TEST" > in.dat
 
-$(MAKEFLOW): $(PROG) $(INPUT)
+ltrace-wrapper:
 	cp ../ltrace-wrapper .
-	perl makeflowgen -r 7 -o $@
+
+$(MAKEFLOW): $(PROG) $(INPUT) ltrace-wrapper
+	perl makeflowgen -r 5 -o $@
 
 $(DATA): $(PROG) $(INPUT) $(PERL) $(MAKEFLOW)
 	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 1

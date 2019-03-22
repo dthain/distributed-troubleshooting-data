@@ -50,19 +50,98 @@ if($err) {
 }
 
 my %master;
+#Master has the following attributes:
+#address
+#starttime
+#endtime
+#failures
+#workers
+#rules
+#tasks
+#files
+
 my %workers;
+#Worker has the following attributes:
+#workerid
+#address
+#bandwidth
+#starttime
+#endtime
+#failures
+#master
+#tasks
+#rules
+#files
+
+my %rules;
+#Rule has the following attributes:
+#ruleid
+#status
+#failures
+#retries
+#category
+#cores
+#gpus
+#memory
+#disk
+#command
+#master
+#workers
+#tasks
+#inputs
+#outputs
+#files
+
 my %tasks;
+#Task has the following attributes:
+#taskid
+#status
+#failures
+#command
+#pid
+#category
+#cores
+#gpus
+#memory
+#disk
+#master
+#worker
+#rule
+#files
+#inputs
+#outputs
+#envVars
+
 my %files;
+#File has the following attributes:
+#fileid
+#name
+#accesses
+#failures
+#master
+#workers
+#tasks
+
 my %envs;
+#Env has the following attributes:
+#envid
+#name
+#values
+#accesses
+#failures
+#tasks
 
 my @debugs = <task*debug>;
 my @ltraces = <ltrace*debug>;
+my @failures = <makeflow.failed.*\/ltrace*debug>;
+@ltraces = (@ltraces, @failures);
 
 my $first = 1;
 my $workerid = 1;
 my $fileid = 1;
 my $envid = 1;
 my $currtask = 1;
+my $currrule = -1;
 my $timestamp;
 
 open(INPUT, $in) or die "Could not open file $in for reading.\n";
@@ -79,6 +158,8 @@ while(my $line = <INPUT>) {
         }
     }
 
+    #Work Queue Master Debug Output
+
     #wq: Master advertising as disc01.crc.nd.edu:9000
     if($line =~ m/wq: Master advertising as (?<master>[a-zA-Z0-9\-]+\.crc\.nd\.edu:\d+)/) {
         $master{address} = $+{master};
@@ -90,27 +171,23 @@ while(my $line = <INPUT>) {
     }
 
     #wq: Task 1 state change: UNKNOWN (0) to WAITING (1)
-    elsif($line =~ m/wq: Task (?<tid>\d+) state change: UNKNOWN \(0\) to WAITING \(1\)/) {
-        my $tid = $+{tid};
-        $tasks{$tid}{taskid} = int($tid);
-        $tasks{$tid}{master} = $master{address};
-        $tasks{$tid}{files} = {};
-        $tasks{$tid}{inputs} = {};
-        $tasks{$tid}{outputs} = {};
-        $tasks{$tid}{envVars} = {};
-        $tasks{$tid}{status} = 1;
-        $master{tasks}{$tid} = int($tid);
+    elsif($line =~ m/wq: Task (?<taskid>\d+) state change: UNKNOWN \(0\) to WAITING \(1\)/) {
+        $tasks{$+{taskid}}{taskid} = int($+{taskid});
+        $tasks{$+{taskid}}{master} = $master{address};
+        $tasks{$+{taskid}}{files} = {};
+        $tasks{$+{taskid}}{inputs} = {};
+        $tasks{$+{taskid}}{outputs} = {};
+        $tasks{$+{taskid}}{envVars} = {};
+        $tasks{$+{taskid}}{status} = 1;
+        $master{tasks}{$+{taskid}} = int($+{taskid});
 
         next;
     }
 
     #wq: tx to d8civy148.crc.nd.edu (10.32.80.45:56808): task 10
-    elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): task (?<tid>\d+)/) {
+    elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): task (?<taskid>\d+)/) {
         my $err = 0;
-        my $tid = $+{tid};
-        my $waddr = $+{waddr};
-        my $wport = $+{wport};
-        my $address = "$waddr:$wport";
+        my $address = $+{waddr} . ":" . $+{wport};
 
         if(not exists $workers{$address}{workerid}) {
             $master{workers}{$workerid} = int($workerid);
@@ -123,58 +200,60 @@ while(my $line = <INPUT>) {
             $workers{$address}{files} = {};
         }
         $workers{$address}{endtime} = int($timestamp);
-        $workers{$address}{tasks}{$tid} = int($tid);
+        $workers{$address}{tasks}{$+{taskid}} = int($+{taskid});
 
         my $wid = $workers{$address}{workerid};
-        $tasks{$tid}{master} = $master{address};
-        $tasks{$tid}{worker}{workerid} = $wid;
-        $tasks{$tid}{worker}{address} = $address;
-        $tasks{$tid}{failures} = 0;
-        $currtask = $tid;
+        $tasks{$+{taskid}}{master} = $master{address};
+        $tasks{$+{taskid}}{worker}{workerid} = $wid;
+        $tasks{$+{taskid}}{worker}{address} = $address;
+        $tasks{$+{taskid}}{failures} = 0;
+        $currtask = $+{taskid};
+        if($currrule > -1) {
+            $rules{$currrule}{tasks}{$+{taskid}} = int($+{taskid});
+            $rules{$currrule}{workers}{$workerid} = int($workerid);
+        }
         next;
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): category default
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): category (?<category>[a-zA-Z0-9\-]+)/) {
-        my $category = $+{category};
-        $tasks{$currtask}{category} = $category;
+        $tasks{$currtask}{category} = $+{category};
+        if($currrule > -1) { $rules{$currrule}{category} = $+{category}; }
         next;
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): cores 1
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): cores (?<cores>\d+)/) {
-        my $cores = $+{cores};
-        $tasks{$currtask}{cores} = int($cores);
+        $tasks{$currtask}{cores} = int($+{cores});
+        if($currrule > -1) { $rules{$currrule}{cores} = int($+{cores}); }
         next;
     }
     
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): memory 412
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): memory (?<memory>\d+)/) {
-        my $memory = $+{memory};
-        $tasks{$currtask}{memory} = int($memory);
+        $tasks{$currtask}{memory} = int($+{memory});
+        if($currrule > -1) { $rules{$currrule}{memory} = int($+{memory}); }
         next;   
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): disk 3347
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): disk (?<disk>\d+)/) {
-         my $disk = $+{disk};
-        $tasks{$currtask}{disk} = int($disk);
+        $tasks{$currtask}{disk} = int($+{disk});
+        if($currrule > -1) { $rules{$currrule}{disk} = int($+{disk}); }
         next;   
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): gpus 0
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): gpus (?<gpus>\d+)/) {
-        my $gpus = $+{gpus};
-        $tasks{$currtask}{gpus} = int($gpus);
+        $tasks{$currtask}{gpus} = int($+{gpus});
+        if($currrule > -1) { $rules{$currrule}{gpus} = int($+{gpus}); }
         next;   
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): infile file-0-e8cda3a52b8b08010832b5283fc747d6-in.dat in.dat 1
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): infile file-\S+ (?<file>\S+) \d+/) {
         my $fname = $+{file};
-        my $waddr = $+{waddr};
-        my $wport = $+{wport};
-        my $address = "$waddr:$wport";
+        my $address = $+{waddr} . ":" . $+{wport};
         my $fid = -1;
         if(not exists $files{$fname}{fileid}) {
             $fid = $fileid;
@@ -184,7 +263,7 @@ while(my $line = <INPUT>) {
             $files{$fname}{master} = $master{address};
             $files{$fname}{accesses} = 1;
             $fileid++;
-            $master{files}{$fname} = $fid;
+            $master{files}{$fname} = int($fid);
         }
         else {
             $files{$fname}{accesses}++;
@@ -195,9 +274,18 @@ while(my $line = <INPUT>) {
         if(not exists $workers{$address}{files}{$fname}) {
             $workers{$address}{files}{$fname} = $fid;
         }
-        $tasks{$currtask}{files}{$fname} = $fid;
-        $tasks{$currtask}{inputs}{$fname} = $fid;
-        $files{$fname}{tasks}{$currtask}++;
+        $tasks{$currtask}{files}{$fname} = int($fid);
+        $tasks{$currtask}{inputs}{$fname} = int($fid);
+        if(not exists $files{$fname}{tasks}{$currtask}) {
+            $files{$fname}{tasks}{$currtask} = int($currtask);
+        }
+        if($currrule > -1) {
+            if(not exists $files{$fname}{rules}{$currrule}) {
+                $files{$fname}{tasks}{$currrule} = int($currrule);
+            }
+            $rules{$currrule}{files}{$fname} = int($fid);
+            $rules{$currrule}{inputs}{$fname} = int($fid);
+        }
         next;
     }
 
@@ -205,9 +293,7 @@ while(my $line = <INPUT>) {
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): outfile file-\d+-\w+-(?<file>\S+) (?<remote>\S+) \d+/) {
         my $local = $+{file};
         my $remote = $+{remote};
-        my $waddr = $+{waddr};
-        my $wport = $+{wport};
-        my $address = "$waddr:$wport";
+        my $address = $+{waddr} . ":" . $+{wport};
         my $fid = -1;
 
         foreach my $fname (($local, $remote)) {
@@ -218,7 +304,7 @@ while(my $line = <INPUT>) {
                 $files{$fname}{accesses} = 1;
                 $files{$fname}{master} = $master{address};
                 $fileid++;
-                $master{files}{$fname} = $fid;
+                $master{files}{$fname} = int($fid);
             }
             else {
                 $files{$fname}{accesses}++;
@@ -227,11 +313,20 @@ while(my $line = <INPUT>) {
             my $wid = $workers{$address}{workerid};
             $files{$fname}{workers}{$wid} = int($wid);
             if(not exists $workers{$address}{files}{$fname}) {
-                $workers{$address}{files}{$fname} = $fid;
+                $workers{$address}{files}{$fname} = int($fid);
             }
-            $tasks{$currtask}{files}{$fname} = $fid;
-            $tasks{$currtask}{outputs}{$fname} = $fid;
-            $files{$fname}{tasks}{$currtask}++;
+            $tasks{$currtask}{files}{$fname} = int($fid);
+            $tasks{$currtask}{outputs}{$fname} = int($fid);
+            if(not exists $files{$fname}{tasks}{$currtask}) {
+                $files{$fname}{tasks}{$currtask} = $currtask;
+            } 
+        }
+        if($currrule > -1) {
+            if(not exists $files{$local}{rules}{$currrule}) {
+                $files{$local}{tasks}{$currrule} = int($currrule);
+            }
+            $rules{$currrule}{files}{$local} = int($fid);
+            $rules{$currrule}{outputs}{$local} = int($fid);
         }
         next;
     }
@@ -246,9 +341,7 @@ while(my $line = <INPUT>) {
 
     #wq: rx from cclvm06.virtual.crc.nd.edu (129.74.246.126:45930): missing file-298-f52f56dfdf65074d38f151ee4c184dad-out.50.dat 2
     elsif($line =~ m/wq: rx from (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): missing file-/) {
-        my $waddr = $+{waddr};
-        my $wport = $+{wport};
-        my $address = "$waddr:$wport";
+        my $address = $+{waddr} . ":" . $+{wport};
         $tasks{$currtask}{failures}++;
         $workers{$address}{failures}++;
         $master{failures}++;
@@ -257,40 +350,80 @@ while(my $line = <INPUT>) {
 
     #wq: camd03.crc.nd.edu (10.32.77.84:38460) received 0.00 MB in 0.00s (3.35s MB/s) average 120.09s MB/s
     elsif($line =~ m/wq: (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\) received \S+ MB in \S+ \(\S+ MB\/s\) average (?<bandwidth>\S+) MB\/s/) {
-        my $waddr = $+{waddr};
-        my $wport = $+{wport};
-        my $bandwidth = $+{bandwidth};
-        my $address = "$waddr:$wport";
-        $workers{$address}{bandwidth} = ($bandwidth / 1.0);
+        my $address = $+{waddr} . ":" . $+{wport};
+        $workers{$address}{bandwidth} = ($+{bandwidth} / 1.0);
         next;
     }
 
     #2019/01/06 19:14:39.52 [9484] wq: Task 1 state change: WAITING (1) to RUNNING (2)
-    elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
-        my $tid = $+{tid};
-        $tasks{$tid}{status} = 2;
+    elsif($line =~ m/wq: Task (?<taskid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
+        $tasks{$+{taskid}}{status} = 2;
         next;
     }
 
     #2019/01/06 19:14:41.24 [9484] wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
-    elsif($line =~ m/wq: Task (?<tid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
-        my $tid = $+{tid};
-        $tasks{$tid}{status} = 3;
+    elsif($line =~ m/wq: Task (?<taskid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
+        $tasks{$+{taskid}}{status} = 3;
         next;
     }
 
     #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
-    elsif($line =~ m/wq: Task (?<tid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
-        my $tid = $+{tid};
-        $tasks{$tid}{status} = 4;
+    elsif($line =~ m/wq: Task (?<taskid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
+        $tasks{$+{taskid}}{status} = 4;
         next;
     }
 
     #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: RETRIEVED (4) to DONE (5)
-    elsif($line =~ m/wq: Task (?<tid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
-        my $tid = $+{tid};
-        $tasks{$tid}{status} = 5;
+    elsif($line =~ m/wq: Task (?<taskid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
+        $tasks{$+{taskid}}{status} = 5;
         next;
+    }
+
+    #Makeflow Debug Output
+
+    #makeflow: node 0 waiting -> running
+    elsif($line =~ m/makeflow: node (?<ruleid>\d+) waiting -> running/) {
+        $currrule = $+{ruleid};
+        if(not exists $rules{$currrule}{ruleid}) {
+            $rules{$currrule}{ruleid} = int($currrule);
+            $rules{$currrule}{master} = $master{address};
+            $rules{$currrule}{workers} = {};
+            $rules{$currrule}{tasks} = {};
+            $rules{$currrule}{files} = {};
+            $rules{$currrule}{inputs} = {};
+            $rules{$currrule}{outputs} = {};
+            $rules{$currrule}{failures} = 0;
+            $rules{$currrule}{retries} = 0;
+        }
+        $rules{$currrule}{status} = 2;
+        #$rules{$currrule}{tasks}{$currtask} = int($currtask);
+    }
+
+    #batch: set option `task-id' to `1'
+    elsif($line =~ m/batch: set option `task-id' to `(?<taskid>\d+)'/) {
+        #$rules{$currrule + 1}{tasks}{$+{taskid}} = int($+{taskid});
+        #$currtask = $+{taskid};
+    }
+   
+    #makeflow: node 0 running -> complete
+    elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> complete/) {
+        $currrule = $+{ruleid};
+        $rules{$currrule}{status} = 3;
+    }
+
+    #makeflow: node 0 running -> failed
+    elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> failed/) {
+        $currrule = $+{ruleid};
+        $rules{$currrule}{status} = 4;
+        $rules{$currrule}{failures}++;
+        $master{failures}++;
+    }
+
+    #makeflow: node 3 failed -> waiting
+    elsif($line =~ m/makeflow: node (?<ruleid>\d+) failed -> waiting/) {
+        $currrule = $+{ruleid};
+        $rules{$currrule}{retries}++;
+        $rules{$currrule}{status} = 1;
     }
 }
 close(INPUT);
@@ -321,9 +454,8 @@ foreach my $debug (@debugs) {
         }
 
         #wq: rx from master: task 10
-        elsif($line =~ m/wq: rx from master: task (?<tid>\d+)/ and $currworker) {
-            my $tid = $+{tid};
-            $currtask = $tid;
+        elsif($line =~ m/wq: rx from master: task (?<taskid>\d+)/ and $currworker) {
+            $currtask = $+{taskid};
             next;
         }
 
@@ -467,9 +599,10 @@ foreach my $ltrace (@ltraces) {
 #Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == Env. Var.
 %master = hash_to_array(1, %master);
 if(scalar(keys(%workers))) { %workers = hash_to_array(2, %workers); }
-if(scalar(keys(%tasks))) { %tasks = hash_to_array(3, %tasks); }
-if(scalar(keys(%files))) { %files = hash_to_array(4, %files); }
-if(scalar(keys(%envs))) { %envs = hash_to_array(5, %envs); }
+if(scalar(keys(%rules))) { %rules = hash_to_array(3, %rules); }
+if(scalar(keys(%tasks))) { %tasks = hash_to_array(4, %tasks); }
+if(scalar(keys(%files))) { %files = hash_to_array(5, %files); }
+if(scalar(keys(%envs))) { %envs = hash_to_array(6, %envs); }
 
 if($out) {
     
@@ -479,6 +612,10 @@ if($out) {
     my @workers_info;
     foreach my $w (keys(%workers)) {
         push(@workers_info, $workers{$w});
+    }
+    my @rules_info;
+    foreach my $r (keys(%rules)) {
+        push(@rules_info, $rules{$r});
     }
     my @tasks_info;
     foreach my $t (keys(%tasks)) {
@@ -499,6 +636,8 @@ if($out) {
     my $workers_string = JSON->new->pretty->encode(\@workers_info);
     #my $workers_string = JSON->new->encode(\@workers_info);
     print(OUTPUT "\"workers\": $workers_string,\n\n");
+    my $rules_string = JSON->new->pretty->encode(\@rules_info);
+    print(OUTPUT "\"rules\": $rules_string,\n\n");
     my $tasks_string = JSON->new->pretty->encode(\@tasks_info);
     #my $tasks_string = JSON->new->encode(\@tasks_info);
     print(OUTPUT "\"tasks\": $tasks_string,\n\n");
@@ -519,13 +658,13 @@ sub hash_to_array {
     my ($type, %hash) = @_;
     my @attributes;
 
-    #Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == Env. Var.
+    #Types: 1 == Master, 2 == Worker, 3 == Rule, 4 == Task, 5 == File, 6 == Env. Var.
     if($type == 1) {
         @attributes = ("file", "task", "worker");
         foreach my $a (@attributes) {
             my @array;
             my $attr = $a . "s";
-            foreach my $k (keys($hash{$attr})) {
+            foreach my $k (sort(keys($hash{$attr}))) {
                 my $index = $a . "id";
                 my %obj;
                 $obj{$index} = $hash{$attr}{$k};
@@ -536,17 +675,19 @@ sub hash_to_array {
     }
     else {
         if($type == 2) { @attributes = ("file", "task"); }
-        elsif($type == 3) { @attributes = ("file", "env", "input", "output"); }
-        elsif($type == 4) { @attributes = ("task", "worker"); }
+        #elsif($type == 3) { @attributes = ("file", "input", "output", "worker", "task"); }
+        elsif($type == 3) { @attributes = ("worker", "task"); }
+        elsif($type == 4) { @attributes = ("file", "env", "input", "output"); }
+        elsif($type == 5) { @attributes = ("task", "worker"); }
         else { @attributes = ("task"); }
 
-        foreach my $k (keys(%hash)) {
-            if($type == 3) { delete($hash{$k}{worker}{address}); }
+        foreach my $k (sort(keys(%hash))) {
+            if($type == 4) { delete($hash{$k}{worker}{address}); }
             foreach my $a (@attributes) {
                 my @array;
                 my $attr = $a . "s";
                 if(not exists $hash{$k}{$attr}) { next; }
-                foreach my $v (keys($hash{$k}{$attr})) {
+                foreach my $v (sort(keys($hash{$k}{$attr}))) {
                     my $index = $a . "id";
                     if($a eq "input" or $a eq "output") { $index = "fileid"; }
                     my %obj;
