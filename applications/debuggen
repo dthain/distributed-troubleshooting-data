@@ -252,51 +252,50 @@ while(my $line = <INPUT>) {
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): infile file-0-e8cda3a52b8b08010832b5283fc747d6-in.dat in.dat 1
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): infile file-\S+ (?<file>\S+) \d+/) {
-        my $fname = $+{file};
         my $address = $+{waddr} . ":" . $+{wport};
         my $fid = -1;
-        if(not exists $files{$fname}{fileid}) {
+        if(not exists $files{$+{file}}{fileid}) {
             $fid = $fileid;
-            $files{$fname}{fileid} = int($fid);
-            $files{$fname}{name} = $fname;
-            $files{$fname}{workers} = {};
-            $files{$fname}{master} = $master{address};
-            $files{$fname}{accesses} = 1;
+            $files{$+{file}}{fileid} = int($fid);
+            $files{$+{file}}{name} = $+{file};
+            $files{$+{file}}{workers} = {};
+            $files{$+{file}}{master} = $master{address};
+            $files{$+{file}}{accesses} = 1;
             $fileid++;
-            $master{files}{$fname} = int($fid);
+            $master{files}{$+{file}} = int($fid);
         }
         else {
-            $files{$fname}{accesses}++;
-            $fid = $files{$fname}{fileid}; 
+            $files{$+{file}}{accesses}++;
+            $fid = $files{$+{file}}{fileid}; 
         }
         my $wid = $workers{$address}{workerid};
-        $files{$fname}{workers}{$wid} = int($wid);
-        if(not exists $workers{$address}{files}{$fname}) {
-            $workers{$address}{files}{$fname} = $fid;
+        $files{$+{file}}{workers}{$wid} = int($wid);
+        if(not exists $workers{$address}{files}{$+{file}}) {
+            $workers{$address}{files}{$+{file}} = $fid;
         }
-        $tasks{$currtask}{files}{$fname} = int($fid);
-        $tasks{$currtask}{inputs}{$fname} = int($fid);
-        if(not exists $files{$fname}{tasks}{$currtask}) {
-            $files{$fname}{tasks}{$currtask} = int($currtask);
+        $tasks{$currtask}{files}{$+{file}} = int($fid);
+        $tasks{$currtask}{inputs}{$+{file}} = int($fid);
+        if(not exists $files{$+{file}}{tasks}{$currtask}) {
+            $files{$+{file}}{tasks}{$currtask} = int($currtask);
         }
         if($currrule > -1) {
-            if(not exists $files{$fname}{rules}{$currrule}) {
-                $files{$fname}{tasks}{$currrule} = int($currrule);
+            if(not exists $files{$+{file}}{rules}{$currrule}) {
+                $files{$+{file}}{rules}{$currrule} = int($currrule);
             }
-            $rules{$currrule}{files}{$fname} = int($fid);
-            $rules{$currrule}{inputs}{$fname} = int($fid);
+            $rules{$currrule}{files}{$+{file}} = int($fid);
+            $rules{$currrule}{inputs}{$+{file}} = int($fid);
         }
         next;
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): outfile file-13-768751f261701ea3092d4f2ca0afe4d7-out.3.dat out.dat 0
-    elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): outfile file-\d+-\w+-(?<file>\S+) (?<remote>\S+) \d+/) {
+    elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): outfile file-\d+-\w+-(?<local>\S+) (?<remote>\S+) \d+/) {
         my $local = $+{file};
         my $remote = $+{remote};
         my $address = $+{waddr} . ":" . $+{wport};
         my $fid = -1;
 
-        foreach my $fname (($local, $remote)) {
+        foreach my $fname (($+{local}, $+{remote})) {
             if(not exists $files{$fname}{fileid}) {
                 $fid = $fileid;
                 $files{$fname}{fileid} = int($fid);
@@ -321,9 +320,9 @@ while(my $line = <INPUT>) {
                 $files{$fname}{tasks}{$currtask} = $currtask;
             } 
         }
-        if($currrule > -1) {
+        if($currrule > -1 and $local) {
             if(not exists $files{$local}{rules}{$currrule}) {
-                $files{$local}{tasks}{$currrule} = int($currrule);
+                $files{$local}{rules}{$currrule} = int($currrule);
             }
             $rules{$currrule}{files}{$local} = int($fid);
             $rules{$currrule}{outputs}{$local} = int($fid);
@@ -596,7 +595,6 @@ foreach my $ltrace (@ltraces) {
 }
 
 #Transform file hash to array for usable JSON
-#Types: 1 == Master, 2 == Worker, 3 == Task, 4 == File, 5 == Env. Var.
 %master = hash_to_array(1, %master);
 if(scalar(keys(%workers))) { %workers = hash_to_array(2, %workers); }
 if(scalar(keys(%rules))) { %rules = hash_to_array(3, %rules); }
@@ -637,6 +635,7 @@ if($out) {
     #my $workers_string = JSON->new->encode(\@workers_info);
     print(OUTPUT "\"workers\": $workers_string,\n\n");
     my $rules_string = JSON->new->pretty->encode(\@rules_info);
+    #my $rules_string = JSON->new->encode(\@rules_info);
     print(OUTPUT "\"rules\": $rules_string,\n\n");
     my $tasks_string = JSON->new->pretty->encode(\@tasks_info);
     #my $tasks_string = JSON->new->encode(\@tasks_info);
@@ -675,10 +674,9 @@ sub hash_to_array {
     }
     else {
         if($type == 2) { @attributes = ("file", "task"); }
-        #elsif($type == 3) { @attributes = ("file", "input", "output", "worker", "task"); }
-        elsif($type == 3) { @attributes = ("worker", "task"); }
+        elsif($type == 3) { @attributes = ("file", "input", "output", "worker", "task"); }
         elsif($type == 4) { @attributes = ("file", "env", "input", "output"); }
-        elsif($type == 5) { @attributes = ("task", "worker"); }
+        elsif($type == 5) { @attributes = ("rule", "task", "worker"); }
         else { @attributes = ("task"); }
 
         foreach my $k (sort(keys(%hash))) {
