@@ -59,7 +59,7 @@ int test(int tasks, int sleep_time, char *name) {
 
 		while(i < tasks) {
 			char *out = string_format("out.%d.dat", i + 1);
-			char *wdb = string_format("task.%d.debug", i + 1);
+			char *wdb = string_format("worker.%d.debug", i + 1);
 			char *ldb = string_format("ltrace.%d.debug", i + 1);
 			char *cmd = string_format("./ltrace-wrapper ./fscheck && sleep %d", sleep_time);
 			struct work_queue_task *t = work_queue_task_create(cmd);
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]) {
 
 	if(argc < 3) {
 		fprintf(stderr, "Must provide number of tasks to schedule, execution time per task, and  master name pattern.\n");
-		fprintf(stderr, "Example: 100 20 wq_capacity_5\n");
+		fprintf(stderr, "Example: 100 20 wq_trace\n");
 		exit(1);
 	}
 	

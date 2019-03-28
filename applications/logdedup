@@ -4,12 +4,15 @@ use 5.10.0;
 use strict;
 
 my %workers;
-my @debugs = <task*debug>;
-my $timestamp;
+my @debugs = <worker*debug>;
+my @failures = <makeflow.failed.*\/worker*debug>;
+@debugs = (@debugs, @failures);
 
 foreach my $debug (@debugs) {
-    my @filename = split(/\./, $debug);
-    my $task = $filename[1];
+    my $task;
+    if($debug =~ m/worker.(?<task>\d+).debug/) {
+        $task = $+{task};
+    }
     my $worker;
     my $addr;
     my $port;
@@ -36,10 +39,16 @@ foreach my $debug (@debugs) {
     close(DEBUG);
 
     if(exists $workers{$worker} and $task > $workers{$worker}) {
-        unlink("task.$workers{$worker}.debug");
+        printf(STDERR "Unlinking previous file worker.$workers{$worker}.debug.\n");
+        my $result = unlink("worker.$workers{$worker}.debug");
+        if(!$result) {
+            printf(STDERR "Unlinking previous file makeflow.failed.$workers{$worker}/worker.$workers{$worker}.debug.\n");
+            unlink("makeflow.failed.$workers{$worker}/worker.$workers{$worker}.debug");
+        }
         $workers{$worker} = $task;
     }
     elsif(exists $workers{$worker} and $task < $workers{$worker}) {
+        printf(STDERR "Unlinking current file $debug.\n");
         unlink($debug); 
     }
     else {

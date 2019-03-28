@@ -79,6 +79,7 @@ while($i < $halfway) {
         push(@currlayer, $outputs);
         $inputs = $inputs . " ltrace-wrapper";
         $outputs = $outputs . " ltrace.$rule.debug->ltrace.debug";
+        $outputs = $outputs . " worker.$rule.debug->worker.debug";
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;
@@ -99,6 +100,7 @@ my $halfcmd = "./ltrace-wrapper ./$halfins > spec.config";
 push(@lastlayer, $halfouts);
 $halfins = $halfins . " ltrace-wrapper";
 $halfouts = $halfouts . " ltrace.$rule.debug->ltrace.debug";
+$halfouts = $halfouts . " worker.$rule.debug->worker.debug";
 print(OUT "$halfouts : $halfins\n\t$halfcmd\n\n");
 $rule++;
 
@@ -137,6 +139,7 @@ while($i < $remainder) {
         push(@currlayer, $outputs);
         $inputs = $inputs . " ltrace-wrapper";
         $outputs = $outputs . " ltrace.$rule.debug->ltrace.debug";
+        $outputs = $outputs . " worker.$rule.debug->worker.debug";
         print(OUT "$outputs : $inputs\n\t$command\n\n");
         $j++;
         $i++;

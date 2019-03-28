@@ -27,7 +27,7 @@ $(INPUT): /usr/bin/dd
 
 $(DATA): $(PROG) $(INPUT) $(PERL) 
 	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 10
-	perl test --tasks 50 --sleep 1 --name wq-trace
+	perl test --tasks 100 --sleep 1 --name wq-trace
 
 $(JSON): $(DATA)
 	perl ../logdedup

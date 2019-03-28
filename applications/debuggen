@@ -132,9 +132,11 @@ my %envs;
 #failures
 #tasks
 
-my @debugs = <task*debug>;
+my @debugs = <worker*debug>;
+my @failures = <makeflow.failed.*\/worker*debug>;
+@debugs = (@debugs, @failures);
 my @ltraces = <ltrace*debug>;
-my @failures = <makeflow.failed.*\/ltrace*debug>;
+@failures = <makeflow.failed.*\/ltrace*debug>;
 @ltraces = (@ltraces, @failures);
 
 my $first = 1;
@@ -481,7 +483,6 @@ foreach my $debug (@debugs) {
         elsif($line =~ m/wq: started process (?<pid>\d+):/ and $currworker) {
             my $pid = $+{pid};
             $tasks{$currtask}{pid} = int($pid);
-            print(STDERR "Found pid $pid.\n");
             next;
         }
 

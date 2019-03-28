@@ -1,11 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -g
-IQUOTE = -iquote../cctools-source/dttools/src -iquote../cctools-source/work_queue/src -iquote../cctools-source/batch_job/src
-L = -L../cctools-source/dttools/src -L../cctools-source/work_queue/src -L../cctools-source/batch_job/src
-l = -lbatch_job -lwork_queue -ldttools -lz
-LDDFLAGS = $(IQUOTE) $(L) $(l) -lm
 CCTOOLS = ../cctools-source
-LIB = ../cctools-source/dttools/src/libdttools.a ../cctools-source/work_queue/src/libwork_queue.a
 
 LOGS = *.wqlog *.debug *.trace *.dag *.dot
 PROG = sim midpoint
@@ -23,9 +18,6 @@ all: $(PROG) $(INPUT) $(DATA) $(JSON)
 $(PROG): $(CCTOOLS)
 	$(CC) $(CFLAGS) $@.c -o $@
 	
-#$(PROG): $(LIB) $(CCTOOLS)
-#	$(CC) $(CFLAGS) $@.c $(LDDFLAGS) -o $@
-
 $(INPUT): /usr/bin/dd
 	echo "TEST" > in.dat
 
@@ -33,10 +25,10 @@ ltrace-wrapper:
 	cp ../ltrace-wrapper .
 
 $(MAKEFLOW): $(PROG) $(INPUT) ltrace-wrapper
-	perl makeflowgen -r 4 -o $@
+	perl makeflowgen -r 100 -o $@
 
 $(DATA): $(PROG) $(INPUT) $(PERL) $(MAKEFLOW)
-	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 1
+	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 10
 	perl test --name wq-trace
 
 $(JSON): $(DATA)
