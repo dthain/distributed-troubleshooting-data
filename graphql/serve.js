@@ -2,10 +2,9 @@ const fs = require('fs')
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const app = express()
-//const fetch = require('node-fetch')
 const schema = require('./schema')
 const DataLoader = require('dataloader')
-const util = require('util')
+//const util = require('util')
 
 var json
 

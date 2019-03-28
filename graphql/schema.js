@@ -248,7 +248,12 @@ function objectResolver(json, args, context, type) {
       }
     }
     else if(type == 3) {
-      ids = json.map(elem => { return elem.ruleid } )
+      if(Object.keys(json).length == 1) {
+        ids = [json.ruleid];
+      }
+      else {
+        ids = json.map(elem => { return elem.ruleid } )
+      }
     }
     else if(type == 4) {
       ids = json.map(elem => { return elem.taskid } )
