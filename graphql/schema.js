@@ -393,6 +393,10 @@ const RuleType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: json => json.command
     },
+    category: {
+      type: GraphQLString,
+      resolve: json => json.category
+    }, 
     cores: {
       type: GraphQLInt,
       resolve: json => json.cores
@@ -463,6 +467,10 @@ const TaskType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: json => json.command
     },
+    category: {
+      type: GraphQLString,
+      resolve: json => json.category
+    }, 
     cores: {
       type: GraphQLInt,
       resolve: json => json.cores

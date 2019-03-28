@@ -16,8 +16,25 @@ function setup(question) {
   stdin.once('data', function (data) {
     json = fs.readFileSync(data.toString().trim())
     json = JSON.parse(json)
+    json.workers.sort(sortBy("workerid"))
+    json.rules.sort(sortBy("ruleid"))
+    json.tasks.sort(sortBy("taskid"))
+    json.files.sort(sortBy("fileid"))
+    json.envVars.sort(sortBy("envid"))
     console.log('Node Service Listening ...')
   })
+  }
+
+function sortBy(attribute){
+  return function(a,b){
+    if( a[attribute] > b[attribute]) {
+      return 1
+    }
+    else if( a[attribute] < b[attribute] ) {
+      return -1
+    }
+    return 0
+  }
 }
 
 function getMaster() {
@@ -25,12 +42,6 @@ function getMaster() {
 }
 
 function getWorker(id) {
-  /*for(var i = 0; i < json.workers.length; i++) {
-    if(json.workers[i].address == id) {
-      return json.workers[i]
-    }
-  }
-  */
   return json.workers[id - 1]
 }
 
