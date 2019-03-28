@@ -35,6 +35,10 @@ function getWorker(id) {
   return json.workers[id - 1]
 }
 
+function getRule(id) {
+  return json.rules[id]
+}
+
 function getTask(id) {
   return json.tasks[id - 1]
 }
@@ -44,11 +48,12 @@ function getFile(id) {
 }
 
 function getEnvVar(id) {
-  return json.vars[id - 1]
+  return json.envVars[id - 1]
 }
 
 const fetchMaster = id => getMaster()
 const fetchWorker = id => getWorker(`${id}`)
+const fetchRule = id => getRule(`${id}`)
 const fetchTask = id => getTask(`${id}`)
 const fetchFile = id => getFile(`${id}`)
 const fetchEnvVar = id => getEnvVar(`${id}`)
@@ -61,6 +66,9 @@ app.use('/graphql', graphqlHTTP( req => {
   const workerLoader = new DataLoader(keys =>
     Promise.all(keys.map(fetchWorker)))
 
+  const ruleLoader = new DataLoader(keys =>
+    Promise.all(keys.map(fetchRule)))
+
   const taskLoader = new DataLoader(keys =>
     Promise.all(keys.map(fetchTask)))
 
@@ -68,13 +76,14 @@ app.use('/graphql', graphqlHTTP( req => {
     Promise.all(keys.map(fetchFile)))
 
   const envVarLoader = new DataLoader(keys =>
-    Prmise.all(keys.map(fetchEnvVar)))
+    Promise.all(keys.map(fetchEnvVar)))
 
   return {
     schema,
     context: {
       masterLoader,
       workerLoader,
+      ruleLoader,
       taskLoader,
       fileLoader,
       envVarLoader

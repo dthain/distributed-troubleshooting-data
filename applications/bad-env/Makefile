@@ -33,7 +33,7 @@ ltrace-wrapper:
 	cp ../ltrace-wrapper .
 
 $(MAKEFLOW): $(PROG) $(INPUT) ltrace-wrapper
-	perl makeflowgen -r 5 -o $@
+	perl makeflowgen -r 4 -o $@
 
 $(DATA): $(PROG) $(INPUT) $(PERL) $(MAKEFLOW)
 	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 1

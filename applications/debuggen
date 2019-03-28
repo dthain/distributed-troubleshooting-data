@@ -52,8 +52,8 @@ if($err) {
 my %master;
 #Master has the following attributes:
 #address
-#starttime
-#endtime
+#start
+#end
 #failures
 #workers
 #rules
@@ -65,12 +65,12 @@ my %workers;
 #workerid
 #address
 #bandwidth
-#starttime
-#endtime
+#start
+#end
 #failures
 #master
-#tasks
 #rules
+#tasks
 #files
 
 my %rules;
@@ -120,6 +120,7 @@ my %files;
 #failures
 #master
 #workers
+##rules
 #tasks
 
 my %envs;
@@ -142,7 +143,8 @@ my $fileid = 1;
 my $envid = 1;
 my $currtask = 1;
 my $currrule = -1;
-my $timestamp;
+my $timestamp = -1;
+my $makeflow = 0;
 
 open(INPUT, $in) or die "Could not open file $in for reading.\n";
 while(my $line = <INPUT>) {
@@ -151,10 +153,10 @@ while(my $line = <INPUT>) {
         $timestamp = $timestamp->epoch();
         if($first) {
             $first = 0;
-            $master{starttime} = int($timestamp);
+            $master{start} = int($timestamp);
         }
         else {
-            $master{endtime} = int($timestamp);
+            $master{end} = int($timestamp);
         }
     }
 
@@ -164,6 +166,7 @@ while(my $line = <INPUT>) {
     if($line =~ m/wq: Master advertising as (?<master>[a-zA-Z0-9\-]+\.crc\.nd\.edu:\d+)/) {
         $master{address} = $+{master};
         $master{workers} = {};
+        $master{rules} = {};
         $master{tasks} = {};
         $master{files} = {};
         $master{failures} = 0;
@@ -195,11 +198,12 @@ while(my $line = <INPUT>) {
             $workerid++;
             $workers{$address}{address} = $address;
             $workers{$address}{master} = $master{address};
-            $workers{$address}{starttime} = int($timestamp);
+            $workers{$address}{start} = int($timestamp);
+            $workers{$address}{rules} = {};
             $workers{$address}{tasks} = {};
             $workers{$address}{files} = {};
         }
-        $workers{$address}{endtime} = int($timestamp);
+        $workers{$address}{end} = int($timestamp);
         $workers{$address}{tasks}{$+{taskid}} = int($+{taskid});
 
         my $wid = $workers{$address}{workerid};
@@ -210,7 +214,10 @@ while(my $line = <INPUT>) {
         $currtask = $+{taskid};
         if($currrule > -1) {
             $rules{$currrule}{tasks}{$+{taskid}} = int($+{taskid});
+            $tasks{$+{taskid}}{rule}{ruleid} = int($currrule);
             $rules{$currrule}{workers}{$workerid} = int($workerid);
+            if(not exists $workers{$address}{rules}{$currrule}) { $workers{$address}{rules}{$currrule} = int($currrule); }
+            if(not exists $master{rules}{$currrule}) { $master{rules}{$currrule} = int($currrule); }
         }
         next;
     }
@@ -273,7 +280,7 @@ while(my $line = <INPUT>) {
         if(not exists $workers{$address}{files}{$+{file}}) {
             $workers{$address}{files}{$+{file}} = $fid;
         }
-        $tasks{$currtask}{files}{$+{file}} = int($fid);
+        #$tasks{$currtask}{files}{$+{file}} = int($fid);
         $tasks{$currtask}{inputs}{$+{file}} = int($fid);
         if(not exists $files{$+{file}}{tasks}{$currtask}) {
             $files{$+{file}}{tasks}{$currtask} = int($currtask);
@@ -282,7 +289,7 @@ while(my $line = <INPUT>) {
             if(not exists $files{$+{file}}{rules}{$currrule}) {
                 $files{$+{file}}{rules}{$currrule} = int($currrule);
             }
-            $rules{$currrule}{files}{$+{file}} = int($fid);
+            #$rules{$currrule}{files}{$+{file}} = int($fid);
             $rules{$currrule}{inputs}{$+{file}} = int($fid);
         }
         next;
@@ -314,7 +321,7 @@ while(my $line = <INPUT>) {
             if(not exists $workers{$address}{files}{$fname}) {
                 $workers{$address}{files}{$fname} = int($fid);
             }
-            $tasks{$currtask}{files}{$fname} = int($fid);
+            #$tasks{$currtask}{files}{$fname} = int($fid);
             $tasks{$currtask}{outputs}{$fname} = int($fid);
             if(not exists $files{$fname}{tasks}{$currtask}) {
                 $files{$fname}{tasks}{$currtask} = $currtask;
@@ -324,7 +331,7 @@ while(my $line = <INPUT>) {
             if(not exists $files{$local}{rules}{$currrule}) {
                 $files{$local}{rules}{$currrule} = int($currrule);
             }
-            $rules{$currrule}{files}{$local} = int($fid);
+            #$rules{$currrule}{files}{$local} = int($fid);
             $rules{$currrule}{outputs}{$local} = int($fid);
         }
         next;
@@ -334,6 +341,7 @@ while(my $line = <INPUT>) {
     elsif($line =~ m/wq: (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\) busy on '(?<command>.*)'\n/) {
         my $command = $+{command};
         $tasks{$currtask}{command} = $command;
+        $rules{$currrule}{command} = $command;
         next;
     }
 
@@ -383,12 +391,13 @@ while(my $line = <INPUT>) {
     #makeflow: node 0 waiting -> running
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) waiting -> running/) {
         $currrule = $+{ruleid};
+        $makeflow = 1;
         if(not exists $rules{$currrule}{ruleid}) {
             $rules{$currrule}{ruleid} = int($currrule);
             $rules{$currrule}{master} = $master{address};
             $rules{$currrule}{workers} = {};
             $rules{$currrule}{tasks} = {};
-            $rules{$currrule}{files} = {};
+            #$rules{$currrule}{files} = {};
             $rules{$currrule}{inputs} = {};
             $rules{$currrule}{outputs} = {};
             $rules{$currrule}{failures} = 0;
@@ -399,9 +408,19 @@ while(my $line = <INPUT>) {
     }
 
     #batch: set option `task-id' to `1'
-    elsif($line =~ m/batch: set option `task-id' to `(?<taskid>\d+)'/) {
-        #$rules{$currrule + 1}{tasks}{$+{taskid}} = int($+{taskid});
-        #$currtask = $+{taskid};
+    elsif($line =~ m/batch: set option `task-id' to `(?<ruleid>\d+)'/) {
+        $currrule = $+{ruleid};
+        if(not exists $rules{$currrule}{ruleid}) {
+            $rules{$currrule}{ruleid} = int($currrule);
+            $rules{$currrule}{master} = $master{address};
+            $rules{$currrule}{workers} = {};
+            $rules{$currrule}{tasks} = {};
+            #$rules{$currrule}{files} = {};
+            $rules{$currrule}{inputs} = {};
+            $rules{$currrule}{outputs} = {};
+            $rules{$currrule}{failures} = 0;
+            $rules{$currrule}{retries} = 0;
+        }
     }
    
     #makeflow: node 0 running -> complete
@@ -436,7 +455,7 @@ foreach my $debug (@debugs) {
         if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/ and $currworker) {
             $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
             $timestamp = $timestamp->epoch();
-            $workers{$currworker}{endtime} = int($timestamp);
+            $workers{$currworker}{end} = int($timestamp);
         }
 
         #wq: connected to master 10.32.74.140:9000 via local address 10.32.74.164:36500
@@ -462,6 +481,7 @@ foreach my $debug (@debugs) {
         elsif($line =~ m/wq: started process (?<pid>\d+):/ and $currworker) {
             my $pid = $+{pid};
             $tasks{$currtask}{pid} = int($pid);
+            print(STDERR "Found pid $pid.\n");
             next;
         }
 
@@ -511,9 +531,9 @@ foreach my $ltrace (@ltraces) {
                 $files{$fname}{name} = $fname;
                 $files{$fname}{workers} = {};
                 $fileid++;
-                $files{$fname}{result} = hex($result);
-                $files{$fname}{accesses}++;
             }
+            $files{$fname}{result} = hex($result);
+            $files{$fname}{accesses}++;
             $tracefiles{$fname} = hex($result);
         }
 
@@ -531,14 +551,14 @@ foreach my $ltrace (@ltraces) {
                 $files{$fname}{failures} = 0;
                 $files{$fname}{firstAccess} = int($timestamp);
                 $fileid++;
-                $files{$fname}{accesses}++;
-                if(!$result) { $files{$fname}{failures}++; }
             }
+            if(!$result) { $files{$fname}{failures}++; }
+            $files{$fname}{accesses}++;
             $tracefiles{$fname} = int($result);
         }
         
         #8853   0.005074 fscheck->getenv("POSIXLY_CORRECT") = nil
-        elsif($line =~ m/\S->getenv\(\"(?<env>\S+)\"\)\s+=\s+(?<value>\S+)/) {
+        elsif($line =~ m/\S->getenv\(\"(?<env>\S+)\"\)\s+=\s+\"?(?<value>[^\"]+)\"?/) {
             my $env = $+{env};
             my $value = $+{value};
             my $result = 1;
@@ -548,11 +568,11 @@ foreach my $ltrace (@ltraces) {
                 $envs{$env}{envid} = $envid;
                 $envs{$env}{name} = $env;
                 $envs{$env}{failures} = 0;
-                $envs{$env}{values}{$value}++;
                 $envid++;
-                $envs{$env}{accesses}++;
-                if(!$result) { $envs{$env}{failures}++; }
             }
+            if(!$result) { $envs{$env}{failures}++; }
+            $envs{$env}{values}{$value}++;
+            $envs{$env}{accesses}++;
             $tracevars{$env} = int($result);
         }
 
@@ -566,17 +586,18 @@ foreach my $ltrace (@ltraces) {
                 $envs{$env}{envid} = $envid;
                 $envs{$env}{name} = $env;
                 $envs{$env}{failures} = 0;
-                $envs{$env}{values}{$value}++;
                 $envid++;
-                $envs{$env}{accesses}++;
-                if($result == -1) { $envs{$env}{failures}++; }
             }
+            if($result == -1) { $envs{$env}{failures}++; }
+            $envs{$env}{values}{$value}++;
+            $envs{$env}{accesses}++;
             $tracevars{$env} = int($result);
         }
     }
 
     foreach my $task (keys(%tasks)) {
-        if(index($tasks{$task}{command}, $cmd) != -1 and $ppid == $tasks{$task}{pid} and index($tasks{$task}{worker}{address}, $host) != -1) {
+        if(($makeflow and index($tasks{$task}{command}, $cmd) != -1 and index($tasks{$task}{worker}{address}, $host) != -1) or
+          (!$makeflow and index($tasks{$task}{command}, $cmd) != -1 and $ppid == $tasks{$task}{pid} and index($tasks{$task}{worker}{address}, $host) != -1)) {
             foreach my $f (keys(%tracefiles)) {
                 if(not exists $tasks{$task}{files}{$f}) {
                     $tasks{$task}{files}{$f} = $files{$f}{fileid};
@@ -659,7 +680,7 @@ sub hash_to_array {
 
     #Types: 1 == Master, 2 == Worker, 3 == Rule, 4 == Task, 5 == File, 6 == Env. Var.
     if($type == 1) {
-        @attributes = ("file", "task", "worker");
+        @attributes = ("file", "rule", "task", "worker");
         foreach my $a (@attributes) {
             my @array;
             my $attr = $a . "s";
@@ -673,9 +694,9 @@ sub hash_to_array {
         }
     }
     else {
-        if($type == 2) { @attributes = ("file", "task"); }
+        if($type == 2) { @attributes = ("file", "rule", "task"); }
         elsif($type == 3) { @attributes = ("file", "input", "output", "worker", "task"); }
-        elsif($type == 4) { @attributes = ("file", "env", "input", "output"); }
+        elsif($type == 4) { @attributes = ("file", "envVar", "input", "output"); }
         elsif($type == 5) { @attributes = ("rule", "task", "worker"); }
         else { @attributes = ("task"); }
 
@@ -688,6 +709,7 @@ sub hash_to_array {
                 foreach my $v (sort(keys($hash{$k}{$attr}))) {
                     my $index = $a . "id";
                     if($a eq "input" or $a eq "output") { $index = "fileid"; }
+                    elsif($a eq "envVar") { $index = "envid"; }
                     my %obj;
                     $obj{$index} = $hash{$k}{$attr}{$v};
                     push(@array, \%obj);
