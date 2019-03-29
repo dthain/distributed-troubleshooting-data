@@ -144,9 +144,10 @@ my $workerid = 1;
 my $fileid = 1;
 my $envid = 1;
 my $currtask = 1;
-my $currrule = -1;
+my $currrule = 0;
 my $timestamp = -1;
 my $makeflow = 0;
+my $prevline = 0;
 
 open(INPUT, $in) or die "Could not open file $in for reading.\n";
 while(my $line = <INPUT>) {
@@ -210,52 +211,40 @@ while(my $line = <INPUT>) {
 
         my $wid = $workers{$address}{workerid};
         $tasks{$+{taskid}}{master} = $master{address};
-        $tasks{$+{taskid}}{worker}{workerid} = $wid;
+        $tasks{$+{taskid}}{worker}{workerid} = int($wid);
         $tasks{$+{taskid}}{worker}{address} = $address;
         $tasks{$+{taskid}}{failures} = 0;
         $currtask = $+{taskid};
-        if($currrule > -1) {
-            $rules{$currrule}{tasks}{$+{taskid}} = int($+{taskid});
-            $tasks{$+{taskid}}{rule}{ruleid} = int($currrule);
-            $rules{$currrule}{workers}{$workerid} = int($workerid);
-            if(not exists $workers{$address}{rules}{$currrule}) { $workers{$address}{rules}{$currrule} = int($currrule); }
-            if(not exists $master{rules}{$currrule}) { $master{rules}{$currrule} = int($currrule); }
-        }
         next;
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): category default
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): category (?<category>[a-zA-Z0-9\-]+)/) {
         $tasks{$currtask}{category} = $+{category};
-        if($currrule > -1) { $rules{$currrule}{category} = $+{category}; }
         next;
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): cores 1
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): cores (?<cores>\d+)/) {
         $tasks{$currtask}{cores} = int($+{cores});
-        if($currrule > -1) { $rules{$currrule}{cores} = int($+{cores}); }
         next;
     }
     
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): memory 412
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): memory (?<memory>\d+)/) {
         $tasks{$currtask}{memory} = int($+{memory});
-        if($currrule > -1) { $rules{$currrule}{memory} = int($+{memory}); }
         next;   
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): disk 3347
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): disk (?<disk>\d+)/) {
         $tasks{$currtask}{disk} = int($+{disk});
-        if($currrule > -1) { $rules{$currrule}{disk} = int($+{disk}); }
         next;   
     }
 
     #wq: tx to cclws08.cse.nd.edu (129.74.155.166:57768): gpus 0
     elsif($line =~ m/wq: tx to (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): gpus (?<gpus>\d+)/) {
         $tasks{$currtask}{gpus} = int($+{gpus});
-        if($currrule > -1) { $rules{$currrule}{gpus} = int($+{gpus}); }
         next;   
     }
 
@@ -282,17 +271,9 @@ while(my $line = <INPUT>) {
         if(not exists $workers{$address}{files}{$+{file}}) {
             $workers{$address}{files}{$+{file}} = $fid;
         }
-        #$tasks{$currtask}{files}{$+{file}} = int($fid);
         $tasks{$currtask}{inputs}{$+{file}} = int($fid);
         if(not exists $files{$+{file}}{tasks}{$currtask}) {
             $files{$+{file}}{tasks}{$currtask} = int($currtask);
-        }
-        if($currrule > -1) {
-            if(not exists $files{$+{file}}{rules}{$currrule}) {
-                $files{$+{file}}{rules}{$currrule} = int($currrule);
-            }
-            #$rules{$currrule}{files}{$+{file}} = int($fid);
-            $rules{$currrule}{inputs}{$+{file}} = int($fid);
         }
         next;
     }
@@ -323,29 +304,16 @@ while(my $line = <INPUT>) {
             if(not exists $workers{$address}{files}{$fname}) {
                 $workers{$address}{files}{$fname} = int($fid);
             }
-            #$tasks{$currtask}{files}{$fname} = int($fid);
             $tasks{$currtask}{outputs}{$fname} = int($fid);
             if(not exists $files{$fname}{tasks}{$currtask}) {
                 $files{$fname}{tasks}{$currtask} = $currtask;
             } 
         }
-        if($currrule > -1 and $local) {
-            if(not exists $files{$local}{rules}{$currrule}) {
-                $files{$local}{rules}{$currrule} = int($currrule);
-            }
-            #$rules{$currrule}{files}{$local} = int($fid);
-            $rules{$currrule}{outputs}{$local} = int($fid);
-        }
         next;
     }
 
-    #wq: cclws08.cse.nd.edu (129.74.155.166:57768) busy on './ltrace-wrapper dd if=in.dat of=out.dat bs=4096 count=2500 && sleep 1'
-    elsif($line =~ m/wq: (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\) busy on '(?<command>.*)'\n/) {
-        my $command = $+{command};
-        $tasks{$currtask}{command} = $command;
-        $rules{$currrule}{command} = $command;
-        next;
-    }
+
+    #wq: tx to disc03.crc.nd.edu (10.32.74.144:52122): cmd 37
 
 
     #wq: rx from cclvm06.virtual.crc.nd.edu (129.74.246.126:45930): missing file-298-f52f56dfdf65074d38f151ee4c184dad-out.50.dat 2
@@ -364,86 +332,109 @@ while(my $line = <INPUT>) {
         next;
     }
 
-    #2019/01/06 19:14:39.52 [9484] wq: Task 1 state change: WAITING (1) to RUNNING (2)
+    #wq: Task 1 state change: WAITING (1) to RUNNING (2)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
         $tasks{$+{taskid}}{status} = 2;
         next;
     }
 
-    #2019/01/06 19:14:41.24 [9484] wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
+    #wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
         $tasks{$+{taskid}}{status} = 3;
         next;
     }
 
-    #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
+    #wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
         $tasks{$+{taskid}}{status} = 4;
         next;
     }
 
-    #2019/01/06 19:14:41.33 [9484] wq: Task 1 state change: RETRIEVED (4) to DONE (5)
+    #wq: Task 1 state change: RETRIEVED (4) to DONE (5)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
         $tasks{$+{taskid}}{status} = 5;
         next;
     }
 
+
     #Makeflow Debug Output
 
     #makeflow: node 0 waiting -> running
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) waiting -> running/) {
-        $currrule = $+{ruleid};
         $makeflow = 1;
-        if(not exists $rules{$currrule}{ruleid}) {
-            $rules{$currrule}{ruleid} = int($currrule);
-            $rules{$currrule}{master} = $master{address};
-            $rules{$currrule}{workers} = {};
-            $rules{$currrule}{tasks} = {};
-            #$rules{$currrule}{files} = {};
-            $rules{$currrule}{inputs} = {};
-            $rules{$currrule}{outputs} = {};
-            $rules{$currrule}{failures} = 0;
-            $rules{$currrule}{retries} = 0;
+        if(not exists $rules{$+{ruleid}}{ruleid}) {
+            $rules{$+{ruleid}}{ruleid} = int($+{ruleid});
+            $rules{$+{ruleid}}{master} = $master{address};
+            $rules{$+{ruleid}}{workers} = {};
+            $rules{$+{ruleid}}{tasks} = {};
+            $rules{$+{ruleid}}{inputs} = {};
+            $rules{$+{ruleid}}{outputs} = {};
+            $rules{$+{ruleid}}{failures} = 0;
+            $rules{$+{ruleid}}{retries} = 0;
         }
-        $rules{$currrule}{status} = 2;
-        #$rules{$currrule}{tasks}{$currtask} = int($currtask);
+        $rules{$+{ruleid}}{status} = 2;
     }
 
     #batch: set option `task-id' to `1'
     elsif($line =~ m/batch: set option `task-id' to `(?<ruleid>\d+)'/) {
-        $currrule = $+{ruleid};
-        if(not exists $rules{$currrule}{ruleid}) {
-            $rules{$currrule}{ruleid} = int($currrule);
-            $rules{$currrule}{master} = $master{address};
-            $rules{$currrule}{workers} = {};
-            $rules{$currrule}{tasks} = {};
-            #$rules{$currrule}{files} = {};
-            $rules{$currrule}{inputs} = {};
-            $rules{$currrule}{outputs} = {};
-            $rules{$currrule}{failures} = 0;
-            $rules{$currrule}{retries} = 0;
+        if(not exists $rules{$+{ruleid}}{ruleid}) {
+            $rules{$+{ruleid}}{ruleid} = int($+{ruleid});
+            $rules{$+{ruleid}}{master} = $master{address};
+            $rules{$+{ruleid}}{workers} = {};
+            $rules{$+{ruleid}}{tasks} = {};
+            $rules{$+{ruleid}}{inputs} = {};
+            $rules{$+{ruleid}}{outputs} = {};
+            $rules{$+{ruleid}}{failures} = 0;
+            $rules{$+{ruleid}}{retries} = 0;
         }
     }
    
     #makeflow: node 0 running -> complete
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> complete/) {
-        $currrule = $+{ruleid};
-        $rules{$currrule}{status} = 3;
+        $rules{$+{ruleid}}{status} = 3;
     }
 
     #makeflow: node 0 running -> failed
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> failed/) {
-        $currrule = $+{ruleid};
-        $rules{$currrule}{status} = 4;
-        $rules{$currrule}{failures}++;
+        $rules{$+{ruleid}}{status} = 4;
+        $rules{$+{ruleid}}{failures}++;
         $master{failures}++;
     }
 
     #makeflow: node 3 failed -> waiting
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) failed -> waiting/) {
-        $currrule = $+{ruleid};
-        $rules{$currrule}{retries}++;
-        $rules{$currrule}{status} = 1;
+        $rules{$+{ruleid}}{retries}++;
+        $rules{$+{ruleid}}{status} = 1;
+        $tasks{$currtask}{rule}{ruleid} = int($+{ruleid}); 
+    }
+
+    #makeflow: Job 37 has returned.
+    elsif($line =~ m/makeflow: Job (?<taskid>\d+) has returned/) {
+        $currtask = $+{taskid};
+        next;
+    }
+
+    #makeflow: File worker.35.debug created by rule 35.
+    elsif($line =~ m/makeflow: File (?<file>\S+) created by rule (?<ruleid>\d+)/) {
+        my $fid = -1;    
+        if(not exists $files{$+{file}}{fileid}) {
+            $fid = $fileid;
+            $files{$+{file}}{fileid} = int($fid);
+            $files{$+{file}}{name} = $+{file};
+            $files{$+{file}}{accesses} = 1;
+            $files{$+{file}}{master} = $master{address};
+            $fileid++;
+            $master{files}{$+{file}} = int($fid);
+        }
+        else {
+            $fid = $files{$+{file}}{fileid};
+        }
+        if(not exists $files{$+{file}}{rules}{$+{ruleid}}) {
+            $files{$+{file}}{rules}{$+{ruleid}} = int($+{ruleid});
+        }
+        $rules{$+{ruleid}}{outputs}{$+{file}} = int($fid);
+        $tasks{$currtask}{rule}{ruleid} = int($+{ruleid});
+        next;
     }
 }
 close(INPUT);
@@ -480,9 +471,34 @@ foreach my $debug (@debugs) {
         }
 
         #wq: started process 23264: ./ltrace-wrapper ./fscheck runtime.config && sleep 1
-        elsif($line =~ m/wq: started process (?<pid>\d+):/ and $currworker) {
-            my $pid = $+{pid};
-            $tasks{$currtask}{pid} = int($pid);
+        elsif($line =~ m/wq: started process (?<pid>\d+): (?<command>[^\n]+)/ and $currworker) {
+            $tasks{$currtask}{pid} = int($+{pid});
+            $tasks{$currtask}{command} = $+{command};
+            if(exists $tasks{$currtask}{rule}{ruleid}) {
+                my $rule = $tasks{$currtask}{rule}{ruleid};
+                my $workerid = $workers{$currworker}{workerid};
+                $rules{$rule}{tasks}{$currtask} = int($currtask);
+                $rules{$rule}{workers}{$workerid} = int($workerid);
+                $rules{$rule}{category} = $tasks{$currtask}{category};
+                $rules{$rule}{cores} = $tasks{$currtask}{cores};
+                $rules{$rule}{gpus} = $tasks{$currtask}{gpus};
+                $rules{$rule}{memory} = $tasks{$currtask}{memory};
+                $rules{$rule}{disk} = $tasks{$currtask}{disk};
+                foreach my $f (keys($tasks{$currtask}{inputs})) {
+                    $rules{$rule}{inputs}{$f} = int($files{$f}{fileid});
+                    if(not exists $files{$+{file}}{rules}{$rule}) {
+                        $files{$+{file}}{rules}{$rule} = int($rule);
+                    }
+                }
+                foreach my $f (keys($tasks{$currtask}{outputs})) {
+                    $rules{$rule}{outputs}{$f} = int($files{$f}{fileid});
+                    if(not exists $files{$+{file}}{rules}{$rule}) {
+                        $files{$+{file}}{rules}{$rule} = int($rule);
+                    }
+                }
+                if(not exists $workers{$currworker}{rules}{$rule}) { $workers{$currworker}{rules}{$rule} = int($rule); }
+                if(not exists $master{rules}{$rule}) { $master{rules}{$rule} = int($rule); }
+            }
             next;
         }
 
@@ -493,6 +509,7 @@ foreach my $debug (@debugs) {
 foreach my $ltrace (@ltraces) {
     my %tracefiles;
     my %tracevars;
+    my %currenvs;
 
     my $cmd;
     my $pid;
@@ -564,17 +581,20 @@ foreach my $ltrace (@ltraces) {
             my $value = $+{value};
             my $result = 1;
 
+            $value =~ s/\n+$//g ;
             if($value eq "nil") { $result = 0; }
-            if(not exists $envs{$env}{envid}) {
-                $envs{$env}{envid} = $envid;
-                $envs{$env}{name} = $env;
-                $envs{$env}{failures} = 0;
+            if(not exists $tracevars{$env}{envid}) {
+                $envs{$envid}{envid} = $envid;
+                $envs{$envid}{name} = $env;
+                $envs{$envid}{file} = $ltrace;
+                $envs{$envid}{failures} = 0;
+                $tracevars{$env}{envid} = $envid;
                 $envid++;
             }
-            if(!$result) { $envs{$env}{failures}++; }
-            $envs{$env}{values}{$value}++;
-            $envs{$env}{accesses}++;
-            $tracevars{$env} = int($result);
+            my $currvar = $tracevars{$env}{envid};
+            if(!$result) { $envs{$currvar}{failures}++; }
+            $envs{$currvar}{values}{$value}++;
+            $envs{$currvar}{accesses}++;
         }
 
         #20956   0.001037 fscheck->setenv("PYTHONPATH", "NONE", 1) = 0
@@ -583,21 +603,28 @@ foreach my $ltrace (@ltraces) {
             my $value = $+{value};
             my $result = $+{result};
 
-            if(not exists $envs{$env}{envid}) {
-                $envs{$env}{envid} = $envid;
-                $envs{$env}{name} = $env;
-                $envs{$env}{failures} = 0;
+            if(not exists $tracevars{$env}{envid}) {
+                $envs{$envid}{envid} = $envid;
+                $envs{$envid}{name} = $env;
+                $envs{$envid}{file} = $ltrace;
+                $envs{$envid}{failures} = 0;
+                $tracevars{$env}{envid} = $envid;
                 $envid++;
             }
-            if($result == -1) { $envs{$env}{failures}++; }
-            $envs{$env}{values}{$value}++;
-            $envs{$env}{accesses}++;
-            $tracevars{$env} = int($result);
+            my $currvar = $tracevars{$env}{envid}; 
+            if($result == -1) { $envs{$currvar}{failures}++; }
+            $envs{$currvar}{values}{$value}++;
+            $envs{$currvar}{accesses}++;
         }
     }
 
+    my $ruleid = -1;
+    if($ltrace =~ m/ltrace.(?<ruleid>\d+).debug/) {
+        $ruleid = $+{ruleid};
+    }
+
     foreach my $task (keys(%tasks)) {
-        if(($makeflow and index($tasks{$task}{command}, $cmd) != -1 and index($tasks{$task}{worker}{address}, $host) != -1) or
+        if(($makeflow and exists $tasks{$task}{rule}{ruleid} and ${tasks}{$task}{rule}{ruleid}== $ruleid) or
           (!$makeflow and index($tasks{$task}{command}, $cmd) != -1 and $ppid == $tasks{$task}{pid} and index($tasks{$task}{worker}{address}, $host) != -1)) {
             foreach my $f (keys(%tracefiles)) {
                 if(not exists $tasks{$task}{files}{$f}) {
@@ -606,9 +633,10 @@ foreach my $ltrace (@ltraces) {
                 }
             }
             foreach my $v (keys(%tracevars)) {
+                my $envid = $tracevars{$v}{envid};
                 if(not exists $tasks{$task}{envVars}{$v}) {
-                    $tasks{$task}{envVars}{$v} = $envs{$v}{envid};
-                    $envs{$v}{tasks}{$task} = $tasks{$task}{taskid};
+                    $tasks{$task}{envVars}{$v} = $envs{$envid}{envid};
+                    $envs{$envid}{tasks}{$task} = $tasks{$task}{taskid};
                 }
             }
         }
