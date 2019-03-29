@@ -23,7 +23,7 @@ function setup(question) {
     json.envVars.sort(sortBy("envid"))
     console.log('Node Service Listening ...')
   })
-  }
+}
 
 function sortBy(attribute){
   return function(a,b){
