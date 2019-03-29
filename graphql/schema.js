@@ -591,7 +591,7 @@ const EnvVarType = new GraphQLObjectType({
     },
     values: {
       type: new GraphQLList(GraphQLString),
-      resolve: (json, args, context) => {return objectResolve(json.values, args, context) }
+      resolve: (json, args, context) => {return objectResolver(json.values, args, context) }
     },
     accesses: {
       type: GraphQLInt,
