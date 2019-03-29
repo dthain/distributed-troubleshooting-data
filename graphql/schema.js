@@ -25,7 +25,7 @@ function compare(a, b, operator) {
 
 function objectResolver(json, args, context, type) {
 
-  console.log(json)
+  //console.log(json)
   //console.log(args)
   //console.log(context)
   //console.log(type)
@@ -56,7 +56,7 @@ function objectResolver(json, args, context, type) {
   else if(args.gpus) { argument = args.gpus }
   else if(args.category) { argument = args.category }
   else if(args.pid) { argument = args.pid }
-  else if(args.status) { argument = args.status }
+  else if(args.state) { argument = args.state }
 
   //Set conditional operator
   if(!args.conditional) { conditional = "==" }
@@ -232,10 +232,12 @@ function objectResolver(json, args, context, type) {
         }
       }
     }
-    else if(args.status) {
+    else if(args.state) {
       for(var i = 0; i < json.length; i++) {
-        if(compare(json[i].status, argument, conditional)) {
+        if(compare(json[i].state, argument, conditional)) {
           if(type == 3) {
+            var test = String(json[i].state).concat(String(conditional)).concat(String(argument))
+            console.log(test)
             ids.push(json[i].ruleid)
           }
           else {
@@ -302,7 +304,7 @@ const MasterType = new GraphQLObjectType({
     },
     rules: {
       type: new GraphQLList(RuleType),
-      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -310,7 +312,7 @@ const MasterType = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -350,7 +352,7 @@ const WorkerType = new GraphQLObjectType({
     },
     rules: {
       type: new GraphQLList(RuleType),
-      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -358,7 +360,7 @@ const WorkerType = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -380,9 +382,9 @@ const RuleType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: (json, args) => json.ruleid
     },
-    status: {
+    state: {
       type: GraphQLInt,
-      resolve: json => json.status
+      resolve: json => json.state
     },
     retries: {
       type: GraphQLInt,
@@ -428,7 +430,7 @@ const RuleType = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -456,9 +458,9 @@ const TaskType = new GraphQLObjectType({
       type: GraphQLInt,
       resolve: (json, args) => json.taskid
     },
-    status: {
+    state: {
       type: GraphQLInt,
-      resolve: json => json.status
+      resolve: json => json.state
     },
     pid: {
       type: GraphQLInt,
@@ -504,7 +506,7 @@ const TaskType = new GraphQLObjectType({
     },
     rule: {
       type: new GraphQLList(RuleType),
-      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -569,7 +571,7 @@ const FileType = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -603,7 +605,7 @@ const EnvVarType = new GraphQLObjectType({
     },
     tasks: {
       type: new GraphQLList(TaskType),
-      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -628,7 +630,7 @@ module.exports = new GraphQLSchema({
       },
       rules: {
       type: new GraphQLList(RuleType),
-      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
@@ -636,7 +638,7 @@ module.exports = new GraphQLSchema({
       },
       tasks: {
         type: new GraphQLList(TaskType),
-        args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, status: { type: GraphQLInt },
+        args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
