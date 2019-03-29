@@ -145,24 +145,11 @@ my $fileid = 1;
 my $envid = 1;
 my $currtask = 1;
 my $currrule = 0;
-my $timestamp = -1;
 my $makeflow = 0;
 my $prevline = 0;
 
 open(INPUT, $in) or die "Could not open file $in for reading.\n";
 while(my $line = <INPUT>) {
-    if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/) {
-        $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
-        $timestamp = $timestamp->epoch();
-        if($first) {
-            $first = 0;
-            $master{start} = int($timestamp);
-        }
-        else {
-            $master{end} = int($timestamp);
-        }
-    }
-
     #Work Queue Master Debug Output
 
     #wq: Master advertising as disc01.crc.nd.edu:9000
@@ -201,12 +188,10 @@ while(my $line = <INPUT>) {
             $workerid++;
             $workers{$address}{address} = $address;
             $workers{$address}{master} = $master{address};
-            $workers{$address}{start} = int($timestamp);
             $workers{$address}{rules} = {};
             $workers{$address}{tasks} = {};
             $workers{$address}{files} = {};
         }
-        $workers{$address}{end} = int($timestamp);
         $workers{$address}{tasks}{$+{taskid}} = int($+{taskid});
 
         my $wid = $workers{$address}{workerid};
@@ -398,6 +383,7 @@ while(my $line = <INPUT>) {
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> failed/) {
         $rules{$+{ruleid}}{status} = 4;
         $rules{$+{ruleid}}{failures}++;
+        print(STDERR "Rule $+{ruleid} failed.\n");
         $master{failures}++;
     }
 
@@ -445,12 +431,6 @@ foreach my $debug (@debugs) {
     my $port;
     open(DEBUG, $debug);
     while(my $line = <DEBUG>) {
-        if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/ and $currworker) {
-            $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
-            $timestamp = $timestamp->epoch();
-            $workers{$currworker}{end} = int($timestamp);
-        }
-
         #wq: connected to master 10.32.74.140:9000 via local address 10.32.74.164:36500
         if($line =~ m/wq: connected to master \S+ via local address \S+:(?<port>\d+)/) {
             $port = $+{port};
@@ -567,7 +547,6 @@ foreach my $ltrace (@ltraces) {
                 $files{$fname}{name} = $fname;
                 $files{$fname}{workers} = {};
                 $files{$fname}{failures} = 0;
-                $files{$fname}{firstAccess} = int($timestamp);
                 $fileid++;
             }
             if(!$result) { $files{$fname}{failures}++; }
