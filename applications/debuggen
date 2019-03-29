@@ -76,7 +76,7 @@ my %workers;
 my %rules;
 #Rule has the following attributes:
 #ruleid
-#status
+#state
 #failures
 #retries
 #category
@@ -95,7 +95,7 @@ my %rules;
 my %tasks;
 #Task has the following attributes:
 #taskid
-#status
+#state
 #failures
 #command
 #pid
@@ -171,7 +171,7 @@ while(my $line = <INPUT>) {
         $tasks{$+{taskid}}{inputs} = {};
         $tasks{$+{taskid}}{outputs} = {};
         $tasks{$+{taskid}}{envVars} = {};
-        $tasks{$+{taskid}}{status} = 1;
+        $tasks{$+{taskid}}{state} = 1;
         $master{tasks}{$+{taskid}} = int($+{taskid});
 
         next;
@@ -319,25 +319,25 @@ while(my $line = <INPUT>) {
 
     #wq: Task 1 state change: WAITING (1) to RUNNING (2)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: WAITING \(1\) to RUNNING \(2\)/) {
-        $tasks{$+{taskid}}{status} = 2;
+        $tasks{$+{taskid}}{state} = 2;
         next;
     }
 
     #wq: Task 1 state change: RUNNING (2) to WAITING_RETRIEVAL (3)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: RUNNING \(2\) to WAITING_RETRIEVAL \(3\)/) {
-        $tasks{$+{taskid}}{status} = 3;
+        $tasks{$+{taskid}}{state} = 3;
         next;
     }
 
     #wq: Task 1 state change: WAITING_RETRIEVAL (3) to RETRIEVED (4)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: WAITING_RETRIEVAL \(3\) to RETRIEVED \(4\)/) {
-        $tasks{$+{taskid}}{status} = 4;
+        $tasks{$+{taskid}}{state} = 4;
         next;
     }
 
     #wq: Task 1 state change: RETRIEVED (4) to DONE (5)
     elsif($line =~ m/wq: Task (?<taskid>\d+) state change: RETRIEVED \(4\) to DONE \(5\)/) {
-        $tasks{$+{taskid}}{status} = 5;
+        $tasks{$+{taskid}}{state} = 5;
         next;
     }
 
@@ -357,7 +357,7 @@ while(my $line = <INPUT>) {
             $rules{$+{ruleid}}{failures} = 0;
             $rules{$+{ruleid}}{retries} = 0;
         }
-        $rules{$+{ruleid}}{status} = 2;
+        $rules{$+{ruleid}}{state} = 2;
     }
 
     #batch: set option `task-id' to `1'
@@ -376,21 +376,20 @@ while(my $line = <INPUT>) {
    
     #makeflow: node 0 running -> complete
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> complete/) {
-        $rules{$+{ruleid}}{status} = 3;
+        $rules{$+{ruleid}}{state} = 3;
     }
 
     #makeflow: node 0 running -> failed
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> failed/) {
-        $rules{$+{ruleid}}{status} = 4;
+        $rules{$+{ruleid}}{state} = 4;
         $rules{$+{ruleid}}{failures}++;
-        print(STDERR "Rule $+{ruleid} failed.\n");
         $master{failures}++;
     }
 
     #makeflow: node 3 failed -> waiting
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) failed -> waiting/) {
         $rules{$+{ruleid}}{retries}++;
-        $rules{$+{ruleid}}{status} = 1;
+        $rules{$+{ruleid}}{state} = 1;
         $tasks{$currtask}{rule}{ruleid} = int($+{ruleid}); 
     }
 

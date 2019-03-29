@@ -709,6 +709,7 @@
          "workerid" : 9
       }
    ],
+   "address" : "disc01.crc.nd.edu:9000",
    "rules" : [
       {
          "ruleid" : 0
@@ -872,10 +873,7 @@
       {
          "ruleid" : 9
       }
-   ],
-   "end" : 1553768461,
-   "address" : "disc01.crc.nd.edu:9000",
-   "start" : 1553768455
+   ]
 }
 ,
 
@@ -895,7 +893,9 @@
             "taskid" : 8
          }
       ],
+      "bandwidth" : 11.85,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 7,
       "files" : [
          {
             "fileid" : 2
@@ -955,6 +955,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc03.crc.nd.edu:52274",
       "rules" : [
          {
             "ruleid" : 17
@@ -968,12 +969,7 @@
          {
             "ruleid" : 7
          }
-      ],
-      "end" : 1553768461,
-      "bandwidth" : 11.85,
-      "workerid" : 7,
-      "address" : "disc03.crc.nd.edu:52274",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1014,7 +1010,9 @@
             "taskid" : 6
          }
       ],
+      "bandwidth" : 19.98,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 6,
       "files" : [
          {
             "fileid" : 2
@@ -1152,6 +1150,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc12.crc.nd.edu:35528",
       "rules" : [
          {
             "ruleid" : 12
@@ -1186,12 +1185,7 @@
          {
             "ruleid" : 6
          }
-      ],
-      "end" : 1553768461,
-      "bandwidth" : 19.98,
-      "workerid" : 6,
-      "address" : "disc12.crc.nd.edu:35528",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1217,7 +1211,9 @@
             "taskid" : 5
          }
       ],
+      "bandwidth" : 15.63,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -1307,6 +1303,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc06.crc.nd.edu:48072",
       "rules" : [
          {
             "ruleid" : 13
@@ -1329,12 +1326,7 @@
          {
             "ruleid" : 5
          }
-      ],
-      "end" : 1553768461,
-      "bandwidth" : 15.63,
-      "workerid" : 5,
-      "address" : "disc06.crc.nd.edu:48072",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1348,7 +1340,9 @@
             "taskid" : 3
          }
       ],
+      "bandwidth" : 9.58,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 3,
       "files" : [
          {
             "fileid" : 2
@@ -1396,6 +1390,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc22.crc.nd.edu:60200",
       "rules" : [
          {
             "ruleid" : 22
@@ -1406,12 +1401,7 @@
          {
             "ruleid" : 9
          }
-      ],
-      "end" : 1553768460,
-      "bandwidth" : 9.58,
-      "workerid" : 3,
-      "address" : "disc22.crc.nd.edu:60200",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1425,7 +1415,9 @@
             "taskid" : 37
          }
       ],
+      "bandwidth" : 30.94,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 9,
       "files" : [
          {
             "fileid" : 2
@@ -1470,6 +1462,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc22.crc.nd.edu:60204",
       "rules" : [
          {
             "ruleid" : 0
@@ -1480,12 +1473,7 @@
          {
             "ruleid" : 35
          }
-      ],
-      "end" : 1553768460,
-      "bandwidth" : 30.94,
-      "workerid" : 9,
-      "address" : "disc22.crc.nd.edu:60204",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1502,7 +1490,9 @@
             "taskid" : 9
          }
       ],
+      "bandwidth" : 9.16,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 8,
       "files" : [
          {
             "fileid" : 2
@@ -1562,6 +1552,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc13.crc.nd.edu:46170",
       "rules" : [
          {
             "ruleid" : 16
@@ -1575,12 +1566,7 @@
          {
             "ruleid" : 40
          }
-      ],
-      "end" : 1553768461,
-      "bandwidth" : 9.16,
-      "workerid" : 8,
-      "address" : "disc13.crc.nd.edu:46170",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1600,7 +1586,9 @@
             "taskid" : 40
          }
       ],
+      "bandwidth" : 11.84,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 4,
       "files" : [
          {
             "fileid" : 2
@@ -1684,6 +1672,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc03.crc.nd.edu:52270",
       "rules" : [
          {
             "ruleid" : 15
@@ -1700,12 +1689,7 @@
          {
             "ruleid" : 44
          }
-      ],
-      "end" : 1553768460,
-      "bandwidth" : 11.84,
-      "workerid" : 4,
-      "address" : "disc03.crc.nd.edu:52270",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1725,7 +1709,9 @@
             "taskid" : 45
          }
       ],
+      "bandwidth" : 8.41,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 10,
       "files" : [
          {
             "fileid" : 2
@@ -1824,6 +1810,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "cclvm06.virtual.crc.nd.edu:46624",
       "rules" : [
          {
             "ruleid" : 11
@@ -1840,12 +1827,7 @@
          {
             "ruleid" : 38
          }
-      ],
-      "end" : 1553768461,
-      "bandwidth" : 8.41,
-      "workerid" : 10,
-      "address" : "cclvm06.virtual.crc.nd.edu:46624",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -1880,7 +1862,9 @@
             "taskid" : 7
          }
       ],
+      "bandwidth" : 17.68,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 1,
       "files" : [
          {
             "fileid" : 2
@@ -1997,6 +1981,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc07.crc.nd.edu:57028",
       "rules" : [
          {
             "ruleid" : 1
@@ -2025,12 +2010,7 @@
          {
             "ruleid" : 8
          }
-      ],
-      "end" : 1553768461,
-      "bandwidth" : 17.68,
-      "workerid" : 1,
-      "address" : "disc07.crc.nd.edu:57028",
-      "start" : 1553768460
+      ]
    },
    {
       "tasks" : [
@@ -2044,7 +2024,9 @@
             "taskid" : 28
          }
       ],
+      "bandwidth" : 8.61,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 2,
       "files" : [
          {
             "fileid" : 2
@@ -2092,6 +2074,7 @@
             "fileid" : 5
          }
       ],
+      "address" : "disc13.crc.nd.edu:46166",
       "rules" : [
          {
             "ruleid" : 10
@@ -2102,12 +2085,7 @@
          {
             "ruleid" : 29
          }
-      ],
-      "end" : 1553768460,
-      "bandwidth" : 8.61,
-      "workerid" : 2,
-      "address" : "disc13.crc.nd.edu:46166",
-      "start" : 1553768460
+      ]
    }
 ]
 ,
@@ -2140,7 +2118,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -2160,6 +2137,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2190,7 +2168,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -2210,6 +2187,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2240,7 +2218,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 4
@@ -2260,6 +2237,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2290,7 +2268,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 7
@@ -2310,6 +2287,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2340,7 +2318,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 7
@@ -2360,6 +2337,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2390,7 +2368,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 10
@@ -2410,6 +2387,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2440,7 +2418,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 7
@@ -2460,6 +2437,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2490,7 +2468,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -2510,6 +2487,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2540,7 +2518,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -2560,6 +2537,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2590,7 +2568,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 3
@@ -2610,6 +2587,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -2640,7 +2618,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 8
@@ -2660,6 +2637,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2690,7 +2668,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 4
@@ -2728,6 +2705,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2758,7 +2736,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -2778,6 +2755,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2808,7 +2786,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 10
@@ -2828,6 +2805,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2858,7 +2836,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -2878,6 +2855,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2908,7 +2886,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 8
@@ -2928,6 +2905,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -2958,7 +2936,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -2978,6 +2955,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3008,7 +2986,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 9
@@ -3028,6 +3005,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3058,7 +3036,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -3078,6 +3055,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3108,7 +3086,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -3128,6 +3105,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3158,7 +3136,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 2
@@ -3178,6 +3155,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3208,7 +3186,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 4
@@ -3228,6 +3205,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3258,7 +3236,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 9
@@ -3278,6 +3255,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3308,7 +3286,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 10
@@ -3328,6 +3305,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3358,7 +3336,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 4,
       "workers" : [
          {
             "workerid" : 6
@@ -3378,6 +3355,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 4,
       "memory" : 412,
       "category" : "default"
    },
@@ -3408,7 +3386,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -3437,6 +3414,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3467,7 +3445,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 3
@@ -3487,6 +3464,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3517,7 +3495,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -3537,6 +3514,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3567,7 +3545,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 9
@@ -3587,6 +3564,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3617,7 +3595,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -3637,6 +3614,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3667,7 +3645,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -3687,6 +3664,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3717,7 +3695,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 2
@@ -3737,6 +3714,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3767,7 +3745,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 2
@@ -3787,6 +3764,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3817,7 +3795,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -3837,6 +3814,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3867,7 +3845,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -3893,6 +3870,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -3923,7 +3901,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 7
@@ -3943,6 +3920,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -3973,7 +3951,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 8
@@ -3993,6 +3970,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4023,7 +4001,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 8
@@ -4043,6 +4020,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4073,7 +4051,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -4096,6 +4073,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4126,7 +4104,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 3
@@ -4146,6 +4123,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -4176,7 +4154,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -4196,6 +4173,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4226,7 +4204,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -4246,6 +4223,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4276,7 +4254,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -4296,6 +4273,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4326,7 +4304,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 4
@@ -4346,6 +4323,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4376,7 +4354,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 4,
       "workers" : [
          {
             "workerid" : 1
@@ -4396,6 +4373,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 4,
       "memory" : 15897,
       "category" : "default"
    },
@@ -4426,7 +4404,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 10
@@ -4446,6 +4423,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4476,7 +4454,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -4496,6 +4473,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -4526,7 +4504,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 4
@@ -4546,6 +4523,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4576,7 +4554,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -4596,6 +4573,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4626,7 +4604,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -4646,6 +4623,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4676,7 +4654,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 10
@@ -4732,6 +4709,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4762,7 +4740,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 1
@@ -4782,6 +4759,7 @@
       ],
       "gpus" : 0,
       "cores" : 4,
+      "state" : 3,
       "memory" : 15897,
       "category" : "default"
    },
@@ -4812,7 +4790,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 6
@@ -4832,6 +4809,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    },
@@ -4862,7 +4840,6 @@
          }
       ],
       "master" : "disc01.crc.nd.edu:9000",
-      "status" : 3,
       "workers" : [
          {
             "workerid" : 5
@@ -4882,6 +4859,7 @@
       ],
       "gpus" : 0,
       "cores" : 1,
+      "state" : 3,
       "memory" : 412,
       "category" : "default"
    }
@@ -4908,7 +4886,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 29
@@ -4918,6 +4895,7 @@
       "rule" : {
          "ruleid" : 32
       },
+      "state" : 5,
       "pid" : 31517,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.17.dat > out.32.dat",
@@ -4965,7 +4943,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 26
@@ -4975,6 +4952,7 @@
       "rule" : {
          "ruleid" : 31
       },
+      "state" : 5,
       "pid" : 10680,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.18.dat > out.31.dat",
@@ -5022,7 +5000,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5032,6 +5009,7 @@
       "rule" : {
          "ruleid" : 4
       },
+      "state" : 5,
       "pid" : 10540,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.4.dat",
@@ -5079,7 +5057,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5089,6 +5066,7 @@
       "rule" : {
          "ruleid" : 18
       },
+      "state" : 5,
       "pid" : 31312,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.18.dat",
@@ -5136,7 +5114,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 8
@@ -5146,6 +5123,7 @@
       "rule" : {
          "ruleid" : 25
       },
+      "state" : 5,
       "pid" : 23670,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.24.dat > out.25.dat",
@@ -5193,7 +5171,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5203,6 +5180,7 @@
       "rule" : {
          "ruleid" : 8
       },
+      "state" : 5,
       "pid" : 31380,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.8.dat",
@@ -5250,7 +5228,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5260,6 +5237,7 @@
       "rule" : {
          "ruleid" : 23
       },
+      "state" : 5,
       "pid" : 30604,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.23.dat",
@@ -5307,7 +5285,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5317,6 +5294,7 @@
       "rule" : {
          "ruleid" : 24
       },
+      "state" : 5,
       "pid" : 31242,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.24.dat",
@@ -5364,7 +5342,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5374,6 +5351,7 @@
       "rule" : {
          "ruleid" : 7
       },
+      "state" : 5,
       "pid" : 10519,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.7.dat",
@@ -5421,7 +5399,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 11
@@ -5431,6 +5408,7 @@
       "rule" : {
          "ruleid" : 26
       },
+      "state" : 5,
       "pid" : 10655,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.23.dat > out.26.dat",
@@ -5478,7 +5456,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5488,6 +5465,7 @@
       "rule" : {
          "ruleid" : 9
       },
+      "state" : 5,
       "pid" : 24023,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.9.dat",
@@ -5535,7 +5513,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 122
@@ -5545,6 +5522,7 @@
       "rule" : {
          "ruleid" : 46
       },
+      "state" : 5,
       "pid" : 31654,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.43.dat > out.46.dat",
@@ -5592,10 +5570,10 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 55,
       "rule" : {},
+      "state" : 5,
       "pid" : 24215,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim spec.config > out.53.dat",
@@ -5639,7 +5617,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 17
@@ -5649,6 +5626,7 @@
       "rule" : {
          "ruleid" : 28
       },
+      "state" : 5,
       "pid" : 6368,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.21.dat > out.28.dat",
@@ -5696,7 +5674,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5706,6 +5683,7 @@
       "rule" : {
          "ruleid" : 0
       },
+      "state" : 5,
       "pid" : 24119,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.0.dat",
@@ -5753,7 +5731,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 20
@@ -5763,6 +5740,7 @@
       "rule" : {
          "ruleid" : 29
       },
+      "state" : 5,
       "pid" : 30851,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.20.dat > out.29.dat",
@@ -5810,7 +5788,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 101
@@ -5820,6 +5797,7 @@
       "rule" : {
          "ruleid" : 44
       },
+      "state" : 5,
       "pid" : 10800,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.31.dat out.30.dat out.29.dat out.28.dat out.27.dat out.26.dat out.25.dat > out.44.dat",
@@ -5885,7 +5863,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5895,6 +5872,7 @@
       "rule" : {
          "ruleid" : 5
       },
+      "state" : 5,
       "pid" : 6296,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.5.dat",
@@ -5942,7 +5920,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -5952,6 +5929,7 @@
       "rule" : {
          "ruleid" : 11
       },
+      "state" : 5,
       "pid" : 16555,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.11.dat",
@@ -5999,7 +5977,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 146
@@ -6009,6 +5986,7 @@
       "rule" : {
          "ruleid" : 50
       },
+      "state" : 5,
       "pid" : 23942,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.47.dat out.46.dat out.45.dat > out.50.dat",
@@ -6062,7 +6040,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6072,6 +6049,7 @@
       "rule" : {
          "ruleid" : 1
       },
+      "state" : 5,
       "pid" : 31449,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.1.dat",
@@ -6119,7 +6097,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6129,6 +6106,7 @@
       "rule" : {
          "ruleid" : 15
       },
+      "state" : 5,
       "pid" : 10396,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.15.dat",
@@ -6176,7 +6154,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 14
@@ -6186,6 +6163,7 @@
       "rule" : {
          "ruleid" : 27
       },
+      "state" : 5,
       "pid" : 16631,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.22.dat > out.27.dat",
@@ -6233,7 +6211,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 35
@@ -6243,6 +6220,7 @@
       "rule" : {
          "ruleid" : 34
       },
+      "state" : 5,
       "pid" : 23738,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.15.dat > out.34.dat",
@@ -6290,7 +6268,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6300,6 +6277,7 @@
       "rule" : {
          "ruleid" : 14
       },
+      "state" : 5,
       "pid" : 23981,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.14.dat",
@@ -6347,7 +6325,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 162
@@ -6357,6 +6334,7 @@
       "rule" : {
          "ruleid" : 53
       },
+      "state" : 5,
       "pid" : 24147,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim spec.config > out.53.dat",
@@ -6404,7 +6382,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 125
@@ -6414,6 +6391,7 @@
       "rule" : {
          "ruleid" : 45
       },
+      "state" : 5,
       "pid" : 6589,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.44.dat > out.45.dat",
@@ -6461,7 +6439,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 113
@@ -6471,6 +6448,7 @@
       "rule" : {
          "ruleid" : 42
       },
+      "state" : 5,
       "pid" : 6511,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.33.dat > out.42.dat",
@@ -6518,7 +6496,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6528,6 +6505,7 @@
       "rule" : {
          "ruleid" : 3
       },
+      "state" : 5,
       "pid" : 30792,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.3.dat",
@@ -6575,7 +6553,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 116
@@ -6585,6 +6562,7 @@
       "rule" : {
          "ruleid" : 40
       },
+      "state" : 5,
       "pid" : 31017,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.35.dat > out.40.dat",
@@ -6632,7 +6610,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6642,6 +6619,7 @@
       "rule" : {
          "ruleid" : 12
       },
+      "state" : 5,
       "pid" : 23534,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.12.dat",
@@ -6689,7 +6667,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6699,6 +6676,7 @@
       "rule" : {
          "ruleid" : 2
       },
+      "state" : 5,
       "pid" : 16593,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.2.dat",
@@ -6746,7 +6724,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 23
@@ -6756,6 +6733,7 @@
       "rule" : {
          "ruleid" : 30
       },
+      "state" : 5,
       "pid" : 24156,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.19.dat > out.30.dat",
@@ -6803,7 +6781,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -6813,6 +6790,7 @@
       "rule" : {
          "ruleid" : 19
       },
+      "state" : 5,
       "pid" : 23466,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.19.dat",
@@ -6860,7 +6838,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 128
@@ -6870,6 +6847,7 @@
       "rule" : {
          "ruleid" : 48
       },
+      "state" : 5,
       "pid" : 31722,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.41.dat out.40.dat out.39.dat out.38.dat > out.48.dat",
@@ -6926,7 +6904,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 104
@@ -6936,6 +6913,7 @@
       "rule" : {
          "ruleid" : 43
       },
+      "state" : 5,
       "pid" : 31586,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.32.dat > out.43.dat",
@@ -6983,7 +6961,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 32
@@ -6993,6 +6970,7 @@
       "rule" : {
          "ruleid" : 33
       },
+      "state" : 5,
       "pid" : 6442,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.16.dat > out.33.dat",
@@ -7040,7 +7018,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7050,6 +7027,7 @@
       "rule" : {
          "ruleid" : 22
       },
+      "state" : 5,
       "pid" : 23922,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.22.dat",
@@ -7097,7 +7075,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 155
@@ -7107,6 +7084,7 @@
       "rule" : {
          "ruleid" : 49
       },
+      "state" : 5,
       "pid" : 24011,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.48.dat > out.49.dat",
@@ -7154,7 +7132,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7164,6 +7141,7 @@
       "rule" : {
          "ruleid" : 16
       },
+      "state" : 5,
       "pid" : 30657,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.16.dat",
@@ -7211,7 +7189,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 110
@@ -7221,6 +7198,7 @@
       "rule" : {
          "ruleid" : 41
       },
+      "state" : 5,
       "pid" : 23806,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.34.dat > out.41.dat",
@@ -7268,7 +7246,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7278,6 +7255,7 @@
       "rule" : {
          "ruleid" : 13
       },
+      "state" : 5,
       "pid" : 6226,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.13.dat",
@@ -7325,7 +7303,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 131
@@ -7335,6 +7312,7 @@
       "rule" : {
          "ruleid" : 47
       },
+      "state" : 5,
       "pid" : 23874,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.42.dat > out.47.dat",
@@ -7382,7 +7360,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7392,6 +7369,7 @@
       "rule" : {
          "ruleid" : 10
       },
+      "state" : 5,
       "pid" : 30710,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.10.dat",
@@ -7439,12 +7417,12 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 52,
       "rule" : {
          "ruleid" : 51
       },
+      "state" : 5,
       "pid" : 24079,
       "category" : "default",
       "command" : "./ltrace-wrapper ./midpoint out.49.dat out.50.dat > spec.config",
@@ -7495,7 +7473,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 44
@@ -7505,6 +7482,7 @@
       "rule" : {
          "ruleid" : 37
       },
+      "state" : 5,
       "pid" : 16669,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.12.dat out.11.dat out.10.dat out.9.dat out.8.dat out.7.dat out.6.dat out.5.dat out.4.dat out.3.dat out.2.dat out.1.dat out.0.dat > out.37.dat",
@@ -7588,7 +7566,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7598,6 +7575,7 @@
       "rule" : {
          "ruleid" : 17
       },
+      "state" : 5,
       "pid" : 10377,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.17.dat",
@@ -7645,7 +7623,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7655,6 +7632,7 @@
       "rule" : {
          "ruleid" : 21
       },
+      "state" : 5,
       "pid" : 10311,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.21.dat",
@@ -7702,7 +7680,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 41
@@ -7712,6 +7689,7 @@
       "rule" : {
          "ruleid" : 36
       },
+      "state" : 5,
       "pid" : 30926,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.13.dat > out.36.dat",
@@ -7759,10 +7737,10 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 56,
       "rule" : {},
+      "state" : 5,
       "pid" : 31861,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim spec.config > out.52.dat",
@@ -7806,7 +7784,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 119
@@ -7816,6 +7793,7 @@
       "rule" : {
          "ruleid" : 38
       },
+      "state" : 5,
       "pid" : 16707,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.37.dat > out.38.dat",
@@ -7863,7 +7841,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 38
@@ -7873,6 +7850,7 @@
       "rule" : {
          "ruleid" : 35
       },
+      "state" : 5,
       "pid" : 24256,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.14.dat > out.35.dat",
@@ -7920,7 +7898,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 107
@@ -7930,6 +7907,7 @@
       "rule" : {
          "ruleid" : 39
       },
+      "state" : 5,
       "pid" : 10845,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim out.36.dat > out.39.dat",
@@ -7977,7 +7955,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -7987,6 +7964,7 @@
       "rule" : {
          "ruleid" : 6
       },
+      "state" : 5,
       "pid" : 23602,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.6.dat",
@@ -8034,7 +8012,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 162
@@ -8044,6 +8021,7 @@
       "rule" : {
          "ruleid" : 52
       },
+      "state" : 5,
       "pid" : 31790,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim spec.config > out.52.dat",
@@ -8091,7 +8069,6 @@
             "fileid" : 5
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -8101,6 +8078,7 @@
       "rule" : {
          "ruleid" : 20
       },
+      "state" : 5,
       "pid" : 6154,
       "category" : "default",
       "command" : "./ltrace-wrapper ./sim in.dat > out.20.dat",

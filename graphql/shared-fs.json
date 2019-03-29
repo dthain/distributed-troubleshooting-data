@@ -1255,10 +1255,8 @@
          "workerid" : 9
       }
    ],
-   "rules" : [],
-   "end" : 1553766152,
    "address" : "disc01.crc.nd.edu:9000",
-   "start" : 1553766132
+   "rules" : []
 }
 ,
 
@@ -1302,7 +1300,9 @@
             "taskid" : 89
          }
       ],
+      "bandwidth" : 117.34,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 2,
       "files" : [
          {
             "fileid" : 2
@@ -1431,12 +1431,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766151,
-      "bandwidth" : 117.34,
-      "workerid" : 2,
       "address" : "disc03.crc.nd.edu:52124",
-      "start" : 1553766137
+      "rules" : []
    },
    {
       "failures" : 11,
@@ -1596,11 +1592,9 @@
          }
       ],
       "rules" : [],
-      "end" : 1553766152,
       "bandwidth" : 120.36,
       "workerid" : 9,
-      "address" : "camd02.crc.nd.edu:49682",
-      "start" : 1553766145
+      "address" : "camd02.crc.nd.edu:49682"
    },
    {
       "tasks" : [
@@ -1641,7 +1635,9 @@
             "taskid" : 99
          }
       ],
+      "bandwidth" : 121.18,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 3,
       "files" : [
          {
             "fileid" : 2
@@ -1770,12 +1766,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766152,
-      "bandwidth" : 121.18,
-      "workerid" : 3,
       "address" : "disc06.crc.nd.edu:47964",
-      "start" : 1553766138
+      "rules" : []
    },
    {
       "failures" : 10,
@@ -1923,11 +1915,9 @@
          }
       ],
       "rules" : [],
-      "end" : 1553766152,
       "bandwidth" : 120.03,
       "workerid" : 10,
-      "address" : "camd02.crc.nd.edu:49678",
-      "start" : 1553766147
+      "address" : "camd02.crc.nd.edu:49678"
    },
    {
       "tasks" : [
@@ -1968,7 +1958,9 @@
             "taskid" : 92
          }
       ],
+      "bandwidth" : 121.79,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 1,
       "files" : [
          {
             "fileid" : 2
@@ -2097,12 +2089,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766151,
-      "bandwidth" : 121.79,
-      "workerid" : 1,
       "address" : "disc03.crc.nd.edu:52122",
-      "start" : 1553766136
+      "rules" : []
    },
    {
       "tasks" : [
@@ -2131,7 +2119,9 @@
             "taskid" : 93
          }
       ],
+      "bandwidth" : 121.56,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 6,
       "files" : [
          {
             "fileid" : 2
@@ -2224,12 +2214,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766151,
-      "bandwidth" : 121.56,
-      "workerid" : 6,
       "address" : "disc10.crc.nd.edu:33188",
-      "start" : 1553766141
+      "rules" : []
    },
    {
       "tasks" : [
@@ -2252,7 +2238,9 @@
             "taskid" : 94
          }
       ],
+      "bandwidth" : 121.62,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 8,
       "files" : [
          {
             "fileid" : 2
@@ -2327,12 +2315,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766151,
-      "bandwidth" : 121.62,
-      "workerid" : 8,
       "address" : "disc22.crc.nd.edu:60092",
-      "start" : 1553766144
+      "rules" : []
    },
    {
       "tasks" : [
@@ -2367,7 +2351,9 @@
             "taskid" : 90
          }
       ],
+      "bandwidth" : 120.53,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 4,
       "files" : [
          {
             "fileid" : 2
@@ -2478,12 +2464,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766151,
-      "bandwidth" : 120.53,
-      "workerid" : 4,
       "address" : "disc12.crc.nd.edu:35388",
-      "start" : 1553766139
+      "rules" : []
    },
    {
       "tasks" : [
@@ -2512,7 +2494,9 @@
             "taskid" : 91
          }
       ],
+      "bandwidth" : 121.66,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 7,
       "files" : [
          {
             "fileid" : 2
@@ -2605,12 +2589,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766151,
-      "bandwidth" : 121.66,
-      "workerid" : 7,
       "address" : "disc07.crc.nd.edu:56922",
-      "start" : 1553766142
+      "rules" : []
    },
    {
       "tasks" : [
@@ -2648,7 +2628,9 @@
             "taskid" : 88
          }
       ],
+      "bandwidth" : 120.99,
       "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 5,
       "files" : [
          {
             "fileid" : 2
@@ -2768,12 +2750,8 @@
             "fileid" : 9
          }
       ],
-      "rules" : [],
-      "end" : 1553766152,
-      "bandwidth" : 120.99,
-      "workerid" : 5,
       "address" : "disc12.crc.nd.edu:35390",
-      "start" : 1553766140
+      "rules" : []
    }
 ]
 ,
@@ -2804,7 +2782,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -2818,6 +2795,7 @@
       ],
       "taskid" : 33,
       "rule" : {},
+      "state" : 5,
       "pid" : 626,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -2871,7 +2849,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -2885,6 +2862,7 @@
       ],
       "taskid" : 32,
       "rule" : {},
+      "state" : 5,
       "pid" : 29289,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -2938,7 +2916,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -2952,6 +2929,7 @@
       ],
       "taskid" : 90,
       "rule" : {},
+      "state" : 5,
       "pid" : 14316,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3005,7 +2983,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3019,6 +2996,7 @@
       ],
       "taskid" : 63,
       "rule" : {},
+      "state" : 5,
       "pid" : 29605,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3072,7 +3050,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3086,6 +3063,7 @@
       ],
       "taskid" : 21,
       "rule" : {},
+      "state" : 5,
       "pid" : 13341,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3139,10 +3117,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 71,
       "rule" : {},
+      "state" : 5,
       "pid" : 42227,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3193,7 +3171,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3207,6 +3184,7 @@
       ],
       "taskid" : 7,
       "rule" : {},
+      "state" : 5,
       "pid" : 32535,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3260,7 +3238,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3274,6 +3251,7 @@
       ],
       "taskid" : 80,
       "rule" : {},
+      "state" : 5,
       "pid" : 22506,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3327,7 +3305,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3341,6 +3318,7 @@
       ],
       "taskid" : 26,
       "rule" : {},
+      "state" : 5,
       "pid" : 13480,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3394,7 +3372,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3408,6 +3385,7 @@
       ],
       "taskid" : 99,
       "rule" : {},
+      "state" : 5,
       "pid" : 29814,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3461,7 +3439,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3475,6 +3452,7 @@
       ],
       "taskid" : 18,
       "rule" : {},
+      "state" : 5,
       "pid" : 347,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3528,10 +3506,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 72,
       "rule" : {},
+      "state" : 5,
       "pid" : 42228,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3582,7 +3560,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3596,6 +3573,7 @@
       ],
       "taskid" : 16,
       "rule" : {},
+      "state" : 5,
       "pid" : 2673,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3649,7 +3627,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3663,6 +3640,7 @@
       ],
       "taskid" : 44,
       "rule" : {},
+      "state" : 5,
       "pid" : 22296,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3716,7 +3694,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3730,6 +3707,7 @@
       ],
       "taskid" : 55,
       "rule" : {},
+      "state" : 5,
       "pid" : 22366,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3783,10 +3761,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 84,
       "rule" : {},
+      "state" : 5,
       "pid" : 42501,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3837,10 +3815,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 74,
       "rule" : {},
+      "state" : 5,
       "pid" : 42364,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3891,7 +3869,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -3905,6 +3882,7 @@
       ],
       "taskid" : 27,
       "rule" : {},
+      "state" : 5,
       "pid" : 13481,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -3958,10 +3936,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 95,
       "rule" : {},
+      "state" : 5,
       "pid" : 42773,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4012,10 +3990,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 57,
       "rule" : {},
+      "state" : 5,
       "pid" : 41819,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4066,10 +4044,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 61,
       "rule" : {},
+      "state" : 5,
       "pid" : 42090,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4120,7 +4098,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4134,6 +4111,7 @@
       ],
       "taskid" : 20,
       "rule" : {},
+      "state" : 5,
       "pid" : 13340,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4187,7 +4165,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4201,6 +4178,7 @@
       ],
       "taskid" : 92,
       "rule" : {},
+      "state" : 5,
       "pid" : 1324,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4254,7 +4232,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4268,6 +4245,7 @@
       ],
       "taskid" : 89,
       "rule" : {},
+      "state" : 5,
       "pid" : 1323,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4321,7 +4299,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4335,6 +4312,7 @@
       ],
       "taskid" : 10,
       "rule" : {},
+      "state" : 5,
       "pid" : 13132,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4388,7 +4366,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4402,6 +4379,7 @@
       ],
       "taskid" : 31,
       "rule" : {},
+      "state" : 5,
       "pid" : 625,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4455,7 +4433,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4469,6 +4446,7 @@
       ],
       "taskid" : 35,
       "rule" : {},
+      "state" : 5,
       "pid" : 13620,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4522,7 +4500,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4536,6 +4513,7 @@
       ],
       "taskid" : 11,
       "rule" : {},
+      "state" : 5,
       "pid" : 32675,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4589,7 +4567,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4603,6 +4580,7 @@
       ],
       "taskid" : 91,
       "rule" : {},
+      "state" : 5,
       "pid" : 22580,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4656,7 +4634,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4670,6 +4647,7 @@
       ],
       "taskid" : 78,
       "rule" : {},
+      "state" : 5,
       "pid" : 14176,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4723,10 +4701,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 48,
       "rule" : {},
+      "state" : 5,
       "pid" : 41749,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4777,7 +4755,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4791,6 +4768,7 @@
       ],
       "taskid" : 87,
       "rule" : {},
+      "state" : 5,
       "pid" : 29744,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4844,7 +4822,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4858,6 +4835,7 @@
       ],
       "taskid" : 93,
       "rule" : {},
+      "state" : 5,
       "pid" : 3274,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4911,7 +4889,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4925,6 +4902,7 @@
       ],
       "taskid" : 77,
       "rule" : {},
+      "state" : 5,
       "pid" : 1185,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -4978,7 +4956,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -4992,6 +4969,7 @@
       ],
       "taskid" : 65,
       "rule" : {},
+      "state" : 5,
       "pid" : 1043,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5045,7 +5023,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5059,6 +5036,7 @@
       ],
       "taskid" : 29,
       "rule" : {},
+      "state" : 5,
       "pid" : 2747,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5112,7 +5090,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5126,6 +5103,7 @@
       ],
       "taskid" : 50,
       "rule" : {},
+      "state" : 5,
       "pid" : 903,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5179,7 +5157,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5193,6 +5170,7 @@
       ],
       "taskid" : 39,
       "rule" : {},
+      "state" : 5,
       "pid" : 29383,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5246,7 +5224,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5260,6 +5237,7 @@
       ],
       "taskid" : 64,
       "rule" : {},
+      "state" : 5,
       "pid" : 1042,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5313,10 +5291,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 97,
       "rule" : {},
+      "state" : 5,
       "pid" : 42910,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5367,7 +5345,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5381,6 +5358,7 @@
       ],
       "taskid" : 58,
       "rule" : {},
+      "state" : 5,
       "pid" : 17818,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5434,7 +5412,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5448,6 +5425,7 @@
       ],
       "taskid" : 41,
       "rule" : {},
+      "state" : 5,
       "pid" : 765,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5501,7 +5479,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5515,6 +5492,7 @@
       ],
       "taskid" : 12,
       "rule" : {},
+      "state" : 5,
       "pid" : 32676,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5568,7 +5546,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5582,6 +5559,7 @@
       ],
       "taskid" : 15,
       "rule" : {},
+      "state" : 5,
       "pid" : 13202,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5635,7 +5613,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5649,6 +5626,7 @@
       ],
       "taskid" : 81,
       "rule" : {},
+      "state" : 5,
       "pid" : 3203,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5702,7 +5680,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5716,6 +5693,7 @@
       ],
       "taskid" : 52,
       "rule" : {},
+      "state" : 5,
       "pid" : 13898,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5769,10 +5747,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 60,
       "rule" : {},
+      "state" : 5,
       "pid" : 41955,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5823,7 +5801,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5837,6 +5814,7 @@
       ],
       "taskid" : 56,
       "rule" : {},
+      "state" : 5,
       "pid" : 3064,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5890,10 +5868,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 73,
       "rule" : {},
+      "state" : 5,
       "pid" : 42363,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -5944,7 +5922,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -5958,6 +5935,7 @@
       ],
       "taskid" : 66,
       "rule" : {},
+      "state" : 5,
       "pid" : 14037,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6011,7 +5989,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6025,6 +6002,7 @@
       ],
       "taskid" : 45,
       "rule" : {},
+      "state" : 5,
       "pid" : 2968,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6078,10 +6056,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 86,
       "rule" : {},
+      "state" : 5,
       "pid" : 42638,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6132,7 +6110,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6146,6 +6123,7 @@
       ],
       "taskid" : 76,
       "rule" : {},
+      "state" : 5,
       "pid" : 1184,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6199,7 +6177,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6213,6 +6190,7 @@
       ],
       "taskid" : 19,
       "rule" : {},
+      "state" : 5,
       "pid" : 29149,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6266,10 +6244,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 62,
       "rule" : {},
+      "state" : 5,
       "pid" : 42091,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6320,10 +6298,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 54,
       "rule" : {},
+      "state" : 5,
       "pid" : 41818,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6374,7 +6352,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6388,6 +6365,7 @@
       ],
       "taskid" : 67,
       "rule" : {},
+      "state" : 5,
       "pid" : 14038,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6441,7 +6419,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6455,6 +6432,7 @@
       ],
       "taskid" : 70,
       "rule" : {},
+      "state" : 5,
       "pid" : 17889,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6508,7 +6486,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6522,6 +6499,7 @@
       ],
       "taskid" : 68,
       "rule" : {},
+      "state" : 5,
       "pid" : 22436,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6575,7 +6553,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6589,6 +6566,7 @@
       ],
       "taskid" : 17,
       "rule" : {},
+      "state" : 5,
       "pid" : 346,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6642,7 +6620,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6656,6 +6633,7 @@
       ],
       "taskid" : 2,
       "rule" : {},
+      "state" : 5,
       "pid" : 32326,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6709,7 +6687,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6723,6 +6700,7 @@
       ],
       "taskid" : 1,
       "rule" : {},
+      "state" : 5,
       "pid" : 32257,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6776,7 +6754,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6790,6 +6767,7 @@
       ],
       "taskid" : 88,
       "rule" : {},
+      "state" : 5,
       "pid" : 14315,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6843,7 +6821,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6857,6 +6834,7 @@
       ],
       "taskid" : 30,
       "rule" : {},
+      "state" : 5,
       "pid" : 17673,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6910,7 +6888,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6924,6 +6901,7 @@
       ],
       "taskid" : 100,
       "rule" : {},
+      "state" : 5,
       "pid" : 14454,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -6977,7 +6955,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -6991,6 +6968,7 @@
       ],
       "taskid" : 82,
       "rule" : {},
+      "state" : 5,
       "pid" : 18063,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7044,7 +7022,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7058,6 +7035,7 @@
       ],
       "taskid" : 25,
       "rule" : {},
+      "state" : 5,
       "pid" : 29219,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7111,7 +7089,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7125,6 +7102,7 @@
       ],
       "taskid" : 28,
       "rule" : {},
+      "state" : 5,
       "pid" : 22154,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7178,10 +7156,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 83,
       "rule" : {},
+      "state" : 5,
       "pid" : 42500,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7232,7 +7210,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7246,6 +7223,7 @@
       ],
       "taskid" : 75,
       "rule" : {},
+      "state" : 5,
       "pid" : 29674,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7299,7 +7277,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7313,6 +7290,7 @@
       ],
       "taskid" : 40,
       "rule" : {},
+      "state" : 5,
       "pid" : 764,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7366,7 +7344,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7380,6 +7357,7 @@
       ],
       "taskid" : 14,
       "rule" : {},
+      "state" : 5,
       "pid" : 13201,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7433,7 +7411,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7447,6 +7424,7 @@
       ],
       "taskid" : 69,
       "rule" : {},
+      "state" : 5,
       "pid" : 3134,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7500,10 +7478,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 59,
       "rule" : {},
+      "state" : 5,
       "pid" : 41954,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7554,7 +7532,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7568,6 +7545,7 @@
       ],
       "taskid" : 49,
       "rule" : {},
+      "state" : 5,
       "pid" : 29535,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7621,7 +7599,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7635,6 +7612,7 @@
       ],
       "taskid" : 24,
       "rule" : {},
+      "state" : 5,
       "pid" : 486,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7688,7 +7666,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7702,6 +7679,7 @@
       ],
       "taskid" : 53,
       "rule" : {},
+      "state" : 5,
       "pid" : 13899,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7755,7 +7733,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7769,6 +7746,7 @@
       ],
       "taskid" : 79,
       "rule" : {},
+      "state" : 5,
       "pid" : 14177,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7822,7 +7800,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7836,6 +7813,7 @@
       ],
       "taskid" : 22,
       "rule" : {},
+      "state" : 5,
       "pid" : 22085,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7889,7 +7867,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -7903,6 +7880,7 @@
       ],
       "taskid" : 42,
       "rule" : {},
+      "state" : 5,
       "pid" : 13758,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -7956,10 +7934,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 46,
       "rule" : {},
+      "state" : 5,
       "pid" : 41680,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8010,7 +7988,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8024,6 +8001,7 @@
       ],
       "taskid" : 23,
       "rule" : {},
+      "state" : 5,
       "pid" : 485,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8077,7 +8055,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8091,6 +8068,7 @@
       ],
       "taskid" : 13,
       "rule" : {},
+      "state" : 5,
       "pid" : 29079,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8144,10 +8122,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 96,
       "rule" : {},
+      "state" : 5,
       "pid" : 42774,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8198,7 +8176,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8212,6 +8189,7 @@
       ],
       "taskid" : 6,
       "rule" : {},
+      "state" : 5,
       "pid" : 13061,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8265,10 +8243,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 85,
       "rule" : {},
+      "state" : 5,
       "pid" : 42637,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8319,7 +8297,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8333,6 +8310,7 @@
       ],
       "taskid" : 3,
       "rule" : {},
+      "state" : 5,
       "pid" : 28939,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8386,7 +8364,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8400,6 +8377,7 @@
       ],
       "taskid" : 36,
       "rule" : {},
+      "state" : 5,
       "pid" : 22224,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8453,7 +8431,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8467,6 +8444,7 @@
       ],
       "taskid" : 94,
       "rule" : {},
+      "state" : 5,
       "pid" : 18132,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8520,7 +8498,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8534,6 +8511,7 @@
       ],
       "taskid" : 9,
       "rule" : {},
+      "state" : 5,
       "pid" : 29009,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8587,7 +8565,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8601,6 +8578,7 @@
       ],
       "taskid" : 51,
       "rule" : {},
+      "state" : 5,
       "pid" : 904,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8654,7 +8632,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8668,6 +8645,7 @@
       ],
       "taskid" : 47,
       "rule" : {},
+      "state" : 5,
       "pid" : 17747,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8721,7 +8699,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8735,6 +8712,7 @@
       ],
       "taskid" : 8,
       "rule" : {},
+      "state" : 5,
       "pid" : 32537,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8788,10 +8766,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 38,
       "rule" : {},
+      "state" : 5,
       "pid" : 41612,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8842,10 +8820,10 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [],
       "taskid" : 98,
       "rule" : {},
+      "state" : 5,
       "pid" : 42911,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8896,7 +8874,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8910,6 +8887,7 @@
       ],
       "taskid" : 4,
       "rule" : {},
+      "state" : 5,
       "pid" : 32396,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -8963,7 +8941,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -8977,6 +8954,7 @@
       ],
       "taskid" : 34,
       "rule" : {},
+      "state" : 5,
       "pid" : 13619,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -9030,7 +9008,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -9044,6 +9021,7 @@
       ],
       "taskid" : 37,
       "rule" : {},
+      "state" : 5,
       "pid" : 2817,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -9097,7 +9075,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -9111,6 +9088,7 @@
       ],
       "taskid" : 43,
       "rule" : {},
+      "state" : 5,
       "pid" : 13759,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
@@ -9164,7 +9142,6 @@
             "fileid" : 9
          }
       ],
-      "status" : 5,
       "files" : [
          {
             "fileid" : 307
@@ -9178,6 +9155,7 @@
       ],
       "taskid" : 5,
       "rule" : {},
+      "state" : 5,
       "pid" : 32457,
       "category" : "default",
       "command" : "./ltrace-wrapper ./fscheck && sleep 1",
