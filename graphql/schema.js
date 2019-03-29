@@ -25,7 +25,7 @@ function compare(a, b, operator) {
 
 function objectResolver(json, args, context, type) {
 
-  //console.log(json)
+  console.log(json)
   //console.log(args)
   //console.log(context)
   //console.log(type)
@@ -40,6 +40,9 @@ function objectResolver(json, args, context, type) {
   //Figure out what to resolve
   if(args.taskid) { argument = args.taskid }
   else if(args.ruleid) { argument = args.ruleid }
+  else if(args.workerid) { argument = args.workerid }
+  else if(args.fileid) { argument = args.fileid }
+  else if(args.envid) { argument = args.envid }
   else if(args.retries) { argument = args.retries }
   else if(args.failures) { argument = args.failures }
   else if(args.command) { argument = args.command }
@@ -50,7 +53,10 @@ function objectResolver(json, args, context, type) {
   else if(args.cores) { argument = args.cores }
   else if(args.memory) { argument = args.memory }
   else if(args.disk) { argument = args.disk }
+  else if(args.gpus) { argument = args.gpus }
   else if(args.category) { argument = args.category }
+  else if(args.pid) { argument = args.pid }
+  else if(args.status) { argument = args.status }
 
   //Set conditional operator
   if(!args.conditional) { conditional = "==" }
@@ -72,15 +78,31 @@ function objectResolver(json, args, context, type) {
         }
       }
     }
+    else if(args.workerid) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].workerid, argument, conditional)) {
+          ids.push(json[i].workerid)
+        }
+      }
+    }
+    else if(args.fileid) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].fileid, argument, conditional)) {
+          ids.push(json[i].fileid)
+        }
+      }
+    }
+    else if(args.envid) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].envid, argument, conditional)) {
+          ids.push(json[i].envid)
+        }
+      }
+    } 
     else if(args.retries) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].retries, argument, conditional)) {
-          if(type == 3) {
-            ids.push(json[i].ruleid)
-          }
-          else {
-            ids.push(json[i].taskid)
-          }
+          ids.push(json[i].ruleid)
         }
       }
     }
@@ -207,6 +229,25 @@ function objectResolver(json, args, context, type) {
           else {
             ids.push(json[i].taskid)
           }
+        }
+      }
+    }
+    else if(args.status) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].status, argument, conditional)) {
+          if(type == 3) {
+            ids.push(json[i].ruleid)
+          }
+          else {
+            ids.push(json[i].taskid)
+          }
+        }
+      }
+    }
+    else if(args.pid) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].pid, argument, conditional)) {
+            ids.push(json[i].taskid)
         }
       }
     }
@@ -550,7 +591,7 @@ const EnvVarType = new GraphQLObjectType({
     },
     values: {
       type: new GraphQLList(GraphQLString),
-      resolve: json => Object.keys(json.values)
+      resolve: (json, args, context) => {return objectResolve(json.values, args, context) }
     },
     accesses: {
       type: GraphQLInt,
