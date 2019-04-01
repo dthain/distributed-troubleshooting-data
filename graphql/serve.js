@@ -87,7 +87,7 @@ app.use('/graphql', graphqlHTTP( req => {
 
   const envVarLoader = new DataLoader(keys =>
     Promise.all(keys.map(fetchEnvVar)))
-
+ 
   return {
     schema,
     context: {
@@ -96,7 +96,8 @@ app.use('/graphql', graphqlHTTP( req => {
       ruleLoader,
       taskLoader,
       fileLoader,
-      envVarLoader
+      envVarLoader,
+      json
     },
     graphiql: true
   }
