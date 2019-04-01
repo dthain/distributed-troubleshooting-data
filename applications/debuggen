@@ -723,7 +723,7 @@ foreach my $ltrace (@ltraces) {
         if(($makeflow and exists $tasks{$task}{rule}{ruleid} and ${tasks}{$task}{rule}{ruleid}== $ruleid) or
           (!$makeflow and index($tasks{$task}{command}, $cmd) != -1 and $ppid == $tasks{$task}{pid} and index($tasks{$task}{worker}{address}, $host) != -1)) {
             
-            $tasks{$task}{process}{$ppid} = $procs{$ppid}{procid};
+            $tasks{$task}{process}{procid} = int($traceprocs{$ppid}{procid});
             
             foreach my $f (keys(%tracefiles)) {
                 if(not exists $tasks{$task}{files}{$f}) {
