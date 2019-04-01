@@ -184,6 +184,7 @@ while(my $line = <INPUT>) {
         $tasks{$+{taskid}}{inputs} = {};
         $tasks{$+{taskid}}{outputs} = {};
         $tasks{$+{taskid}}{envVars} = {};
+        $tasks{$+{taskid}}{process} = {};
         $tasks{$+{taskid}}{state} = 1;
         $master{tasks}{$+{taskid}} = int($+{taskid});
         next;
@@ -270,8 +271,10 @@ while(my $line = <INPUT>) {
             $files{$+{file}}{fileid} = int($fid);
             $files{$+{file}}{name} = $+{file};
             $files{$+{file}}{workers} = {};
+            $files{$+{file}}{processes} = {};
             $files{$+{file}}{master} = $master{address};
             $files{$+{file}}{accesses} = 1;
+            $files{$+{file}}{failures} = 0;
             $fileid++;
             $master{files}{$+{file}} = int($fid);
         }
@@ -304,7 +307,9 @@ while(my $line = <INPUT>) {
                 $files{$fname}{fileid} = int($fid);
                 $files{$fname}{name} = $fname;
                 $files{$fname}{accesses} = 1;
+                $files{$+{file}}{processes} = {};
                 $files{$fname}{master} = $master{address};
+                $files{$+{file}}{failures} = 0;
                 $fileid++;
                 $master{files}{$fname} = int($fid);
             }
@@ -435,6 +440,8 @@ while(my $line = <INPUT>) {
             $files{$+{file}}{fileid} = int($fid);
             $files{$+{file}}{name} = $+{file};
             $files{$+{file}}{accesses} = 1;
+            $files{$+{file}}{processes} = {};
+            $files{$+{file}}{workers} = {};
             $files{$+{file}}{master} = $master{address};
             $fileid++;
             $master{files}{$+{file}} = int($fid);
@@ -537,6 +544,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{procid} = int($procid);
                 $procs{$procid}{pid} = int($+{ppid});
                 $procs{$procid}{program} = "sh -c \"$+{cmd}\"";
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{ppid}}{procid} = int($procid);
                 $procid++;
             }
@@ -547,6 +556,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{program} = $+{cmd};
                 $procs{$procid}{ancestor} = int($traceprocs{$+{ppid}}{procid});
                 $procs{$procid}{descendants} = {};
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{pid}}{procid} = int($procid);
                 $procs{$traceprocs{$+{ppid}}{procid}}{descendants}{$+{pid}} = int($procid);
                 $procid++;
@@ -562,6 +573,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{pid} = int($+{pid});
                 $procs{$procid}{program} = $+{prog};
                 $procs{$procid}{descendants} = {};
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{pid}}{procid} = int($procid);
                 $procid++;
             }
@@ -576,6 +589,7 @@ foreach my $ltrace (@ltraces) {
             }
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $tracefiles{$+{file}}{result} = int($+{result});
+            $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }
 
@@ -587,6 +601,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{pid} = int($+{pid});
                 $procs{$procid}{program} = $+{prog};
                 $procs{$procid}{descendants} = {};
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{pid}}{procid} = int($procid);
                 $procid++;
             }
@@ -602,6 +618,7 @@ foreach my $ltrace (@ltraces) {
             $files{$+{file}}{result} = hex($+{result});
             $files{$+{file}}{accesses}++;
             $tracefiles{$+{file}} = hex($+{result});
+            $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }
 
@@ -616,6 +633,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{pid} = int($+{pid});
                 $procs{$procid}{program} = $+{prog};
                 $procs{$procid}{descendants} = {};
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{pid}}{procid} = int($procid);
                 $procid++;
             }
@@ -632,6 +651,7 @@ foreach my $ltrace (@ltraces) {
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $files{$+{file}}{accesses}++;
             $tracefiles{$+{file}} = int($result);
+            $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }
         
@@ -648,6 +668,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{pid} = int($+{pid});
                 $procs{$procid}{program} = $+{prog};
                 $procs{$procid}{descendants} = {};
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{pid}}{procid} = int($procid);
                 $procid++;
             }
@@ -666,6 +688,7 @@ foreach my $ltrace (@ltraces) {
             $envs{$currvar}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $envs{$currvar}{values}{$+{value}}++;
             $envs{$currvar}{accesses}++;
+            $procs{$traceprocs{$+{pid}}{procid}}{envVars}{$+{env}} = int($tracevars{$+{env}}{envid});
             next;
         }
 
@@ -677,6 +700,8 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{pid} = int($+{pid});
                 $procs{$procid}{program} = $+{prog};
                 $procs{$procid}{descendants} = {};
+                $procs{$procid}{files} = {};
+                $procs{$procid}{envVars} = {};
                 $traceprocs{$+{pid}}{procid} = int($procid);
                 $procid++;
             }
@@ -694,6 +719,7 @@ foreach my $ltrace (@ltraces) {
             my $currvar = $tracevars{$+{env}}{envid}; 
             if($+{result} == -1) { $envs{$currvar}{failures}++; }
             $envs{$currvar}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
+            $procs{$traceprocs{$+{pid}}{procid}}{envVars}{$+{env}} = int($tracevars{$+{env}}{envid});
             $envs{$currvar}{values}{$+{value}}++;
             $envs{$currvar}{accesses}++;
             next;
@@ -751,9 +777,9 @@ foreach my $ltrace (@ltraces) {
                 my $procid = $traceprocs{$p}{procid};
                 if($p != $ppid and $p != $pid) {
                     $procs{$procid}{ancestor} = int($ancestor);
-                    $procs{$pid}{descendants}{$procid} = int($procid);
+                    $procs{$ancestor}{descendants}{$procid} = int($procid);
                 }
-                $procs{$procid}{task} = int($tasks{$task}{taskid});
+                $procs{$procid}{task}{taskid} = int($tasks{$task}{taskid});
             }
         }
     }
@@ -852,7 +878,7 @@ sub hash_to_array {
         elsif($type == 4) { @attributes = ("file", "envVar", "input", "output"); }
         elsif($type == 5) { @attributes = ("rule", "task", "worker", "process"); }
         elsif($type == 6) { @attributes = ("task", "process"); }
-        else { @attributes = ("descendant"); }
+        else { @attributes = ("descendant", "file", "envVar"); }
 
         foreach my $k (sort(keys(%hash))) {
             if($type == 4) { delete($hash{$k}{worker}{address}); }
