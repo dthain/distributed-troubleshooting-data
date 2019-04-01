@@ -11,4 +11,6 @@ hostname=$(hostname -f)
 
 echo "Wrote an ltrace for command: \"$@\" with PID $$ from PPID $PPID on $hostname" >> ltrace.debug
 
+printenv >> ltrace.debug
+
 exit $result

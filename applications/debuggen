@@ -104,6 +104,7 @@ my %tasks;
 #gpus
 #memory
 #disk
+#process
 #master
 #worker
 #rule
@@ -122,6 +123,7 @@ my %files;
 #workers
 ##rules
 #tasks
+#processes
 
 my %envs;
 #Env has the following attributes:
@@ -131,6 +133,16 @@ my %envs;
 #accesses
 #failures
 #tasks
+#processes
+
+my %procs;
+#Proc has the following attributes:
+#procid
+#pid
+#ancestor
+#descendants
+#program
+#task
 
 my @debugs = <worker*debug>;
 my @failures = <makeflow.failed.*\/worker*debug>;
@@ -143,6 +155,7 @@ my $first = 1;
 my $workerid = 1;
 my $fileid = 1;
 my $envid = 1;
+my $procid = 1;
 my $currtask = 1;
 my $currrule = 0;
 my $makeflow = 0;
@@ -173,7 +186,22 @@ while(my $line = <INPUT>) {
         $tasks{$+{taskid}}{envVars} = {};
         $tasks{$+{taskid}}{state} = 1;
         $master{tasks}{$+{taskid}} = int($+{taskid});
+        next;
+    }
 
+    #wq: d12chas326.crc.nd.edu (10.32.84.159:37966) running CCTools version 8.0.0 on Linux (operating system) with architecture x86_64 is ready
+    elsif($line =~ m/wq: (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\) running/) {
+        my $address = $+{waddr} . ":" . $+{wport};
+        if(not exists $workers{$address}{workerid}) {
+            $master{workers}{$workerid} = int($workerid);
+            $workers{$address}{workerid} = int($workerid);
+            $workerid++;
+            $workers{$address}{address} = $address;
+            $workers{$address}{master} = $master{address};
+            $workers{$address}{rules} = {};
+            $workers{$address}{tasks} = {};
+            $workers{$address}{files} = {};
+        }
         next;
     }
 
@@ -297,10 +325,6 @@ while(my $line = <INPUT>) {
         next;
     }
 
-
-    #wq: tx to disc03.crc.nd.edu (10.32.74.144:52122): cmd 37
-
-
     #wq: rx from cclvm06.virtual.crc.nd.edu (129.74.246.126:45930): missing file-298-f52f56dfdf65074d38f151ee4c184dad-out.50.dat 2
     elsif($line =~ m/wq: rx from (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): missing file-/) {
         my $address = $+{waddr} . ":" . $+{wport};
@@ -372,11 +396,13 @@ while(my $line = <INPUT>) {
             $rules{$+{ruleid}}{failures} = 0;
             $rules{$+{ruleid}}{retries} = 0;
         }
+        next;
     }
    
     #makeflow: node 0 running -> complete
     elsif($line =~ m/makeflow: node (?<ruleid>\d+) running -> complete/) {
         $rules{$+{ruleid}}{state} = 3;
+        next;
     }
 
     #makeflow: node 0 running -> failed
@@ -384,6 +410,7 @@ while(my $line = <INPUT>) {
         $rules{$+{ruleid}}{state} = 4;
         $rules{$+{ruleid}}{failures}++;
         $master{failures}++;
+        next;
     }
 
     #makeflow: node 3 failed -> waiting
@@ -391,6 +418,7 @@ while(my $line = <INPUT>) {
         $rules{$+{ruleid}}{retries}++;
         $rules{$+{ruleid}}{state} = 1;
         $tasks{$currtask}{rule}{ruleid} = int($+{ruleid}); 
+        next;
     }
 
     #makeflow: Job 37 has returned.
@@ -488,6 +516,7 @@ foreach my $debug (@debugs) {
 foreach my $ltrace (@ltraces) {
     my %tracefiles;
     my %tracevars;
+    my %traceprocs;
     my %currenvs;
 
     my $cmd;
@@ -503,119 +532,228 @@ foreach my $ltrace (@ltraces) {
             $pid = $+{pid};
             $ppid = $+{ppid};
             $host = $+{host};
+
+            if(not exists $traceprocs{$+{ppid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{ppid});
+                $procs{$procid}{program} = "sh -c \"$+{cmd}\"";
+                $traceprocs{$+{ppid}}{procid} = int($procid);
+                $procid++;
+            }
+
+            if(not exists $traceprocs{$+{pid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{pid});
+                $procs{$procid}{program} = $+{cmd};
+                $procs{$procid}{ancestor} = int($traceprocs{$+{ppid}}{procid});
+                $procs{$procid}{descendants} = {};
+                $traceprocs{$+{pid}}{procid} = int($procid);
+                $procs{$traceprocs{$+{ppid}}{procid}}{descendants}{$+{pid}} = int($procid);
+                $procid++;
+            } 
+            next;
         }
 
         #16226   0.000550 fscheck->open("in.dat", 0, 00)  = 3
-        elsif($line =~ m/\S->open\d*\(\"(?<fname>\S+)\", \d+, \d+\)\s+=\s+(?<result>\S+)/) {
-            my $fname = $+{fname};
-            my $result = $+{result};
-            if(not exists $files{$fname}{fileid}) {
-                $files{$fname}{fileid} = $fileid;
-                $fileid++;
-                $files{$fname}{result} = int($result);
-                $files{$fname}{workers} = {};
-                $files{$fname}{accesses}++;
+        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->open\d*\(\"(?<file>\S+)\", \d+, \d+\)\s+=\s+(?<result>\S+)/) {
+            
+            if(not exists $traceprocs{$+{pid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{pid});
+                $procs{$procid}{program} = $+{prog};
+                $procs{$procid}{descendants} = {};
+                $traceprocs{$+{pid}}{procid} = int($procid);
+                $procid++;
             }
-            $tracefiles{$fname}{result} = int($result);
+            
+            if(not exists $files{$+{file}}{fileid}) {
+                $files{$+{file}}{fileid} = int($fileid);
+                $fileid++;
+                $files{$+{file}}{result} = int($+{result});
+                $files{$+{file}}{workers} = {};
+                $files{$+{file}}{processes} = {};
+                $files{$+{file}}{accesses}++;
+            }
+            $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
+            $tracefiles{$+{file}}{result} = int($+{result});
+            next;
         }
 
         #3111   0.000672 libpython2.7.so.1.0->fopen64("test.txt", "a+")  = 0x8b22a0
-        elsif($line =~ m/\S->fopen\d*\(\"(?<fname>\S+)\", \S+\)\s+=\s+(?<result>\S+)/) {
-            my $fname = $+{fname};
-            my $result = $+{result};
-            if(not exists $files{$fname}{fileid}) {
-                $files{$fname}{fileid} = $fileid;
-                $files{$fname}{name} = $fname;
-                $files{$fname}{workers} = {};
+        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->fopen\d*\(\"(?<file>\S+)\", \S+\)\s+=\s+(?<result>\S+)/) {
+            
+            if(not exists $traceprocs{$+{pid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{pid});
+                $procs{$procid}{program} = $+{prog};
+                $procs{$procid}{descendants} = {};
+                $traceprocs{$+{pid}}{procid} = int($procid);
+                $procid++;
+            }
+            
+            if(not exists $files{$+{file}}{fileid}) {
+                $files{$+{file}}{fileid} = int($fileid);
+                $files{$+{file}}{name} = $+{file};
+                $files{$+{file}}{workers} = {};
+                $files{$+{file}}{processes} = {};
                 $fileid++;
             }
-            $files{$fname}{result} = hex($result);
-            $files{$fname}{accesses}++;
-            $tracefiles{$fname} = hex($result);
+            $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
+            $files{$+{file}}{result} = hex($+{result});
+            $files{$+{file}}{accesses}++;
+            $tracefiles{$+{file}} = hex($+{result});
+            next;
         }
 
         #12396   0.000368 fscheck->__xstat(1, "/disk/", 0x7ffd931d20d0) = 0
-        elsif($line =~ m/\S->__xstat(\d+, \"(?<file>\S+)\", \S+)\s+=\s+(?<value>\S+)/) {
-            my $fname = $+{file};
-            my $value = $+{value};
+        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->__xstat(\d+, \"(?<file>\S+)\", \S+)\s+=\s+(?<value>\S+)/) {
             my $result = 1;
 
-            if($value == -1) { $result = 0; }
-            if(not exists $files{$fname}{fileid}) {
-                $files{$fname}{fileid} = $fileid;
-                $files{$fname}{name} = $fname;
-                $files{$fname}{workers} = {};
-                $files{$fname}{failures} = 0;
+            if($+{value} == -1) { $result = 0; }
+            
+            if(not exists $traceprocs{$+{pid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{pid});
+                $procs{$procid}{program} = $+{prog};
+                $procs{$procid}{descendants} = {};
+                $traceprocs{$+{pid}}{procid} = int($procid);
+                $procid++;
+            }
+            
+            if(not exists $files{$+{file}}{fileid}) {
+                $files{$+{file}}{fileid} = int($fileid);
+                $files{$+{file}}{name} = $+{file};
+                $files{$+{file}}{workers} = {};
+                $files{$+{file}}{processes} = {};
+                $files{$+{file}}{failures} = 0;
                 $fileid++;
             }
-            if(!$result) { $files{$fname}{failures}++; }
-            $files{$fname}{accesses}++;
-            $tracefiles{$fname} = int($result);
+            if(!$result) { $files{$+{file}}{failures}++; }
+            $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
+            $files{$+{file}}{accesses}++;
+            $tracefiles{$+{file}} = int($result);
+            next;
         }
         
         #8853   0.005074 fscheck->getenv("POSIXLY_CORRECT") = nil
-        elsif($line =~ m/\S->getenv\(\"(?<env>\S+)\"\)\s+=\s+\"?(?<value>[^\"]+)\"?/) {
-            my $env = $+{env};
+        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->getenv\(\"(?<env>\S+)\"\)\s+=\s+\"?(?<value>[^\"]+)\"?/) {
             my $value = $+{value};
             my $result = 1;
 
             $value =~ s/\n+$//g ;
             if($value eq "nil") { $result = 0; }
-            if(not exists $tracevars{$env}{envid}) {
-                $envs{$envid}{envid} = $envid;
-                $envs{$envid}{name} = $env;
+            
+            if(not exists $traceprocs{$+{pid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{pid});
+                $procs{$procid}{program} = $+{prog};
+                $procs{$procid}{descendants} = {};
+                $traceprocs{$+{pid}}{procid} = int($procid);
+                $procid++;
+            }
+            
+            if(not exists $tracevars{$+{env}}{envid}) {
+                $envs{$envid}{envid} = int($envid);
+                $envs{$envid}{name} = $+{env};
                 $envs{$envid}{file} = $ltrace;
+                $envs{$envid}{processes} = {};
                 $envs{$envid}{failures} = 0;
-                $tracevars{$env}{envid} = $envid;
+                $tracevars{$+{env}}{envid} = int($envid);
                 $envid++;
             }
-            my $currvar = $tracevars{$env}{envid};
+            my $currvar = $tracevars{$+{env}}{envid};
             if(!$result) { $envs{$currvar}{failures}++; }
-            $envs{$currvar}{values}{$value}++;
+            $envs{$currvar}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
+            $envs{$currvar}{values}{$+{value}}++;
             $envs{$currvar}{accesses}++;
+            next;
         }
 
         #20956   0.001037 fscheck->setenv("PYTHONPATH", "NONE", 1) = 0
-        elsif($line =~ m/\S->setenv\(\"(?<env>\S+)\", \"(?<value>.*)\", \d+\)\s+=\s+(?<result>\S+)/) {
-            my $env = $+{env};
-            my $value = $+{value};
-            my $result = $+{result};
+        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->setenv\(\"(?<env>\S+)\", \"(?<value>.*)\", \d+\)\s+=\s+(?<result>\S+)/) {
 
-            if(not exists $tracevars{$env}{envid}) {
-                $envs{$envid}{envid} = $envid;
-                $envs{$envid}{name} = $env;
+            if(not exists $traceprocs{$+{pid}}{procid}) {
+                $procs{$procid}{procid} = int($procid);
+                $procs{$procid}{pid} = int($+{pid});
+                $procs{$procid}{program} = $+{prog};
+                $procs{$procid}{descendants} = {};
+                $traceprocs{$+{pid}}{procid} = int($procid);
+                $procid++;
+            }
+
+            if(not exists $tracevars{$+{env}}{envid}) {
+                $envs{$envid}{envid} = int($envid);
+                $envs{$envid}{name} = $+{env};
                 $envs{$envid}{file} = $ltrace;
+                $envs{$envid}{processes} = {};
                 $envs{$envid}{failures} = 0;
-                $tracevars{$env}{envid} = $envid;
+                $tracevars{$+{env}}{envid} = int($envid);
                 $envid++;
             }
-            my $currvar = $tracevars{$env}{envid}; 
-            if($result == -1) { $envs{$currvar}{failures}++; }
-            $envs{$currvar}{values}{$value}++;
+
+            my $currvar = $tracevars{$+{env}}{envid}; 
+            if($+{result} == -1) { $envs{$currvar}{failures}++; }
+            $envs{$currvar}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
+            $envs{$currvar}{values}{$+{value}}++;
             $envs{$currvar}{accesses}++;
+            next;
+        }
+
+        #REMOTEHOST=129.74.154.71
+        elsif($line =~ m/(?<env>\S+)=(?<value>.*)/) {
+
+            if(not exists $tracevars{$+{env}}{envid}) {
+                $envs{$envid}{envid} = int($envid);
+                $envs{$envid}{name} = $+{env};
+                $envs{$envid}{file} = $ltrace;
+                $envs{$envid}{failures} = 0;
+                $tracevars{$+{env}}{envid} = int($envid);
+                $envid++;
+            }
+            my $currvar = $tracevars{$+{env}}{envid}; 
+            $envs{$currvar}{values}{$+{value}}++;
+            next;
         }
     }
 
     my $ruleid = -1;
-    if($ltrace =~ m/ltrace.(?<ruleid>\d+).debug/) {
-        $ruleid = $+{ruleid};
-    }
+    if($ltrace =~ m/ltrace.(?<ruleid>\d+).debug/) { $ruleid = $+{ruleid}; }
 
     foreach my $task (keys(%tasks)) {
         if(($makeflow and exists $tasks{$task}{rule}{ruleid} and ${tasks}{$task}{rule}{ruleid}== $ruleid) or
           (!$makeflow and index($tasks{$task}{command}, $cmd) != -1 and $ppid == $tasks{$task}{pid} and index($tasks{$task}{worker}{address}, $host) != -1)) {
+            
+            $tasks{$task}{process}{$ppid} = $procs{$ppid}{procid};
+            
             foreach my $f (keys(%tracefiles)) {
                 if(not exists $tasks{$task}{files}{$f}) {
-                    $tasks{$task}{files}{$f} = $files{$f}{fileid};
-                    $files{$f}{tasks}{$task} = $tasks{$task}{taskid};
+                    $tasks{$task}{files}{$f} = int($files{$f}{fileid});
+                    $files{$f}{tasks}{$task} = int($tasks{$task}{taskid});
                 }
+                if(!$files{$f}{proccesses}) {
+                    $files{$f}{processes}{$pid} = int($traceprocs{$pid}{procid});
+                }    
             }
+
             foreach my $v (keys(%tracevars)) {
                 my $envid = $tracevars{$v}{envid};
                 if(not exists $tasks{$task}{envVars}{$v}) {
-                    $tasks{$task}{envVars}{$v} = $envs{$envid}{envid};
-                    $envs{$envid}{tasks}{$task} = $tasks{$task}{taskid};
+                    $tasks{$task}{envVars}{$v} = int($envs{$envid}{envid});
+                    $envs{$envid}{tasks}{$task} = int($tasks{$task}{taskid});
                 }
+                if(!$envs{$envid}{proccesses}) {
+                    $envs{$envid}{processes}{$pid} = int($traceprocs{$pid}{procid});
+                }
+            }
+
+            my $ancestor = $traceprocs{$pid}{procid};
+            foreach my $p (keys(%traceprocs)) {
+                my $procid = $traceprocs{$p}{procid};
+                if($p != $ppid and $p != $pid) {
+                    $procs{$procid}{ancestor} = int($ancestor);
+                    $procs{$pid}{descendants}{$procid} = int($procid);
+                }
+                $procs{$procid}{task} = int($tasks{$task}{taskid});
             }
         }
     }
@@ -629,6 +767,7 @@ if(scalar(keys(%rules))) { %rules = hash_to_array(3, %rules); }
 if(scalar(keys(%tasks))) { %tasks = hash_to_array(4, %tasks); }
 if(scalar(keys(%files))) { %files = hash_to_array(5, %files); }
 if(scalar(keys(%envs))) { %envs = hash_to_array(6, %envs); }
+if(scalar(keys(%procs))) { %procs = hash_to_array(7, %procs); }
 
 if($out) {
     
@@ -655,6 +794,10 @@ if($out) {
     foreach my $e (keys(%envs)) {
         push(@envs_info, $envs{$e});
     }
+    my @procs_info;
+    foreach my $p (keys(%procs)) {
+        push(@procs_info, $procs{$p});
+    }
 
     my $master_string = JSON->new->pretty->encode(\%master);
     #my $master_string = JSON->new->encode(\%master);
@@ -673,7 +816,10 @@ if($out) {
     print(OUTPUT "\"files\": $files_string,\n\n");
     my $envs_string = JSON->new->pretty->encode(\@envs_info);
     #my $envs_string = JSON->new->encode(\@envs_info);
-    print(OUTPUT "\"envVars\": $envs_string\n\n");
+    print(OUTPUT "\"envVars\": $envs_string,\n\n");
+    my $procs_string = JSON->new->pretty->encode(\@procs_info);
+    #my $procs_string = JSON->new->encode(\@procs_info);
+    print(OUTPUT "\"processes\": $procs_string\n\n");
 
     print(OUTPUT "}");
     close(OUTPUT);
@@ -685,7 +831,7 @@ sub hash_to_array {
     my ($type, %hash) = @_;
     my @attributes;
 
-    #Types: 1 == Master, 2 == Worker, 3 == Rule, 4 == Task, 5 == File, 6 == Env. Var.
+    #Types: 1 == master, 2 == worker, 3 == rule, 4 == task, 5 == file, 6 == envVar, 7 == process
     if($type == 1) {
         @attributes = ("file", "rule", "task", "worker");
         foreach my $a (@attributes) {
@@ -704,19 +850,22 @@ sub hash_to_array {
         if($type == 2) { @attributes = ("file", "rule", "task"); }
         elsif($type == 3) { @attributes = ("file", "input", "output", "worker", "task"); }
         elsif($type == 4) { @attributes = ("file", "envVar", "input", "output"); }
-        elsif($type == 5) { @attributes = ("rule", "task", "worker"); }
-        else { @attributes = ("task"); }
+        elsif($type == 5) { @attributes = ("rule", "task", "worker", "process"); }
+        elsif($type == 6) { @attributes = ("task", "process"); }
+        else { @attributes = ("descendant"); }
 
         foreach my $k (sort(keys(%hash))) {
             if($type == 4) { delete($hash{$k}{worker}{address}); }
             foreach my $a (@attributes) {
                 my @array;
                 my $attr = $a . "s";
+                if($attr eq "processs") { $attr = "processes"; }
                 if(not exists $hash{$k}{$attr}) { next; }
                 foreach my $v (sort(keys($hash{$k}{$attr}))) {
                     my $index = $a . "id";
                     if($a eq "input" or $a eq "output") { $index = "fileid"; }
                     elsif($a eq "envVar") { $index = "envid"; }
+                    elsif($a eq "process" or $a eq "descendant") { $index = "procid"; }
                     my %obj;
                     $obj{$index} = $hash{$k}{$attr}{$v};
                     push(@array, \%obj);
