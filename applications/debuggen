@@ -139,9 +139,9 @@ my %procs;
 #Proc has the following attributes:
 #procid
 #pid
+#program
 #ancestor
 #descendants
-#program
 #task
 
 my @debugs = <worker*debug>;

@@ -592,6 +592,11 @@ const TaskType = new GraphQLObjectType({
         accesses: { type: GraphQLInt }, failures: { type: GraphQLInt}, name: { type: GraphQLString },
         conditional: { type: GraphQLString } },
       resolve: (json, args, context) => { return objectResolver(context.json, json.envVars, args, context.envVarLoader, 6) }
+    },
+    process: {
+      type: new GraphQLList(ProcType),
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
+      resolve: (json, args, context) => { return objectResolver(context.json, json.process, args, context.procLoader, 7) }
     }
   })
 })
@@ -632,6 +637,11 @@ const FileType = new GraphQLObjectType({
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
       resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+    },
+    processes: {
+      type: new GraphQLList(ProcType),
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
+      resolve: (json, args, context) => { return objectResolver(context.json, json.processes, args, context.procLoader, 7) }
     }
   })
 })
@@ -641,7 +651,7 @@ const EnvVarType = new GraphQLObjectType({
   fields: () => ({
     envid: {
       type: GraphQLInt,
-      resolve: json => envid
+      resolve: json => json.envid
     },
     name: {
       type: GraphQLString,
@@ -666,9 +676,51 @@ const EnvVarType = new GraphQLObjectType({
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
       resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+    },
+    processes: {
+      type: new GraphQLList(ProcType),
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
+      resolve: (json, args, context) => { return objectResolver(context.json, json.processes, args, context.procLoader, 7) }
     }
   })
 })
+
+const ProcType = new GraphQLObjectType({
+  name: 'Proc',
+  fields: () => ({
+    procid: {
+      type: GraphQLInt,
+      resolve: json => json.procid
+    },
+    pid: {
+      type: GraphQLInt,
+      resolve: json => json.pid
+    },
+    program: {
+      type: GraphQLString,
+      resolve: json => json.program
+    },
+    task: {
+      type: new GraphQLList(TaskType),
+      args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
+        cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
+        pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
+        failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
+      resolve: (json, args, context) => { return objectResolver(context.json, json.task, args, context.taskLoader, 4) }
+    },
+    ancestor: {
+      type: new GraphQLList(ProcType),
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
+      resolve: (json, args, context) => { return objectResolver(context.json, json.ancestor, args, context.procLoader, 7) }
+    },
+    descendants: {
+      type: new GraphQLList(ProcType),
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
+      resolve: (json, args, context) => { return objectResolver(context.json, json.descendants, args, context.procLoader, 7) }
+    }
+  })
+})
+
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({

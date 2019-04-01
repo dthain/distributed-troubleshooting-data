@@ -61,12 +61,17 @@ function getEnvVar(id) {
   return json.envVars[id - 1]
 }
 
+function getProc(id) {
+  return json.processes[id - 1]
+}
+
 const fetchMaster = id => getMaster()
 const fetchWorker = id => getWorker(`${id}`)
 const fetchRule = id => getRule(`${id}`)
 const fetchTask = id => getTask(`${id}`)
 const fetchFile = id => getFile(`${id}`)
 const fetchEnvVar = id => getEnvVar(`${id}`)
+const fetchProc = id => getProc(`${id}`)
 
 app.use('/graphql', graphqlHTTP( req => {
 
@@ -87,7 +92,11 @@ app.use('/graphql', graphqlHTTP( req => {
 
   const envVarLoader = new DataLoader(keys =>
     Promise.all(keys.map(fetchEnvVar)))
- 
+
+  const procLoader = new DataLoader(keys =>
+    Promise.all(keys.map(fetchProc)))
+
+
   return {
     schema,
     context: {
@@ -97,6 +106,7 @@ app.use('/graphql', graphqlHTTP( req => {
       taskLoader,
       fileLoader,
       envVarLoader,
+      procLoader,
       json
     },
     graphiql: true
