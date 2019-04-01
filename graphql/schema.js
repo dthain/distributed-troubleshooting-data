@@ -23,10 +23,17 @@ function compare(a, b, operator) {
   }
 }
 
-function preload(masterjson, json, context, type) {
+function preload(masterjson, json, type) {
   var preloaded = []
   
   if(type == 2) {
+    if(Object.keys(json).length == 1) {
+      for(var j = 0; j < masterjson.workers.length; j++) {
+        if(masterjson.workers[j].workerid == json.workerid) {
+          preloaded.push(masterjson.workers[j])
+        }
+      }
+    }
     for(var i = 0; i < json.length; i++) {
       for(var j = 0; j < masterjson.workers.length; j++) {
         if(masterjson.workers[j].workerid == json[i].workerid) {
@@ -36,7 +43,14 @@ function preload(masterjson, json, context, type) {
     }
   }
   
-  if(type == 3) {
+  else if(type == 3) {
+    if(Object.keys(json).length == 1) {
+      for(var j = 0; j < masterjson.rules.length; j++) {
+        if(masterjson.rules[j].ruleid == json.ruleid) {
+          preloaded.push(masterjson.rules[j])
+        }
+      }
+    }
     for(var i = 0; i < json.length; i++) {
       for(var j = 0; j < masterjson.rules.length; j++) {
         if(masterjson.rules[j].ruleid == json[i].ruleid) {
@@ -46,7 +60,14 @@ function preload(masterjson, json, context, type) {
     }
   }
 
-  if(type == 4) {
+  else if(type == 4) {
+    if(Object.keys(json).length == 1) {
+      for(var j = 0; j < masterjson.tasks.length; j++) {
+        if(masterjson.tasks[j].taskid == json.taskid) {
+          preloaded.push(masterjson.tasks[j])
+        }
+      }
+    }
     for(var i = 0; i < json.length; i++) {
       for(var j = 0; j < masterjson.tasks.length; j++) {
         if(masterjson.tasks[j].taskid == json[i].taskid) {
@@ -56,7 +77,14 @@ function preload(masterjson, json, context, type) {
     }
   }
 
-  if(type == 5) {
+  else if(type == 5) {
+    if(Object.keys(json).length == 1) {
+      for(var j = 0; j < masterjson.files.length; j++) {
+        if(masterjson.files[j].fileid == json.fileid) {
+          preloaded.push(masterjson.files[j])
+        }
+      }
+    }
     for(var i = 0; i < json.length; i++) {
       for(var j = 0; j < masterjson.files.length; j++) {
         if(masterjson.files[j].fileid == json[i].fileid) {
@@ -66,7 +94,14 @@ function preload(masterjson, json, context, type) {
     }
   }
 
-  if(type == 6) {
+  else if(type == 6) {
+    if(Object.keys(json).length == 1) {
+      for(var j = 0; j < masterjson.envVars.length; j++) {
+        if(masterjson.envVars[j].envid == json.envid) {
+          preloaded.push(masterjson.envVars[j])
+        }
+      }
+    }
     for(var i = 0; i < json.length; i++) {
       for(var j = 0; j < masterjson.envVars.length; j++) {
         if(masterjson.envVars[j].envid == json[i].envid) {
@@ -76,24 +111,39 @@ function preload(masterjson, json, context, type) {
     }
   }
 
+  else if(type == 7) {
+    if(Object.keys(json).length == 1) {
+      for(var j = 0; j < masterjson.processes.length; j++) {
+        if(masterjson.processes[j].procid == json.procid) {
+          preloaded.push(masterjson.processes[j])
+        }
+      }
+    }
+    for(var i = 0; i < json.length; i++) {
+      for(var j = 0; j < masterjson.processes.length; j++) {
+        if(masterjson.processes[j].procid == json[i].procid) {
+          preloaded.push(masterjson.processes[j])
+        }
+      }
+    }
+  }
+
   return preloaded
 }
 
-function objectResolver(masterjson, json, args, context, type) {
+function objectResolve(masterjson, json, args, context, type) {
 
-  //console.log(json)
-  //console.log(args)
-  //console.log(context)
-  //console.log(type)
-
-  //Types: 1 == Master, 2 == Worker, 3 == Rule, 4 == Task, 5 == File, 6 == EnvVar
+  //Types: 1 == Master, 2 == Worker, 3 == Rule, 4 == Task, 5 == File, 6 == EnvVar, 7 == Proc
   if(type == 1) {
     return context.load(0)
   }
   var conditional, argument
   var ids = []
 
-  json = preload(masterjson, json, context, type)
+  if(!json) { return context.loadMany(ids) }
+
+  console.log(JSON.stringify(json))
+  json = preload(masterjson, json, type)
   
   //Figure out what to resolve
   if(args.taskid) { argument = args.taskid }
@@ -101,6 +151,9 @@ function objectResolver(masterjson, json, args, context, type) {
   else if(args.workerid) { argument = args.workerid }
   else if(args.fileid) { argument = args.fileid }
   else if(args.envid) { argument = args.envid }
+  else if(args.procid) { argument = args.procid }
+  else if(args.pid) { argument = args.pid }
+  else if(args.program) { argument = args.program }
   else if(args.retries) { argument = args.retries }
   else if(args.failures) { argument = args.failures }
   else if(args.command) { argument = args.command }
@@ -156,7 +209,28 @@ function objectResolver(masterjson, json, args, context, type) {
           ids.push(json[i].envid)
         }
       }
-    } 
+    }
+    else if(args.procid) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].procid, argument, conditional)) {
+          ids.push(json[i].procid)
+        }
+      }
+    }
+    else if(args.pid) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].pid, argument, conditional)) {
+          ids.push(json[i].procid)
+        }
+      }
+    }
+    else if(args.program) {
+      for(var i = 0; i < json.length; i++) {
+        if(compare(json[i].program, argument, conditional)) {
+          ids.push(json[i].procid)
+        }
+      }
+    }
     else if(args.retries) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].retries, argument, conditional)) {
@@ -314,7 +388,7 @@ function objectResolver(masterjson, json, args, context, type) {
   else {
     if(type == 2) {
       if(Object.keys(json).length == 1) {
-        ids = [json.workerid]
+        ids = [json[0].workerid]
       }
       else {
         ids = json.map(elem => { return elem.workerid } )
@@ -322,20 +396,46 @@ function objectResolver(masterjson, json, args, context, type) {
     }
     else if(type == 3) {
       if(Object.keys(json).length == 1) {
-        ids = [json.ruleid];
+        ids = [json[0].ruleid];
       }
       else {
         ids = json.map(elem => { return elem.ruleid } )
       }
     }
     else if(type == 4) {
-      ids = json.map(elem => { return elem.taskid } )
+      if(Object.keys(json).length == 1) {
+        ids = [json[0].taskid]
+      }
+      else {
+        ids = json.map(elem => { return elem.taskid } )
+      }
     }
     else if(type == 5) {
-      ids = json.map(elem => { return elem.fileid } )
+      if(Object.keys(json).length == 1) {
+        ids = [json[0].fileid]
+      }
+      else {
+        ids = json.map(elem => { return elem.fileid } )
+      }
     }
     else if(type == 6) {
-      ids = json.map(elem => { return elem.envid } )
+      if(Object.keys(json).length == 1) {
+        ids = [json[0].envid]
+      }
+      else {
+        ids = json.map(elem => { return elem.envid } )
+      }
+    }
+    else if(type == 7) {
+      if(Object.keys(json).length == 1) {
+        ids = [json[0].procid]
+      }
+      else {
+        ids = json.map(elem => { return elem.procid } )
+      }
+    }
+    else {
+      console.log("Unknown data type specified.")
     }
   }
   return context.loadMany(ids)
@@ -356,7 +456,7 @@ const MasterType = new GraphQLObjectType({
       type: new GraphQLList(WorkerType),
       args: {workerid: { type: GraphQLInt }, address: { type: GraphQLString },
         failures: { type: GraphQLInt }, bandwidth: { type: GraphQLFloat }, conditional: { type: GraphQLString }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.workers, args, context.workerLoader, 2) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.workers, args, context.workerLoader, 2) }
     },
     rules: {
       type: new GraphQLList(RuleType),
@@ -364,7 +464,7 @@ const MasterType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.rules, args, context.ruleLoader, 3) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.rules, args, context.ruleLoader, 3) }
     },
     tasks: {
       type: new GraphQLList(TaskType),
@@ -372,13 +472,13 @@ const MasterType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.tasks, args, context.taskLoader, 4) }
     },
     files: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.files, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.files, args, context.fileLoader, 5) }
     }
   })
 })
@@ -404,7 +504,7 @@ const WorkerType = new GraphQLObjectType({
     },
     master: {
       type: MasterType,
-      resolve: (json, args, context) => { return objectResolver(context.json, json.master, args, context.masterLoader, 1) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.master, args, context.masterLoader, 1) }
     },
     rules: {
       type: new GraphQLList(RuleType),
@@ -412,7 +512,7 @@ const WorkerType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.rules, args, context.ruleLoader, 3) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.rules, args, context.ruleLoader, 3) }
     },
     tasks: {
       type: new GraphQLList(TaskType),
@@ -420,13 +520,13 @@ const WorkerType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.tasks, args, context.taskLoader, 4) }
     },
     files: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.files, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.files, args, context.fileLoader, 5) }
     } 
   })
 })
@@ -476,13 +576,13 @@ const RuleType = new GraphQLObjectType({
     },
     master: {
       type: MasterType,
-      resolve: (json, args, context) => { return objectResolver(context.json, json.master, args, context.masterLoader, 1) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.master, args, context.masterLoader, 1) }
     },
     workers: {
       type: new GraphQLList(WorkerType),
       args: {workerid: { type: GraphQLInt }, address: { type: GraphQLString },
         failures: { type: GraphQLInt }, bandwidth: { type: GraphQLFloat }, conditional: { type: GraphQLString }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.workers, args, context.workerLoader, 2) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.workers, args, context.workerLoader, 2) }
     },
     tasks: {
       type: new GraphQLList(TaskType),
@@ -490,19 +590,19 @@ const RuleType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.tasks, args, context.taskLoader, 4) }
     },
     inputs: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.inputs, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.inputs, args, context.fileLoader, 5) }
     },
     outputs: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.outputs, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.outputs, args, context.fileLoader, 5) }
     }
   })
 })
@@ -552,13 +652,13 @@ const TaskType = new GraphQLObjectType({
     },
     master: {
       type: MasterType,
-      resolve: (json, args, context) => { return objectResolver(context.json, json.master, args, context.masterLoader, 1) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.master, args, context.masterLoader, 1) }
     },
     worker: {
       type: new GraphQLList(WorkerType),
       args: {workerid: { type: GraphQLInt }, address: { type: GraphQLString },
         failures: { type: GraphQLInt }, bandwidth: { type: GraphQLFloat }, conditional: { type: GraphQLString }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.worker, args, context.workerLoader, 2) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.worker, args, context.workerLoader, 2) }
     },
     rule: {
       type: new GraphQLList(RuleType),
@@ -566,37 +666,38 @@ const TaskType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
         command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.rule, args, context.ruleLoader, 3) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.rule, args, context.ruleLoader, 3) }
     },
     inputs: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.inputs, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.inputs, args, context.fileLoader, 5) }
     },
     outputs: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.outputs, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.outputs, args, context.fileLoader, 5) }
     },
     files: {
       type: new GraphQLList(FileType),
       args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
         failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.files, args, context.fileLoader, 5) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.files, args, context.fileLoader, 5) }
     },
     envVars: {
       type: new GraphQLList(EnvVarType),
       args: {envid: { type: GraphQLInt}, values: { type: new GraphQLList(GraphQLString) },
         accesses: { type: GraphQLInt }, failures: { type: GraphQLInt}, name: { type: GraphQLString },
         conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.envVars, args, context.envVarLoader, 6) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.envVars, args, context.envVarLoader, 6) }
     },
     process: {
       type: new GraphQLList(ProcType),
-      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.process, args, context.procLoader, 7) }
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt },
+      conditional: { type: GraphQLString }},
+      resolve: (json, args, context) => { return objectResolve(context.json, json.process, args, context.procLoader, 7) }
     }
   })
 })
@@ -622,13 +723,13 @@ const FileType = new GraphQLObjectType({
     },
     master: {
       type: MasterType,
-      resolve: (json, args, context) => { return objectResolver(context.json, json.master, args, context.masterLoader, 1) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.master, args, context.masterLoader, 1) }
     },
     workers: {
       type: new GraphQLList(WorkerType),
       args: {workerid: { type: GraphQLInt }, address: { type: GraphQLString },
         failures: { type: GraphQLInt }, bandwidth: { type: GraphQLFloat }, conditional: { type: GraphQLString }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.workers, args, context.workerLoader, 2) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.workers, args, context.workerLoader, 2) }
     },
     tasks: {
       type: new GraphQLList(TaskType),
@@ -636,12 +737,13 @@ const FileType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.tasks, args, context.taskLoader, 4) }
     },
     processes: {
       type: new GraphQLList(ProcType),
-      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.processes, args, context.procLoader, 7) }
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt },
+      conditional: { type: GraphQLString }},
+      resolve: (json, args, context) => { return objectResolve(context.json, json.processes, args, context.procLoader, 7) }
     }
   })
 })
@@ -659,7 +761,7 @@ const EnvVarType = new GraphQLObjectType({
     },
     values: {
       type: new GraphQLList(GraphQLString),
-      resolve: (json, args, context) => {return objectResolver(context.json, json.values, args, context) }
+      resolve: (json, args, context) => {return objectResolve(context.json, json.values, args, context) }
     },
     accesses: {
       type: GraphQLInt,
@@ -675,12 +777,13 @@ const EnvVarType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.tasks, args, context.taskLoader, 4) }
     },
     processes: {
       type: new GraphQLList(ProcType),
-      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.processes, args, context.procLoader, 7) }
+      args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt },
+      conditional: { type: GraphQLString }},
+      resolve: (json, args, context) => { return objectResolve(context.json, json.processes, args, context.procLoader, 7) }
     }
   })
 })
@@ -706,17 +809,30 @@ const ProcType = new GraphQLObjectType({
         cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
         pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
         failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.task, args, context.taskLoader, 4) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.task, args, context.taskLoader, 4) }
+    },
+    files: {
+      type: new GraphQLList(FileType),
+      args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
+        failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
+      resolve: (json, args, context) => { return objectResolve(context.json, json.files, args, context.fileLoader, 5) }
+    },
+    envVars: {
+      type: new GraphQLList(EnvVarType),
+      args: {envid: { type: GraphQLInt}, values: { type: new GraphQLList(GraphQLString) },
+        accesses: { type: GraphQLInt }, failures: { type: GraphQLInt}, name: { type: GraphQLString },
+        conditional: { type: GraphQLString } },
+      resolve: (json, args, context) => { return objectResolve(context.json, json.envVars, args, context.envVarLoader, 6) }
     },
     ancestor: {
       type: new GraphQLList(ProcType),
       args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.ancestor, args, context.procLoader, 7) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.ancestor, args, context.procLoader, 7) }
     },
     descendants: {
       type: new GraphQLList(ProcType),
       args: {procid: { type: GraphQLInt }, program: { type: GraphQLString }, pid: { type: GraphQLInt }},
-      resolve: (json, args, context) => { return objectResolver(context.json, json.descendants, args, context.procLoader, 7) }
+      resolve: (json, args, context) => { return objectResolve(context.json, json.descendants, args, context.procLoader, 7) }
     }
   })
 })
@@ -729,41 +845,6 @@ module.exports = new GraphQLSchema({
       master: {
         type: MasterType,
         resolve: (root, args, context) => context.masterLoader.load(0)
-      },
-      workers: {
-        type: new GraphQLList(WorkerType),
-        args: {workerid: { type: GraphQLInt }, address: { type: GraphQLString },
-        failures: { type: GraphQLInt }, bandwidth: { type: GraphQLFloat }, conditional: { type: GraphQLString }},
-        resolve: (json, args, context) => { return objectResolver(context.json, json.workers, args, context.workerLoader, 2) }
-      },
-      rules: {
-      type: new GraphQLList(RuleType),
-      args: {ruleid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
-        cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
-        disk: { type: GraphQLInt }, category: { type: GraphQLString }, failures: { type: GraphQLInt },
-        command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.rules, args, context.ruleLoader, 3) }
-      },
-      tasks: {
-        type: new GraphQLList(TaskType),
-        args: {taskid: { type: GraphQLInt }, retries: { type: GraphQLInt }, state: { type: GraphQLInt },
-        cores: { type: GraphQLInt }, gpus: { type: GraphQLInt }, memory: { type: GraphQLInt },
-        pid: { type: GraphQLInt }, disk: { type: GraphQLInt }, category: { type: GraphQLString },
-        failures: { type: GraphQLInt }, command: { type: GraphQLString }, conditional: { type: GraphQLString} },
-        resolve: (json, args, context) => { return objectResolver(context.json, json.tasks, args, context.taskLoader, 4) }
-      },
-      files: {
-        type: new GraphQLList(FileType),
-        args: {fileid: { type: GraphQLInt }, name: { type: GraphQLString }, accesses: { type: GraphQLInt },
-          failures: { type: GraphQLInt }, conditional: { type: GraphQLString } },
-        resolve: (json, args, context) => { return objectResolver(context.json, json.files, args, context.fileLoader, 5) }
-      },
-      envVars: {
-      type: new GraphQLList(EnvVarType),
-      args: {envid: { type: GraphQLInt}, values: { type: new GraphQLList(GraphQLString) },
-        accesses: { type: GraphQLInt }, failures: { type: GraphQLInt}, name: { type: GraphQLString },
-        conditional: { type: GraphQLString } },
-      resolve: (json, args, context) => { return objectResolver(context.json, json.envVars, args, context.envVarLoader, 6) }
       }
     })
   })

@@ -4833,14 +4833,11 @@
          }
       ],
       "process" : {
-         "2879" : null
+         "procid" : 83
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 7
-      },
       "envVars" : [
          {
             "envid" : 2529
@@ -5115,7 +5112,10 @@
          {
             "envid" : 2464
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 7
+      }
    },
    {
       "disk" : 13098,
@@ -5163,14 +5163,11 @@
          }
       ],
       "process" : {
-         "6092" : null
+         "procid" : 89
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 4
-      },
       "envVars" : [
          {
             "envid" : 2710
@@ -5445,7 +5442,10 @@
          {
             "envid" : 2646
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 4
+      }
    },
    {
       "disk" : 18565,
@@ -5493,14 +5493,11 @@
          }
       ],
       "process" : {
-         "2734" : null
+         "procid" : 104
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 7
-      },
       "envVars" : [
          {
             "envid" : 3166
@@ -5775,7 +5772,10 @@
          {
             "envid" : 3101
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 7
+      }
    },
    {
       "disk" : 18565,
@@ -5823,14 +5823,11 @@
          }
       ],
       "process" : {
-         "2581" : null
+         "procid" : 32
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 7
-      },
       "envVars" : [
          {
             "envid" : 982
@@ -6105,7 +6102,10 @@
          {
             "envid" : 917
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 7
+      }
    },
    {
       "disk" : 1765,
@@ -6153,14 +6153,11 @@
          }
       ],
       "process" : {
-         "20820" : null
+         "procid" : 62
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 1892
@@ -6435,7 +6432,10 @@
          {
             "envid" : 1827
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 1765,
@@ -6483,14 +6483,11 @@
          }
       ],
       "process" : {
-         "20781" : null
+         "procid" : 152
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 4622
@@ -6765,7 +6762,10 @@
          {
             "envid" : 4557
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 13091,
@@ -6813,14 +6813,11 @@
          }
       ],
       "process" : {
-         "23987" : null
+         "procid" : 50
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 2
-      },
       "envVars" : [
          {
             "envid" : 1528
@@ -7095,7 +7092,10 @@
          {
             "envid" : 1463
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 2
+      }
    },
    {
       "disk" : 933155,
@@ -7143,14 +7143,11 @@
          }
       ],
       "process" : {
-         "2518" : null
+         "procid" : 53
       },
       "cores" : 4,
       "gpus" : 0,
       "memory" : 15897,
-      "worker" : {
-         "workerid" : 1
-      },
       "envVars" : [
          {
             "envid" : 1619
@@ -7425,7 +7422,10 @@
          {
             "envid" : 1554
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 1
+      }
    },
    {
       "disk" : 13099,
@@ -7473,14 +7473,11 @@
          }
       ],
       "process" : {
-         "18152" : null
+         "procid" : 149
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 9
-      },
       "envVars" : [
          {
             "envid" : 4531
@@ -7755,7 +7752,10 @@
          {
             "envid" : 4466
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 9
+      }
    },
    {
       "disk" : 13091,
@@ -7803,14 +7803,11 @@
          }
       ],
       "process" : {
-         "24194" : null
+         "procid" : 74
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 2
-      },
       "envVars" : [
          {
             "envid" : 2256
@@ -8085,7 +8082,10 @@
          {
             "envid" : 2191
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 2
+      }
    },
    {
       "disk" : 13091,
@@ -8133,14 +8133,11 @@
          }
       ],
       "process" : {
-         "5753" : null
+         "procid" : 155
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 4712
@@ -8415,7 +8412,10 @@
          {
             "envid" : 4648
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 13098,
@@ -8463,14 +8463,11 @@
          }
       ],
       "process" : {
-         "6161" : null
+         "procid" : 98
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 4
-      },
       "envVars" : [
          {
             "envid" : 2983
@@ -8745,7 +8742,10 @@
          {
             "envid" : 2919
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 4
+      }
    },
    {
       "disk" : 1765,
@@ -8786,13 +8786,14 @@
             "fileid" : 162
          }
       ],
+      "process" : {},
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
+      "envVars" : [],
       "worker" : {
          "workerid" : 3
-      },
-      "envVars" : []
+      }
    },
    {
       "disk" : 13099,
@@ -8840,14 +8841,11 @@
          }
       ],
       "process" : {
-         "18221" : null
+         "procid" : 56
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 9
-      },
       "envVars" : [
          {
             "envid" : 1710
@@ -9122,7 +9120,10 @@
          {
             "envid" : 1645
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 9
+      }
    },
    {
       "disk" : 13091,
@@ -9170,14 +9171,11 @@
          }
       ],
       "process" : {
-         "5822" : null
+         "procid" : 2
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 71
@@ -9452,7 +9450,10 @@
          {
             "envid" : 7
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 13103,
@@ -9500,14 +9501,11 @@
          }
       ],
       "process" : {
-         "19628" : null
+         "procid" : 59
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 1800
@@ -9782,7 +9780,10 @@
          {
             "envid" : 1736
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 13103,
@@ -9830,14 +9831,11 @@
          }
       ],
       "process" : {
-         "19767" : null
+         "procid" : 101
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 3074
@@ -10112,7 +10110,10 @@
          {
             "envid" : 3010
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 13089,
@@ -10160,14 +10161,11 @@
          }
       ],
       "process" : {
-         "25047" : null
+         "procid" : 137
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 10
-      },
       "envVars" : [
          {
             "envid" : 4166
@@ -10442,7 +10440,10 @@
          {
             "envid" : 4102
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 10
+      }
    },
    {
       "disk" : 13098,
@@ -10490,14 +10491,11 @@
          }
       ],
       "process" : {
-         "5954" : null
+         "procid" : 11
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 4
-      },
       "envVars" : [
          {
             "envid" : 344
@@ -10772,7 +10770,10 @@
          {
             "envid" : 280
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 4
+      }
    },
    {
       "disk" : 13103,
@@ -10835,15 +10836,12 @@
             "fileid" : 3
          }
       ],
+      "process" : {
+         "procid" : 119
+      },
       "cores" : 1,
       "gpus" : 0,
-      "process" : {
-         "19975" : null
-      },
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 3620
@@ -11118,7 +11116,10 @@
          {
             "envid" : 3556
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 933155,
@@ -11166,14 +11167,11 @@
          }
       ],
       "process" : {
-         "2767" : null
+         "procid" : 5
       },
       "cores" : 4,
       "gpus" : 0,
       "memory" : 15897,
-      "worker" : {
-         "workerid" : 1
-      },
       "envVars" : [
          {
             "envid" : 163
@@ -11448,7 +11446,10 @@
          {
             "envid" : 98
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 1
+      }
    },
    {
       "disk" : 13089,
@@ -11496,14 +11497,11 @@
          }
       ],
       "process" : {
-         "24976" : null
+         "procid" : 23
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 10
-      },
       "envVars" : [
          {
             "envid" : 708
@@ -11778,7 +11776,10 @@
          {
             "envid" : 644
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 10
+      }
    },
    {
       "disk" : 13091,
@@ -11826,14 +11827,11 @@
          }
       ],
       "process" : {
-         "5891" : null
+         "procid" : 80
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 2437
@@ -12108,7 +12106,10 @@
          {
             "envid" : 2373
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 1765,
@@ -12156,14 +12157,11 @@
          }
       ],
       "process" : {
-         "20859" : null
+         "procid" : 77
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 2347
@@ -12438,7 +12436,10 @@
          {
             "envid" : 2282
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 1765,
@@ -12486,14 +12487,11 @@
          }
       ],
       "process" : {
-         "20742" : null
+         "procid" : 20
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 618
@@ -12768,7 +12766,10 @@
          {
             "envid" : 553
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 1765,
@@ -12816,14 +12817,11 @@
          }
       ],
       "process" : {
-         "21132" : null
+         "procid" : 161
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 4895
@@ -13098,7 +13096,10 @@
          {
             "envid" : 4830
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 1765,
@@ -13146,14 +13147,11 @@
          }
       ],
       "process" : {
-         "20937" : null
+         "procid" : 68
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 2074
@@ -13428,7 +13426,10 @@
          {
             "envid" : 2009
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 13099,
@@ -13476,14 +13477,11 @@
          }
       ],
       "process" : {
-         "18359" : null
+         "procid" : 113
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 9
-      },
       "envVars" : [
          {
             "envid" : 3439
@@ -13758,7 +13756,10 @@
          {
             "envid" : 3374
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 9
+      }
    },
    {
       "disk" : 13103,
@@ -13806,14 +13807,11 @@
          }
       ],
       "process" : {
-         "19559" : null
+         "procid" : 71
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 2164
@@ -14088,7 +14086,10 @@
          {
             "envid" : 2100
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 13091,
@@ -14145,14 +14146,11 @@
          }
       ],
       "process" : {
-         "6100" : null
+         "procid" : 131
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 3984
@@ -14427,7 +14425,10 @@
          {
             "envid" : 3920
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 933155,
@@ -14475,14 +14476,11 @@
          }
       ],
       "process" : {
-         "2622" : null
+         "procid" : 14
       },
       "cores" : 4,
       "gpus" : 0,
       "memory" : 15897,
-      "worker" : {
-         "workerid" : 1
-      },
       "envVars" : [
          {
             "envid" : 436
@@ -14757,7 +14755,10 @@
          {
             "envid" : 371
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 1
+      }
    },
    {
       "disk" : 13098,
@@ -14805,14 +14806,11 @@
          }
       ],
       "process" : {
-         "6023" : null
+         "procid" : 38
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 4
-      },
       "envVars" : [
          {
             "envid" : 1163
@@ -15087,7 +15085,10 @@
          {
             "envid" : 1099
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 4
+      }
    },
    {
       "disk" : 13089,
@@ -15135,14 +15136,11 @@
          }
       ],
       "process" : {
-         "25116" : null
+         "procid" : 65
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 10
-      },
       "envVars" : [
          {
             "envid" : 1982
@@ -15417,7 +15415,10 @@
          {
             "envid" : 1918
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 10
+      }
    },
    {
       "disk" : 13103,
@@ -15465,14 +15466,11 @@
          }
       ],
       "process" : {
-         "19420" : null
+         "procid" : 35
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 1072
@@ -15747,7 +15745,10 @@
          {
             "envid" : 1008
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 1765,
@@ -15795,14 +15796,11 @@
          }
       ],
       "process" : {
-         "20976" : null
+         "procid" : 122
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 3712
@@ -16077,7 +16075,10 @@
          {
             "envid" : 3647
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 13089,
@@ -16125,14 +16126,11 @@
          }
       ],
       "process" : {
-         "25187" : null
+         "procid" : 107
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 10
-      },
       "envVars" : [
          {
             "envid" : 3256
@@ -16407,7 +16405,10 @@
          {
             "envid" : 3192
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 10
+      }
    },
    {
       "disk" : 13099,
@@ -16455,14 +16456,11 @@
          }
       ],
       "process" : {
-         "18290" : null
+         "procid" : 86
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 9
-      },
       "envVars" : [
          {
             "envid" : 2620
@@ -16737,7 +16735,10 @@
          {
             "envid" : 2555
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 9
+      }
    },
    {
       "disk" : 1765,
@@ -16785,14 +16786,11 @@
          }
       ],
       "process" : {
-         "20703" : null
+         "procid" : 47
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 1437
@@ -17067,7 +17065,10 @@
          {
             "envid" : 1372
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 1765,
@@ -17121,14 +17122,11 @@
          }
       ],
       "process" : {
-         "21015" : null
+         "procid" : 140
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 4258
@@ -17403,7 +17401,10 @@
          {
             "envid" : 4193
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 13099,
@@ -17451,14 +17452,11 @@
          }
       ],
       "process" : {
-         "18082" : null
+         "procid" : 26
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 9
-      },
       "envVars" : [
          {
             "envid" : 800
@@ -17733,7 +17731,10 @@
          {
             "envid" : 735
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 9
+      }
    },
    {
       "disk" : 1765,
@@ -17781,14 +17782,11 @@
          }
       ],
       "process" : {
-         "20898" : null
+         "procid" : 110
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 3348
@@ -18063,7 +18061,10 @@
          {
             "envid" : 3283
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 13091,
@@ -18111,14 +18112,11 @@
          }
       ],
       "process" : {
-         "24056" : null
+         "procid" : 17
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 2
-      },
       "envVars" : [
          {
             "envid" : 527
@@ -18393,7 +18391,10 @@
          {
             "envid" : 462
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 2
+      }
    },
    {
       "disk" : 13103,
@@ -18441,14 +18442,11 @@
          }
       ],
       "process" : {
-         "19906" : null
+         "procid" : 134
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 4075
@@ -18723,7 +18721,10 @@
          {
             "envid" : 4011
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 13103,
@@ -18771,14 +18772,11 @@
          }
       ],
       "process" : {
-         "19490" : null
+         "procid" : 8
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 253
@@ -19053,7 +19051,10 @@
          {
             "envid" : 189
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 1765,
@@ -19100,14 +19101,11 @@
          }
       ],
       "process" : {
-         "21054" : null
+         "procid" : 143
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 3
-      },
       "envVars" : [
          {
             "envid" : 4349
@@ -19382,7 +19380,10 @@
          {
             "envid" : 4284
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 3
+      }
    },
    {
       "disk" : 13091,
@@ -19430,14 +19431,11 @@
          }
       ],
       "process" : {
-         "5961" : null
+         "procid" : 116
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 3529
@@ -19712,7 +19710,10 @@
          {
             "envid" : 3465
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 13091,
@@ -19760,14 +19761,11 @@
          }
       ],
       "process" : {
-         "5684" : null
+         "procid" : 29
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 890
@@ -20042,7 +20040,10 @@
          {
             "envid" : 826
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 13098,
@@ -20090,14 +20091,11 @@
          }
       ],
       "process" : {
-         "5885" : null
+         "procid" : 44
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 4
-      },
       "envVars" : [
          {
             "envid" : 1345
@@ -20372,7 +20370,10 @@
          {
             "envid" : 1281
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 4
+      }
    },
    {
       "disk" : 13103,
@@ -20420,14 +20421,11 @@
          }
       ],
       "process" : {
-         "19698" : null
+         "procid" : 92
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 2801
@@ -20702,7 +20700,10 @@
          {
             "envid" : 2737
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 13091,
@@ -20743,13 +20744,14 @@
             "fileid" : 162
          }
       ],
+      "process" : {},
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
+      "envVars" : [],
       "worker" : {
          "workerid" : 8
-      },
-      "envVars" : []
+      }
    },
    {
       "disk" : 13103,
@@ -20797,14 +20799,11 @@
          }
       ],
       "process" : {
-         "19837" : null
+         "procid" : 128
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 3893
@@ -21079,7 +21078,10 @@
          {
             "envid" : 3829
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 933155,
@@ -21163,14 +21165,11 @@
          }
       ],
       "process" : {
-         "2910" : null
+         "procid" : 95
       },
       "cores" : 4,
       "gpus" : 0,
       "memory" : 15897,
-      "worker" : {
-         "workerid" : 1
-      },
       "envVars" : [
          {
             "envid" : 2893
@@ -21445,7 +21444,10 @@
          {
             "envid" : 2828
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 1
+      }
    },
    {
       "disk" : 13091,
@@ -21493,14 +21495,11 @@
          }
       ],
       "process" : {
-         "6031" : null
+         "procid" : 125
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 8
-      },
       "envVars" : [
          {
             "envid" : 3802
@@ -21775,7 +21774,10 @@
          {
             "envid" : 3738
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 8
+      }
    },
    {
       "disk" : 13091,
@@ -21823,14 +21825,11 @@
          }
       ],
       "process" : {
-         "24125" : null
+         "procid" : 146
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 2
-      },
       "envVars" : [
          {
             "envid" : 4440
@@ -22105,7 +22104,10 @@
          {
             "envid" : 4375
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 2
+      }
    },
    {
       "disk" : 13103,
@@ -22150,15 +22152,12 @@
             "fileid" : 162
          }
       ],
+      "process" : {
+         "procid" : 158
+      },
       "cores" : 1,
       "gpus" : 0,
-      "process" : {
-         "6170" : null
-      },
       "memory" : 412,
-      "worker" : {
-         "workerid" : 6
-      },
       "envVars" : [
          {
             "envid" : 4803
@@ -22433,7 +22432,10 @@
          {
             "envid" : 4739
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 6
+      }
    },
    {
       "disk" : 3035,
@@ -22481,14 +22483,11 @@
          }
       ],
       "process" : {
-         "7440" : null
+         "procid" : 41
       },
       "cores" : 1,
       "gpus" : 0,
       "memory" : 412,
-      "worker" : {
-         "workerid" : 5
-      },
       "envVars" : [
          {
             "envid" : 1254
@@ -22763,13 +22762,17 @@
          {
             "envid" : 1190
          }
-      ]
+      ],
+      "worker" : {
+         "workerid" : 5
+      }
    }
 ]
 ,
 
 "files": [
    {
+      "processes" : [],
       "rules" : [
          {
             "ruleid" : 0
@@ -23068,6 +23071,7 @@
          }
       ],
       "fileid" : 159,
+      "processes" : [],
       "name" : "midpoint",
       "accesses" : 1
    },
@@ -25556,42 +25560,6 @@
    {
       "tasks" : [
          {
-            "taskid" : 41
-         },
-         {
-            "taskid" : 46
-         }
-      ],
-      "master" : "disc01.crc.nd.edu:9000",
-      "workers" : [
-         {
-            "workerid" : 3
-         },
-         {
-            "workerid" : 8
-         }
-      ],
-      "fileid" : 128,
-      "processes" : [
-         {
-            "procid" : 132
-         },
-         {
-            "procid" : 130
-         }
-      ],
-      "name" : "out.41.dat",
-      "rules" : [
-         {
-            "ruleid" : 41
-         }
-      ],
-      "accesses" : 4,
-      "result" : 13688848
-   },
-   {
-      "tasks" : [
-         {
             "taskid" : 26
          }
       ],
@@ -25630,6 +25598,42 @@
          }
       ],
       "accesses" : 1
+   },
+   {
+      "tasks" : [
+         {
+            "taskid" : 41
+         },
+         {
+            "taskid" : 46
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 3
+         },
+         {
+            "workerid" : 8
+         }
+      ],
+      "fileid" : 128,
+      "processes" : [
+         {
+            "procid" : 132
+         },
+         {
+            "procid" : 130
+         }
+      ],
+      "name" : "out.41.dat",
+      "rules" : [
+         {
+            "ruleid" : 41
+         }
+      ],
+      "accesses" : 4,
+      "result" : 13688848
    },
    {
       "tasks" : [
@@ -26367,6 +26371,7 @@
          }
       ],
       "fileid" : 3,
+      "processes" : [],
       "name" : "sim",
       "accesses" : 55
    },
@@ -26988,6 +26993,7 @@
          }
       ],
       "fileid" : 1,
+      "processes" : [],
       "name" : "ltrace-wrapper",
       "accesses" : 56
    },
@@ -27034,27 +27040,6 @@
    {
       "tasks" : [
          {
-            "taskid" : 20
-         }
-      ],
-      "master" : "disc01.crc.nd.edu:9000",
-      "workers" : [
-         {
-            "workerid" : 10
-         }
-      ],
-      "fileid" : 64,
-      "name" : "ltrace.5.debug",
-      "rules" : [
-         {
-            "ruleid" : 5
-         }
-      ],
-      "accesses" : 1
-   },
-   {
-      "tasks" : [
-         {
             "taskid" : 5
          }
       ],
@@ -27069,6 +27054,27 @@
       "rules" : [
          {
             "ruleid" : 20
+         }
+      ],
+      "accesses" : 1
+   },
+   {
+      "tasks" : [
+         {
+            "taskid" : 20
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 10
+         }
+      ],
+      "fileid" : 64,
+      "name" : "ltrace.5.debug",
+      "rules" : [
+         {
+            "ruleid" : 5
          }
       ],
       "accesses" : 1
@@ -121636,25 +121642,48 @@
       ],
       "pid" : 2581,
       "procid" : 32,
-      "task" : 7,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 7
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 131
+         }
+      ],
+      "task" : {
+         "taskid" : 45
+      },
+      "program" : "sim",
       "ancestor" : 129,
-      "descendants" : [],
-      "pid" : 19898,
       "procid" : 127,
-      "task" : 45,
-      "program" : "sim"
+      "pid" : 19898,
+      "envVars" : [
+         {
+            "envid" : 3823
+         }
+      ]
    },
-   {},
    {
+      "descendants" : [
+         {
+            "procid" : 88
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 32
+      },
+      "program" : "./sim out.14.dat",
       "ancestor" : 89,
-      "descendants" : [],
-      "pid" : 6093,
       "procid" : 90,
-      "task" : 32,
-      "program" : "./sim out.14.dat"
+      "pid" : 6093,
+      "envVars" : []
    },
    {
       "descendants" : [
@@ -121664,69 +121693,265 @@
       ],
       "pid" : 19559,
       "procid" : 71,
-      "task" : 22,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 22
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
-      "ancestor" : 120,
       "descendants" : [],
-      "pid" : 20036,
-      "procid" : 118,
-      "task" : 49,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 101,
-      "descendants" : [],
-      "pid" : 19768,
-      "procid" : 102,
-      "task" : 40,
-      "program" : "./sim out.36.dat"
-   },
-   {
-      "ancestor" : 18,
-      "descendants" : [],
-      "pid" : 24117,
-      "procid" : 16,
-      "task" : 12,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
+      "files" : [
          {
-            "procid" : 97
+            "fileid" : 110
+         }
+      ],
+      "task" : {
+         "taskid" : 49
+      },
+      "program" : "sim",
+      "ancestor" : 120,
+      "procid" : 118,
+      "pid" : 20036,
+      "envVars" : [
+         {
+            "envid" : 3550
          }
       ]
-   },
-   {
-      "ancestor" : 57,
-      "descendants" : [],
-      "pid" : 18282,
-      "procid" : 55,
-      "task" : 27,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 83,
-      "descendants" : [],
-      "pid" : 2881,
-      "procid" : 84,
-      "task" : 33,
-      "program" : "./sim out.16.dat"
-   },
-   {},
-   {
-      "ancestor" : 56,
-      "descendants" : [],
-      "pid" : 18222,
-      "procid" : 57,
-      "task" : 27,
-      "program" : "./sim out.24.dat"
    },
    {
       "descendants" : [
          {
             "procid" : 100
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 40
+      },
+      "program" : "./sim out.36.dat",
+      "ancestor" : 101,
+      "procid" : 102,
+      "pid" : 19768,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 16
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 12
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 17,
+      "procid" : 18,
+      "pid" : 24057,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 126
+         }
+      ],
+      "pid" : 6031,
+      "procid" : 125,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 43
+      },
+      "program" : "sh -c \"./sim out.43.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 12
+      },
+      "program" : "sim",
+      "ancestor" : 18,
+      "procid" : 16,
+      "pid" : 24117,
+      "envVars" : [
+         {
+            "envid" : 456
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 45
+         }
+      ],
+      "pid" : 5885,
+      "procid" : 44,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 4
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 8
+         }
+      ],
+      "task" : {
+         "taskid" : 27
+      },
+      "program" : "sim",
+      "ancestor" : 57,
+      "procid" : 55,
+      "pid" : 18282,
+      "envVars" : [
+         {
+            "envid" : 1639
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 82
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 33
+      },
+      "program" : "./sim out.16.dat",
+      "ancestor" : 83,
+      "procid" : 84,
+      "pid" : 2881,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 25
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 9
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 26,
+      "procid" : 27,
+      "pid" : 18083,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 162
+         }
+      ],
+      "pid" : 21132,
+      "procid" : 161,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 53
+      },
+      "program" : "sh -c \"./sim spec.config\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 96
+         }
+      ],
+      "pid" : 2910,
+      "procid" : 95,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 37
+      },
+      "program" : "sh -c \"./sim out.12.dat out.11.dat out.10.dat out.9.dat out.8.dat out.7.dat out.6.dat out.5.dat out.4.dat out.3.dat out.2.dat out.1.dat out.0.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 55
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 27
+      },
+      "program" : "./sim out.24.dat",
+      "ancestor" : 56,
+      "procid" : 57,
+      "pid" : 18222,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 21
+         }
+      ],
+      "pid" : 20742,
+      "procid" : 20,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 11
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 113
+         }
+      ],
+      "task" : {
+         "taskid" : 41
+      },
+      "program" : "sim",
+      "ancestor" : 111,
+      "procid" : 109,
+      "pid" : 20929,
+      "envVars" : [
+         {
+            "envid" : 3277
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 17
+      },
+      "program" : "sim",
+      "ancestor" : 153,
+      "procid" : 151,
+      "pid" : 20812,
+      "envVars" : [
+         {
+            "envid" : 4551
          }
       ]
    },
@@ -121738,16 +121963,52 @@
       ],
       "pid" : 6092,
       "procid" : 89,
-      "task" : 32,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 32
+      },
       "program" : "sh -c \"./sim out.14.dat\""
    },
    {
-      "ancestor" : 33,
       "descendants" : [],
-      "pid" : 2711,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 18
+      },
+      "program" : "sim",
+      "ancestor" : 150,
+      "procid" : 148,
+      "pid" : 18213,
+      "envVars" : [
+         {
+            "envid" : 4460
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 7
+      },
+      "program" : "sim",
+      "ancestor" : 33,
       "procid" : 31,
-      "task" : 7,
-      "program" : "sim"
+      "pid" : 2711,
+      "envVars" : [
+         {
+            "envid" : 911
+         }
+      ]
    },
    {
       "descendants" : [
@@ -121757,7 +122018,11 @@
       ],
       "pid" : 19420,
       "procid" : 35,
-      "task" : 6,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 6
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
@@ -121768,25 +122033,99 @@
       ],
       "pid" : 5954,
       "procid" : 11,
-      "task" : 14,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 14
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
-      "ancestor" : 92,
-      "descendants" : [],
-      "pid" : 19699,
-      "procid" : 93,
-      "task" : 34,
-      "program" : "./sim out.13.dat"
+      "descendants" : [
+         {
+            "procid" : 76
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 35
+      },
+      "program" : "./sim out.18.dat",
+      "ancestor" : 77,
+      "procid" : 78,
+      "pid" : 20860,
+      "envVars" : []
    },
-   {},
-   {},
    {
       "descendants" : [
          {
-            "procid" : 10
+            "procid" : 91
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 34
+      },
+      "program" : "./sim out.13.dat",
+      "ancestor" : 92,
+      "procid" : 93,
+      "pid" : 19699,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 101
+         }
+      ],
+      "task" : {
+         "taskid" : 39
+      },
+      "program" : "sim",
+      "ancestor" : 108,
+      "procid" : 106,
+      "pid" : 25248,
+      "envVars" : [
+         {
+            "envid" : 3186
          }
       ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 162
+         }
+      ],
+      "task" : {
+         "taskid" : 54
+      },
+      "program" : "sim",
+      "ancestor" : 159,
+      "procid" : 157,
+      "pid" : 6231,
+      "envVars" : [
+         {
+            "envid" : 4733
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 66
+         }
+      ],
+      "pid" : 25116,
+      "procid" : 65,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 29
+      },
+      "program" : "sh -c \"./sim out.21.dat\""
    },
    {
       "descendants" : [
@@ -121796,51 +122135,163 @@
       ],
       "pid" : 5684,
       "procid" : 29,
-      "task" : 8,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 8
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
-   {},
    {
+      "descendants" : [
+         {
+            "procid" : 136
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 20
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 137,
+      "procid" : 138,
+      "pid" : 25048,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 112
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 42
+      },
+      "program" : "./sim out.33.dat",
       "ancestor" : 113,
-      "descendants" : [],
-      "pid" : 18360,
       "procid" : 114,
-      "task" : 42,
-      "program" : "./sim out.33.dat"
+      "pid" : 18360,
+      "envVars" : []
    },
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 11
+         }
+      ],
+      "task" : {
+         "taskid" : 28
+      },
+      "program" : "sim",
       "ancestor" : 60,
-      "descendants" : [],
-      "pid" : 19690,
       "procid" : 58,
-      "task" : 28,
-      "program" : "sim"
+      "pid" : 19690,
+      "envVars" : [
+         {
+            "envid" : 1730
+         }
+      ]
    },
    {
+      "descendants" : [
+         {
+            "procid" : 13
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 13
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 14,
-      "descendants" : [],
-      "pid" : 2626,
       "procid" : 15,
-      "task" : 13,
-      "program" : "./sim in.dat"
+      "pid" : 2626,
+      "envVars" : []
    },
    {
+      "descendants" : [
+         {
+            "procid" : 151
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 17
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 152,
-      "descendants" : [],
-      "pid" : 20782,
       "procid" : 153,
-      "task" : 17,
-      "program" : "./sim in.dat"
+      "pid" : 20782,
+      "envVars" : []
    },
-   {},
-   {},
    {
-      "ancestor" : 75,
+      "descendants" : [
+         {
+            "procid" : 138
+         }
+      ],
+      "pid" : 25047,
+      "procid" : 137,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 20
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 79
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 31
+      },
+      "program" : "./sim out.17.dat",
+      "ancestor" : 80,
+      "procid" : 81,
+      "pid" : 5892,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 58
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 28
+      },
+      "program" : "./sim out.23.dat",
+      "ancestor" : 59,
+      "procid" : 60,
+      "pid" : 19629,
+      "envVars" : []
+   },
+   {
       "descendants" : [],
-      "pid" : 24256,
+      "files" : [
+         {
+            "fileid" : 23
+         }
+      ],
+      "task" : {
+         "taskid" : 30
+      },
+      "program" : "sim",
+      "ancestor" : 75,
       "procid" : 73,
-      "task" : 30,
-      "program" : "sim"
+      "pid" : 24256,
+      "envVars" : [
+         {
+            "envid" : 2185
+         }
+      ]
    },
    {
       "descendants" : [
@@ -121850,16 +122301,47 @@
       ],
       "pid" : 19767,
       "procid" : 101,
-      "task" : 40,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 40
+      },
       "program" : "sh -c \"./sim out.36.dat\""
    },
    {
-      "ancestor" : 78,
+      "descendants" : [
+         {
+            "procid" : 87
+         }
+      ],
+      "pid" : 18290,
+      "procid" : 86,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 36
+      },
+      "program" : "sh -c \"./sim out.15.dat\""
+   },
+   {
       "descendants" : [],
-      "pid" : 20890,
+      "files" : [
+         {
+            "fileid" : 26
+         }
+      ],
+      "task" : {
+         "taskid" : 35
+      },
+      "program" : "sim",
+      "ancestor" : 78,
       "procid" : 76,
-      "task" : 35,
-      "program" : "sim"
+      "pid" : 20890,
+      "envVars" : [
+         {
+            "envid" : 2276
+         }
+      ]
    },
    {
       "descendants" : [
@@ -121869,59 +122351,166 @@
       ],
       "pid" : 20820,
       "procid" : 62,
-      "task" : 26,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 26
+      },
       "program" : "sh -c \"./sim out.22.dat\""
    },
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 20
+         }
+      ],
+      "task" : {
+         "taskid" : 48
+      },
+      "program" : "sim",
       "ancestor" : 69,
-      "descendants" : [],
-      "pid" : 20968,
       "procid" : 67,
-      "task" : 48,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
+      "pid" : 20968,
+      "envVars" : [
          {
-            "procid" : 148
+            "envid" : 2003
          }
       ]
    },
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 140
+         }
+      ],
+      "task" : {
+         "taskid" : 51
+      },
+      "program" : "sim",
       "ancestor" : 141,
-      "descendants" : [],
-      "pid" : 21046,
       "procid" : 139,
-      "task" : 51,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 128,
-      "descendants" : [],
-      "pid" : 19838,
-      "procid" : 129,
-      "task" : 45,
-      "program" : "./sim out.42.dat"
-   },
-   {},
-   {
-      "descendants" : [
+      "pid" : 21046,
+      "envVars" : [
          {
-            "procid" : 25
+            "envid" : 4187
          }
       ]
    },
-   {},
-   {},
    {
-      "ancestor" : 134,
-      "descendants" : [],
-      "pid" : 19907,
-      "procid" : 135,
-      "task" : 47,
-      "program" : "./sim out.48.dat"
+      "descendants" : [
+         {
+            "procid" : 127
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 45
+      },
+      "program" : "./sim out.42.dat",
+      "ancestor" : 128,
+      "procid" : 129,
+      "pid" : 19838,
+      "envVars" : []
    },
-   {},
+   {
+      "descendants" : [
+         {
+            "procid" : 18
+         }
+      ],
+      "pid" : 24056,
+      "procid" : 17,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 12
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 3
+         }
+      ],
+      "pid" : 5822,
+      "procid" : 2,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 25
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 111
+         }
+      ],
+      "pid" : 20898,
+      "procid" : 110,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 41
+      },
+      "program" : "sh -c \"./sim out.34.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 32
+         }
+      ],
+      "task" : {
+         "taskid" : 33
+      },
+      "program" : "sim",
+      "ancestor" : 84,
+      "procid" : 82,
+      "pid" : 2996,
+      "envVars" : [
+         {
+            "envid" : 2458
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 145
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 19
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 146,
+      "procid" : 147,
+      "pid" : 24126,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 133
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 47
+      },
+      "program" : "./sim out.48.dat",
+      "ancestor" : 134,
+      "procid" : 135,
+      "pid" : 19907,
+      "envVars" : []
+   },
    {
       "descendants" : [
          {
@@ -121930,41 +122519,105 @@
       ],
       "pid" : 2622,
       "procid" : 14,
-      "task" : 13,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 13
+      },
       "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 147,
-      "descendants" : [],
-      "pid" : 24186,
-      "procid" : 145,
-      "task" : 19,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 51,
-      "descendants" : [],
-      "pid" : 24048,
-      "procid" : 49,
-      "task" : 2,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 23,
-      "descendants" : [],
-      "pid" : 24977,
-      "procid" : 24,
-      "task" : 10,
-      "program" : "./sim in.dat"
    },
    {
       "descendants" : [
          {
-            "procid" : 4
+            "procid" : 67
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 48
+      },
+      "program" : "./sim out.20.dat",
+      "ancestor" : 68,
+      "procid" : 69,
+      "pid" : 20938,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 104
+         }
+      ],
+      "task" : {
+         "taskid" : 42
+      },
+      "program" : "sim",
+      "ancestor" : 114,
+      "procid" : 112,
+      "pid" : 18420,
+      "envVars" : [
+         {
+            "envid" : 3368
          }
       ]
    },
-   {},
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 19
+      },
+      "program" : "sim",
+      "ancestor" : 147,
+      "procid" : 145,
+      "pid" : 24186,
+      "envVars" : [
+         {
+            "envid" : 4369
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 2
+      },
+      "program" : "sim",
+      "ancestor" : 51,
+      "procid" : 49,
+      "pid" : 24048,
+      "envVars" : [
+         {
+            "envid" : 1457
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 22
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 10
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 23,
+      "procid" : 24,
+      "pid" : 24977,
+      "envVars" : []
+   },
    {
       "descendants" : [
          {
@@ -121973,7 +122626,11 @@
       ],
       "pid" : 21015,
       "procid" : 140,
-      "task" : 51,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 51
+      },
       "program" : "sh -c \"./sim out.47.dat out.46.dat out.45.dat\""
    },
    {
@@ -121984,17 +122641,32 @@
       ],
       "pid" : 2734,
       "procid" : 104,
-      "task" : 21,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 21
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
-   {},
    {
-      "ancestor" : 126,
       "descendants" : [],
-      "pid" : 6092,
+      "files" : [
+         {
+            "fileid" : 119
+         }
+      ],
+      "task" : {
+         "taskid" : 43
+      },
+      "program" : "sim",
+      "ancestor" : 126,
       "procid" : 124,
-      "task" : 43,
-      "program" : "sim"
+      "pid" : 6092,
+      "envVars" : [
+         {
+            "envid" : 3732
+         }
+      ]
    },
    {
       "descendants" : [
@@ -122004,25 +122676,70 @@
       ],
       "pid" : 6100,
       "procid" : 131,
-      "task" : 46,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 46
+      },
       "program" : "sh -c \"./sim out.41.dat out.40.dat out.39.dat out.38.dat\""
    },
-   {},
-   {},
    {
-      "ancestor" : 156,
       "descendants" : [],
-      "pid" : 5814,
-      "procid" : 154,
-      "task" : 16,
-      "program" : "sim"
-   },
-   {},
-   {},
-   {
-      "descendants" : [
+      "files" : [
          {
-            "procid" : 28
+            "fileid" : 152
+         }
+      ],
+      "task" : {
+         "taskid" : 50
+      },
+      "program" : "sim",
+      "ancestor" : 123,
+      "procid" : 121,
+      "pid" : 21007,
+      "envVars" : [
+         {
+            "envid" : 3641
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 29
+         }
+      ],
+      "task" : {
+         "taskid" : 31
+      },
+      "program" : "sim",
+      "ancestor" : 81,
+      "procid" : 79,
+      "pid" : 5953,
+      "envVars" : [
+         {
+            "envid" : 2367
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 16
+      },
+      "program" : "sim",
+      "ancestor" : 156,
+      "procid" : 154,
+      "pid" : 5814,
+      "envVars" : [
+         {
+            "envid" : 4642
          }
       ]
    },
@@ -122034,39 +122751,80 @@
       ],
       "pid" : 24976,
       "procid" : 23,
-      "task" : 10,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 10
+      },
       "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 95,
-      "descendants" : [],
-      "pid" : 2914,
-      "procid" : 96,
-      "task" : 37,
-      "program" : "./sim out.12.dat out.11.dat out.10.dat out.9.dat out.8.dat out.7.dat out.6.dat out.5.dat out.4.dat out.3.dat out.2.dat out.1.dat out.0.dat"
-   },
-   {
-      "ancestor" : 158,
-      "descendants" : [],
-      "pid" : 6171,
-      "procid" : 159,
-      "task" : 54,
-      "program" : "./sim spec.config"
    },
    {
       "descendants" : [
          {
-            "procid" : 46
+            "procid" : 94
          }
-      ]
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 37
+      },
+      "program" : "./sim out.12.dat out.11.dat out.10.dat out.9.dat out.8.dat out.7.dat out.6.dat out.5.dat out.4.dat out.3.dat out.2.dat out.1.dat out.0.dat",
+      "ancestor" : 95,
+      "procid" : 96,
+      "pid" : 2914,
+      "envVars" : []
    },
    {
-      "ancestor" : 162,
+      "descendants" : [
+         {
+            "procid" : 124
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 43
+      },
+      "program" : "./sim out.43.dat",
+      "ancestor" : 125,
+      "procid" : 126,
+      "pid" : 6032,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 157
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 54
+      },
+      "program" : "./sim spec.config",
+      "ancestor" : 158,
+      "procid" : 159,
+      "pid" : 6171,
+      "envVars" : []
+   },
+   {
       "descendants" : [],
-      "pid" : 21163,
+      "files" : [
+         {
+            "fileid" : 162
+         }
+      ],
+      "task" : {
+         "taskid" : 53
+      },
+      "program" : "sim",
+      "ancestor" : 162,
       "procid" : 160,
-      "task" : 53,
-      "program" : "sim"
+      "pid" : 21163,
+      "envVars" : [
+         {
+            "envid" : 4824
+         }
+      ]
    },
    {
       "descendants" : [
@@ -122076,7 +122834,11 @@
       ],
       "pid" : 20703,
       "procid" : 47,
-      "task" : 3,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 3
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
@@ -122087,7 +122849,11 @@
       ],
       "pid" : 19490,
       "procid" : 8,
-      "task" : 15,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 15
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
@@ -122098,24 +122864,68 @@
       ],
       "pid" : 6161,
       "procid" : 98,
-      "task" : 44,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 44
+      },
       "program" : "sh -c \"./sim out.37.dat\""
    },
    {
-      "ancestor" : 39,
       "descendants" : [],
-      "pid" : 6084,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 23
+      },
+      "program" : "sim",
+      "ancestor" : 39,
       "procid" : 37,
-      "task" : 23,
-      "program" : "sim"
+      "pid" : 6084,
+      "envVars" : [
+         {
+            "envid" : 1093
+         }
+      ]
    },
    {
-      "ancestor" : 45,
+      "descendants" : [
+         {
+            "procid" : 115
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 38
+      },
+      "program" : "./sim out.32.dat",
+      "ancestor" : 116,
+      "procid" : 117,
+      "pid" : 5962,
+      "envVars" : []
+   },
+   {
       "descendants" : [],
-      "pid" : 5946,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 4
+      },
+      "program" : "sim",
+      "ancestor" : 45,
       "procid" : 43,
-      "task" : 4,
-      "program" : "sim"
+      "pid" : 5946,
+      "envVars" : [
+         {
+            "envid" : 1275
+         }
+      ]
    },
    {
       "descendants" : [
@@ -122125,904 +122935,80 @@
       ],
       "pid" : 2767,
       "procid" : 5,
-      "task" : 24,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 24
+      },
       "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 20,
-      "descendants" : [],
-      "pid" : 20743,
-      "procid" : 21,
-      "task" : 11,
-      "program" : "./sim in.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 145
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 120
-         }
-      ],
-      "pid" : 19975,
-      "procid" : 119,
-      "task" : 49,
-      "program" : "sh -c \"./sim out.31.dat out.30.dat out.29.dat out.28.dat out.27.dat out.26.dat out.25.dat\""
-   },
-   {},
-   {
-      "ancestor" : 161,
-      "descendants" : [],
-      "pid" : 21133,
-      "procid" : 162,
-      "task" : 53,
-      "program" : "./sim spec.config"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 109
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 133
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 16
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 75
-         }
-      ],
-      "pid" : 24194,
-      "procid" : 74,
-      "task" : 30,
-      "program" : "sh -c \"./sim out.19.dat\""
-   },
-   {},
-   {},
-   {
-      "ancestor" : 63,
-      "descendants" : [],
-      "pid" : 20851,
-      "procid" : 61,
-      "task" : 26,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 117,
-      "descendants" : [],
-      "pid" : 6023,
-      "procid" : 115,
-      "task" : 38,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 105,
-      "descendants" : [],
-      "pid" : 2860,
-      "procid" : 103,
-      "task" : 21,
-      "program" : "sim"
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 114
-         }
-      ],
-      "pid" : 18359,
-      "procid" : 113,
-      "task" : 42,
-      "program" : "sh -c \"./sim out.33.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 153
-         }
-      ],
-      "pid" : 20781,
-      "procid" : 152,
-      "task" : 17,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 93,
-      "descendants" : [],
-      "pid" : 19759,
-      "procid" : 91,
-      "task" : 34,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 108
-         }
-      ],
-      "pid" : 25187,
-      "procid" : 107,
-      "task" : 39,
-      "program" : "sh -c \"./sim out.35.dat\""
-   },
-   {
-      "ancestor" : 86,
-      "descendants" : [],
-      "pid" : 18291,
-      "procid" : 87,
-      "task" : 36,
-      "program" : "./sim out.15.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 78
-         }
-      ],
-      "pid" : 20859,
-      "procid" : 77,
-      "task" : 35,
-      "program" : "sh -c \"./sim out.18.dat\""
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 37
-         }
-      ]
-   },
-   {
-      "ancestor" : 38,
-      "descendants" : [],
-      "pid" : 6024,
-      "procid" : 39,
-      "task" : 23,
-      "program" : "./sim in.dat"
-   },
-   {
-      "ancestor" : 66,
-      "descendants" : [],
-      "pid" : 25179,
-      "procid" : 64,
-      "task" : 29,
-      "program" : "sim"
-   },
-   {},
-   {
-      "ancestor" : 99,
-      "descendants" : [],
-      "pid" : 6222,
-      "procid" : 97,
-      "task" : 44,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 11,
-      "descendants" : [],
-      "pid" : 5955,
-      "procid" : 12,
-      "task" : 14,
-      "program" : "./sim in.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 42
-         }
-      ],
-      "pid" : 7440,
-      "procid" : 41,
-      "task" : 5,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 54,
-      "descendants" : [],
-      "pid" : 2596,
-      "procid" : 52,
-      "task" : 1,
-      "program" : "sim"
-   },
-   {},
-   {
-      "ancestor" : 44,
-      "descendants" : [],
-      "pid" : 5886,
-      "procid" : 45,
-      "task" : 4,
-      "program" : "./sim in.dat"
    },
    {
       "descendants" : [
          {
             "procid" : 31
          }
-      ]
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 130
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 69
-         }
       ],
-      "pid" : 20937,
-      "procid" : 68,
-      "task" : 48,
-      "program" : "sh -c \"./sim out.20.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 52
-         }
-      ]
-   },
-   {},
-   {
-      "ancestor" : 3,
-      "descendants" : [],
-      "pid" : 5883,
-      "procid" : 1,
-      "task" : 25,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 138,
-      "descendants" : [],
-      "pid" : 25108,
-      "procid" : 136,
-      "task" : 20,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 117
-         }
-      ],
-      "pid" : 5961,
-      "procid" : 116,
-      "task" : 38,
-      "program" : "sh -c \"./sim out.32.dat\""
-   },
-   {},
-   {
-      "ancestor" : 143,
-      "descendants" : [],
-      "pid" : 21055,
-      "procid" : 144,
-      "task" : 52,
-      "program" : "./midpoint out.49.dat out.50.dat"
-   },
-   {},
-   {
-      "ancestor" : 102,
-      "descendants" : [],
-      "pid" : 19829,
-      "procid" : 100,
-      "task" : 40,
-      "program" : "sim"
-   },
-   {},
-   {
-      "ancestor" : 27,
-      "descendants" : [],
-      "pid" : 18144,
-      "procid" : 25,
-      "task" : 9,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 119,
-      "descendants" : [],
-      "pid" : 19976,
-      "procid" : 120,
-      "task" : 49,
-      "program" : "./sim out.31.dat out.30.dat out.29.dat out.28.dat out.27.dat out.26.dat out.25.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 103
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 67
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 84
-         }
-      ],
-      "pid" : 2879,
-      "procid" : 83,
-      "task" : 33,
-      "program" : "sh -c \"./sim out.16.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 115
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 64
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 136
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 76
-         }
-      ]
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 123
-         }
-      ],
-      "pid" : 20976,
-      "procid" : 122,
-      "task" : 50,
-      "program" : "sh -c \"./sim out.44.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 144
-         }
-      ],
-      "pid" : 21054,
-      "procid" : 143,
-      "task" : 52,
-      "program" : "sh -c \"./midpoint out.49.dat out.50.dat\""
-   },
-   {
-      "ancestor" : 41,
-      "descendants" : [],
-      "pid" : 7441,
-      "procid" : 42,
-      "task" : 5,
-      "program" : "./sim in.dat"
-   },
-   {
-      "ancestor" : 24,
-      "descendants" : [],
-      "pid" : 25039,
-      "procid" : 22,
-      "task" : 10,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 159
-         }
-      ],
-      "pid" : 6170,
-      "procid" : 158,
-      "task" : 54,
-      "program" : "sh -c \"./sim spec.config\""
-   },
-   {},
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 70
-         }
-      ]
-   },
-   {
-      "ancestor" : 48,
-      "descendants" : [],
-      "pid" : 20734,
-      "procid" : 46,
-      "task" : 3,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 73
-         }
-      ]
-   },
-   {
-      "ancestor" : 5,
-      "descendants" : [],
-      "pid" : 2771,
-      "procid" : 6,
-      "task" : 24,
-      "program" : "./sim in.dat"
-   },
-   {},
-   {
-      "ancestor" : 35,
-      "descendants" : [],
-      "pid" : 19421,
-      "procid" : 36,
-      "task" : 6,
-      "program" : "./sim in.dat"
-   },
-   {
-      "ancestor" : 96,
-      "descendants" : [],
-      "pid" : 3018,
-      "procid" : 94,
-      "task" : 37,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 50,
-      "descendants" : [],
-      "pid" : 23988,
-      "procid" : 51,
-      "task" : 2,
-      "program" : "./sim in.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 40
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 94
-         }
-      ]
-   },
-   {
-      "ancestor" : 131,
-      "descendants" : [],
-      "pid" : 6101,
-      "procid" : 132,
-      "task" : 46,
-      "program" : "./sim out.41.dat out.40.dat out.39.dat out.38.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 151
-         }
-      ]
-   },
-   {},
-   {},
-   {
-      "ancestor" : 17,
-      "descendants" : [],
-      "pid" : 24057,
-      "procid" : 18,
-      "task" : 12,
-      "program" : "./sim in.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 126
-         }
-      ],
-      "pid" : 6031,
-      "procid" : 125,
-      "task" : 43,
-      "program" : "sh -c \"./sim out.43.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 45
-         }
-      ],
-      "pid" : 5885,
-      "procid" : 44,
-      "task" : 4,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 49
-         }
-      ]
-   },
-   {
-      "ancestor" : 26,
-      "descendants" : [],
-      "pid" : 18083,
-      "procid" : 27,
-      "task" : 9,
-      "program" : "./sim in.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 162
-         }
-      ],
-      "pid" : 21132,
-      "procid" : 161,
-      "task" : 53,
-      "program" : "sh -c \"./sim spec.config\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 96
-         }
-      ],
-      "pid" : 2910,
-      "procid" : 95,
-      "task" : 37,
-      "program" : "sh -c \"./sim out.12.dat out.11.dat out.10.dat out.9.dat out.8.dat out.7.dat out.6.dat out.5.dat out.4.dat out.3.dat out.2.dat out.1.dat out.0.dat\""
-   },
-   {},
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 21
-         }
-      ],
-      "pid" : 20742,
-      "procid" : 20,
-      "task" : 11,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 111,
-      "descendants" : [],
-      "pid" : 20929,
-      "procid" : 109,
-      "task" : 41,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 153,
-      "descendants" : [],
-      "pid" : 20812,
-      "procid" : 151,
-      "task" : 17,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 91
-         }
-      ]
-   },
-   {
-      "ancestor" : 150,
-      "descendants" : [],
-      "pid" : 18213,
-      "procid" : 148,
-      "task" : 18,
-      "program" : "sim"
-   },
-   {},
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 124
-         }
-      ]
-   },
-   {
-      "ancestor" : 77,
-      "descendants" : [],
-      "pid" : 20860,
-      "procid" : 78,
-      "task" : 35,
-      "program" : "./sim out.18.dat"
-   },
-   {
-      "ancestor" : 108,
-      "descendants" : [],
-      "pid" : 25248,
-      "procid" : 106,
-      "task" : 39,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 159,
-      "descendants" : [],
-      "pid" : 6231,
-      "procid" : 157,
-      "task" : 54,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 66
-         }
-      ],
-      "pid" : 25116,
-      "procid" : 65,
-      "task" : 29,
-      "program" : "sh -c \"./sim out.21.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 85
-         }
-      ]
-   },
-   {
-      "ancestor" : 137,
-      "descendants" : [],
-      "pid" : 25048,
-      "procid" : 138,
-      "task" : 20,
-      "program" : "./sim in.dat"
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 55
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 121
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 138
-         }
-      ],
-      "pid" : 25047,
-      "procid" : 137,
-      "task" : 20,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "ancestor" : 80,
-      "descendants" : [],
-      "pid" : 5892,
-      "procid" : 81,
-      "task" : 31,
-      "program" : "./sim out.17.dat"
-   },
-   {},
-   {
-      "ancestor" : 59,
-      "descendants" : [],
-      "pid" : 19629,
-      "procid" : 60,
-      "task" : 28,
-      "program" : "./sim out.23.dat"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 88
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 112
-         }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 87
-         }
-      ],
-      "pid" : 18290,
-      "procid" : 86,
-      "task" : 36,
-      "program" : "sh -c \"./sim out.15.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 7
-         }
-      ]
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 58
-         }
-      ]
-   },
-   {},
-   {
-      "descendants" : [
-         {
-            "procid" : 18
-         }
-      ],
-      "pid" : 24056,
-      "procid" : 17,
-      "task" : 12,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 3
-         }
-      ],
-      "pid" : 5822,
-      "procid" : 2,
-      "task" : 25,
-      "program" : "sh -c \"./sim in.dat\""
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 111
-         }
-      ],
-      "pid" : 20898,
-      "procid" : 110,
-      "task" : 41,
-      "program" : "sh -c \"./sim out.34.dat\""
-   },
-   {
-      "ancestor" : 84,
-      "descendants" : [],
-      "pid" : 2996,
-      "procid" : 82,
-      "task" : 33,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 146,
-      "descendants" : [],
-      "pid" : 24126,
-      "procid" : 147,
-      "task" : 19,
-      "program" : "./sim in.dat"
-   },
-   {},
-   {
-      "ancestor" : 68,
-      "descendants" : [],
-      "pid" : 20938,
-      "procid" : 69,
-      "task" : 48,
-      "program" : "./sim out.20.dat"
-   },
-   {
-      "ancestor" : 114,
-      "descendants" : [],
-      "pid" : 18420,
-      "procid" : 112,
-      "task" : 42,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 1
-         }
-      ]
-   },
-   {
-      "ancestor" : 123,
-      "descendants" : [],
-      "pid" : 21007,
-      "procid" : 121,
-      "task" : 50,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 81,
-      "descendants" : [],
-      "pid" : 5953,
-      "procid" : 79,
-      "task" : 31,
-      "program" : "sim"
-   },
-   {
-      "ancestor" : 125,
-      "descendants" : [],
-      "pid" : 6032,
-      "procid" : 126,
-      "task" : 43,
-      "program" : "./sim out.43.dat"
-   },
-   {
-      "ancestor" : 116,
-      "descendants" : [],
-      "pid" : 5962,
-      "procid" : 117,
-      "task" : 38,
-      "program" : "./sim out.32.dat"
-   },
-   {},
-   {},
-   {
+      "files" : [],
+      "task" : {
+         "taskid" : 7
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 32,
-      "descendants" : [],
-      "pid" : 2584,
       "procid" : 33,
-      "task" : 7,
-      "program" : "./sim in.dat"
+      "pid" : 2584,
+      "envVars" : []
    },
    {
+      "descendants" : [
+         {
+            "procid" : 61
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 26
+      },
+      "program" : "./sim out.22.dat",
       "ancestor" : 62,
-      "descendants" : [],
-      "pid" : 20821,
       "procid" : 63,
-      "task" : 26,
-      "program" : "./sim out.22.dat"
+      "pid" : 20821,
+      "envVars" : []
    },
    {
-      "ancestor" : 9,
+      "descendants" : [
+         {
+            "procid" : 19
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 11
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 20,
+      "procid" : 21,
+      "pid" : 20743,
+      "envVars" : []
+   },
+   {
       "descendants" : [],
-      "pid" : 19551,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 15
+      },
+      "program" : "sim",
+      "ancestor" : 9,
       "procid" : 7,
-      "task" : 15,
-      "program" : "sim"
+      "pid" : 19551,
+      "envVars" : [
+         {
+            "envid" : 183
+         }
+      ]
    },
    {
       "descendants" : [
@@ -123032,7 +123018,11 @@
       ],
       "pid" : 5891,
       "procid" : 80,
-      "task" : 31,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 31
+      },
       "program" : "sh -c \"./sim out.17.dat\""
    },
    {
@@ -123043,55 +123033,147 @@
       ],
       "pid" : 18082,
       "procid" : 26,
-      "task" : 9,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 9
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
+      "descendants" : [
+         {
+            "procid" : 120
+         }
+      ],
+      "pid" : 19975,
+      "procid" : 119,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 49
+      },
+      "program" : "sh -c \"./sim out.31.dat out.30.dat out.29.dat out.28.dat out.27.dat out.26.dat out.25.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 97
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 44
+      },
+      "program" : "./sim out.37.dat",
       "ancestor" : 98,
-      "descendants" : [],
-      "pid" : 6162,
       "procid" : 99,
-      "task" : 44,
-      "program" : "./sim out.37.dat"
+      "pid" : 6162,
+      "envVars" : []
    },
    {
       "descendants" : [
          {
-            "procid" : 34
+            "procid" : 160
          }
-      ]
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 53
+      },
+      "program" : "./sim spec.config",
+      "ancestor" : 161,
+      "procid" : 162,
+      "pid" : 21133,
+      "envVars" : []
    },
    {
+      "descendants" : [
+         {
+            "procid" : 70
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 22
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 71,
-      "descendants" : [],
-      "pid" : 19560,
       "procid" : 72,
-      "task" : 22,
-      "program" : "./sim in.dat"
+      "pid" : 19560,
+      "envVars" : []
    },
    {
       "descendants" : [
          {
-            "procid" : 43
+            "procid" : 75
          }
-      ]
+      ],
+      "pid" : 24194,
+      "procid" : 74,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 30
+      },
+      "program" : "sh -c \"./sim out.19.dat\""
    },
    {
-      "descendants" : [
-         {
-            "procid" : 61
-         }
-      ]
-   },
-   {
-      "ancestor" : 107,
       "descendants" : [],
-      "pid" : 25188,
-      "procid" : 108,
-      "task" : 39,
-      "program" : "./sim out.35.dat"
+      "files" : [
+         {
+            "fileid" : 14
+         }
+      ],
+      "task" : {
+         "taskid" : 26
+      },
+      "program" : "sim",
+      "ancestor" : 63,
+      "procid" : 61,
+      "pid" : 20851,
+      "envVars" : [
+         {
+            "envid" : 1821
+         }
+      ]
    },
-   {},
+   {
+      "descendants" : [
+         {
+            "procid" : 106
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 39
+      },
+      "program" : "./sim out.35.dat",
+      "ancestor" : 107,
+      "procid" : 108,
+      "pid" : 25188,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 98
+         }
+      ],
+      "task" : {
+         "taskid" : 38
+      },
+      "program" : "sim",
+      "ancestor" : 117,
+      "procid" : 115,
+      "pid" : 6023,
+      "envVars" : [
+         {
+            "envid" : 3459
+         }
+      ]
+   },
    {
       "descendants" : [
          {
@@ -123100,63 +123182,216 @@
       ],
       "pid" : 19698,
       "procid" : 92,
-      "task" : 34,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 34
+      },
       "program" : "sh -c \"./sim out.13.dat\""
    },
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 21
+      },
+      "program" : "sim",
+      "ancestor" : 105,
+      "procid" : 103,
+      "pid" : 2860,
+      "envVars" : [
+         {
+            "envid" : 3095
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 14
+      },
+      "program" : "sim",
       "ancestor" : 12,
-      "descendants" : [],
-      "pid" : 6015,
       "procid" : 10,
-      "task" : 14,
-      "program" : "sim"
+      "pid" : 6015,
+      "envVars" : [
+         {
+            "envid" : 274
+         }
+      ]
    },
-   {},
    {
+      "descendants" : [
+         {
+            "procid" : 114
+         }
+      ],
+      "pid" : 18359,
+      "procid" : 113,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 42
+      },
+      "program" : "sh -c \"./sim out.33.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 153
+         }
+      ],
+      "pid" : 20781,
+      "procid" : 152,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 17
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 52
+      },
+      "program" : "midpoint",
       "ancestor" : 144,
-      "descendants" : [],
-      "pid" : 21085,
       "procid" : 142,
-      "task" : 52,
-      "program" : "midpoint"
-   },
-   {
-      "descendants" : [
+      "pid" : 21085,
+      "envVars" : [
          {
-            "procid" : 19
+            "envid" : 4278
          }
       ]
    },
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 41
+         }
+      ],
+      "task" : {
+         "taskid" : 34
+      },
+      "program" : "sim",
+      "ancestor" : 93,
+      "procid" : 91,
+      "pid" : 19759,
+      "envVars" : [
+         {
+            "envid" : 2731
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 108
+         }
+      ],
+      "pid" : 25187,
+      "procid" : 107,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 39
+      },
+      "program" : "sh -c \"./sim out.35.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 46
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 3
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 47,
-      "descendants" : [],
-      "pid" : 20704,
       "procid" : 48,
-      "task" : 3,
-      "program" : "./sim in.dat"
+      "pid" : 20704,
+      "envVars" : []
    },
    {
       "descendants" : [
          {
-            "procid" : 142
+            "procid" : 85
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 36
+      },
+      "program" : "./sim out.15.dat",
+      "ancestor" : 86,
+      "procid" : 87,
+      "pid" : 18291,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 78
+         }
+      ],
+      "pid" : 20859,
+      "procid" : 77,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 35
+      },
+      "program" : "sh -c \"./sim out.18.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 143
+         }
+      ],
+      "task" : {
+         "taskid" : 47
+      },
+      "program" : "sim",
+      "ancestor" : 135,
+      "procid" : 133,
+      "pid" : 19967,
+      "envVars" : [
+         {
+            "envid" : 4005
          }
       ]
    },
    {
-      "ancestor" : 135,
-      "descendants" : [],
-      "pid" : 19967,
-      "procid" : 133,
-      "task" : 47,
-      "program" : "sim"
-   },
-   {
+      "descendants" : [
+         {
+            "procid" : 121
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 50
+      },
+      "program" : "./sim out.44.dat",
       "ancestor" : 122,
-      "descendants" : [],
-      "pid" : 20977,
       "procid" : 123,
-      "task" : 50,
-      "program" : "./sim out.44.dat"
+      "pid" : 20977,
+      "envVars" : []
    },
    {
       "descendants" : [
@@ -123166,7 +123401,11 @@
       ],
       "pid" : 18152,
       "procid" : 149,
-      "task" : 18,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 18
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
@@ -123177,20 +123416,117 @@
       ],
       "pid" : 23987,
       "procid" : 50,
-      "task" : 2,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 2
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
       "descendants" : [
          {
-            "procid" : 139
+            "procid" : 37
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 23
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 38,
+      "procid" : 39,
+      "pid" : 6024,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 17
+         }
+      ],
+      "task" : {
+         "taskid" : 29
+      },
+      "program" : "sim",
+      "ancestor" : 66,
+      "procid" : 64,
+      "pid" : 25179,
+      "envVars" : [
+         {
+            "envid" : 1912
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 116
+         }
+      ],
+      "task" : {
+         "taskid" : 44
+      },
+      "program" : "sim",
+      "ancestor" : 99,
+      "procid" : 97,
+      "pid" : 6222,
+      "envVars" : [
+         {
+            "envid" : 2913
          }
       ]
    },
    {
       "descendants" : [
          {
-            "procid" : 154
+            "procid" : 10
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 14
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 11,
+      "procid" : 12,
+      "pid" : 5955,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 42
+         }
+      ],
+      "pid" : 7440,
+      "procid" : 41,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 5
+      },
+      "program" : "sh -c \"./sim in.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 1
+      },
+      "program" : "sim",
+      "ancestor" : 54,
+      "procid" : 52,
+      "pid" : 2596,
+      "envVars" : [
+         {
+            "envid" : 1548
          }
       ]
    },
@@ -123202,89 +123538,279 @@
       ],
       "pid" : 18221,
       "procid" : 56,
-      "task" : 27,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 27
+      },
       "program" : "sh -c \"./sim out.24.dat\""
    },
    {
+      "descendants" : [
+         {
+            "procid" : 64
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 29
+      },
+      "program" : "./sim out.21.dat",
       "ancestor" : 65,
-      "descendants" : [],
-      "pid" : 25117,
       "procid" : 66,
-      "task" : 29,
-      "program" : "./sim out.21.dat"
+      "pid" : 25117,
+      "envVars" : []
    },
    {
+      "descendants" : [
+         {
+            "procid" : 43
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 4
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 44,
+      "procid" : 45,
+      "pid" : 5886,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 11
+      },
+      "program" : "sim",
       "ancestor" : 21,
-      "descendants" : [],
-      "pid" : 20773,
       "procid" : 19,
-      "task" : 11,
-      "program" : "sim"
+      "pid" : 20773,
+      "envVars" : [
+         {
+            "envid" : 547
+         }
+      ]
    },
    {
       "descendants" : [
          {
-            "procid" : 79
+            "procid" : 52
          }
-      ]
-   },
-   {},
-   {
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 1
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 53,
-      "descendants" : [],
-      "pid" : 2519,
       "procid" : 54,
-      "task" : 1,
-      "program" : "./sim in.dat"
+      "pid" : 2519,
+      "envVars" : []
    },
-   {},
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 22
+      },
+      "program" : "sim",
       "ancestor" : 72,
-      "descendants" : [],
-      "pid" : 19620,
       "procid" : 70,
-      "task" : 22,
-      "program" : "sim"
-   },
-   {
-      "descendants" : [
+      "pid" : 19620,
+      "envVars" : [
          {
-            "procid" : 106
+            "envid" : 2094
          }
       ]
    },
    {
+      "descendants" : [
+         {
+            "procid" : 69
+         }
+      ],
+      "pid" : 20937,
+      "procid" : 68,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 48
+      },
+      "program" : "sh -c \"./sim out.20.dat\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 25
+      },
+      "program" : "sim",
+      "ancestor" : 3,
+      "procid" : 1,
+      "pid" : 5883,
+      "envVars" : [
+         {
+            "envid" : 1
+         }
+      ]
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 38
+         }
+      ],
+      "task" : {
+         "taskid" : 32
+      },
+      "program" : "sim",
       "ancestor" : 90,
-      "descendants" : [],
-      "pid" : 6153,
       "procid" : 88,
-      "task" : 32,
-      "program" : "sim"
+      "pid" : 6153,
+      "envVars" : [
+         {
+            "envid" : 2640
+         }
+      ]
    },
    {
-      "ancestor" : 29,
       "descendants" : [],
-      "pid" : 5685,
-      "procid" : 30,
-      "task" : 8,
-      "program" : "./sim in.dat"
-   },
-   {
-      "ancestor" : 140,
-      "descendants" : [],
-      "pid" : 21016,
-      "procid" : 141,
-      "task" : 51,
-      "program" : "./sim out.47.dat out.46.dat out.45.dat"
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 20
+      },
+      "program" : "sim",
+      "ancestor" : 138,
+      "procid" : 136,
+      "pid" : 25108,
+      "envVars" : [
+         {
+            "envid" : 4096
+         }
+      ]
    },
    {
       "descendants" : [
          {
-            "procid" : 82
+            "procid" : 117
+         }
+      ],
+      "pid" : 5961,
+      "procid" : 116,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 38
+      },
+      "program" : "sh -c \"./sim out.32.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 28
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 8
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 29,
+      "procid" : 30,
+      "pid" : 5685,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 142
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 52
+      },
+      "program" : "./midpoint out.49.dat out.50.dat",
+      "ancestor" : 143,
+      "procid" : 144,
+      "pid" : 21055,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 139
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 51
+      },
+      "program" : "./sim out.47.dat out.46.dat out.45.dat",
+      "ancestor" : 140,
+      "procid" : 141,
+      "pid" : 21016,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 107
+         }
+      ],
+      "task" : {
+         "taskid" : 40
+      },
+      "program" : "sim",
+      "ancestor" : 102,
+      "procid" : 100,
+      "pid" : 19829,
+      "envVars" : [
+         {
+            "envid" : 3004
          }
       ]
    },
-   {},
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 9
+      },
+      "program" : "sim",
+      "ancestor" : 27,
+      "procid" : 25,
+      "pid" : 18144,
+      "envVars" : [
+         {
+            "envid" : 729
+         }
+      ]
+   },
    {
       "descendants" : [
          {
@@ -123293,24 +123819,64 @@
       ],
       "pid" : 19837,
       "procid" : 128,
-      "task" : 45,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 45
+      },
       "program" : "sh -c \"./sim out.42.dat\""
    },
    {
-      "ancestor" : 30,
-      "descendants" : [],
-      "pid" : 5745,
-      "procid" : 28,
-      "task" : 8,
-      "program" : "sim"
+      "descendants" : [
+         {
+            "procid" : 118
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 49
+      },
+      "program" : "./sim out.31.dat out.30.dat out.29.dat out.28.dat out.27.dat out.26.dat out.25.dat",
+      "ancestor" : 119,
+      "procid" : 120,
+      "pid" : 19976,
+      "envVars" : []
    },
    {
-      "ancestor" : 74,
       "descendants" : [],
-      "pid" : 24195,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 8
+      },
+      "program" : "sim",
+      "ancestor" : 30,
+      "procid" : 28,
+      "pid" : 5745,
+      "envVars" : [
+         {
+            "envid" : 820
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 73
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 30
+      },
+      "program" : "./sim out.19.dat",
+      "ancestor" : 74,
       "procid" : 75,
-      "task" : 30,
-      "program" : "./sim out.19.dat"
+      "pid" : 24195,
+      "envVars" : []
    },
    {
       "descendants" : [
@@ -123320,29 +123886,61 @@
       ],
       "pid" : 19906,
       "procid" : 134,
-      "task" : 47,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 47
+      },
       "program" : "sh -c \"./sim out.48.dat\""
-   },
-   {
-      "ancestor" : 155,
-      "descendants" : [],
-      "pid" : 5754,
-      "procid" : 156,
-      "task" : 16,
-      "program" : "./sim in.dat"
-   },
-   {
-      "ancestor" : 42,
-      "descendants" : [],
-      "pid" : 7593,
-      "procid" : 40,
-      "task" : 5,
-      "program" : "sim"
    },
    {
       "descendants" : [
          {
-            "procid" : 127
+            "procid" : 84
+         }
+      ],
+      "pid" : 2879,
+      "procid" : 83,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 33
+      },
+      "program" : "sh -c \"./sim out.16.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 154
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 16
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 155,
+      "procid" : 156,
+      "pid" : 5754,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 5
+      },
+      "program" : "sim",
+      "ancestor" : 42,
+      "procid" : 40,
+      "pid" : 7593,
+      "envVars" : [
+         {
+            "envid" : 1184
          }
       ]
    },
@@ -123354,45 +123952,48 @@
       ],
       "pid" : 19628,
       "procid" : 59,
-      "task" : 28,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 28
+      },
       "program" : "sh -c \"./sim out.23.dat\""
    },
    {
       "descendants" : [
          {
-            "procid" : 160
+            "procid" : 148
          }
-      ]
-   },
-   {
-      "descendants" : [
-         {
-            "procid" : 118
-         }
-      ]
-   },
-   {
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 18
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 149,
-      "descendants" : [],
-      "pid" : 18153,
       "procid" : 150,
-      "task" : 18,
-      "program" : "./sim in.dat"
+      "pid" : 18153,
+      "envVars" : []
    },
    {
-      "descendants" : [
+      "descendants" : [],
+      "files" : [
          {
-            "procid" : 22
+            "fileid" : 128
+         }
+      ],
+      "task" : {
+         "taskid" : 46
+      },
+      "program" : "sim",
+      "ancestor" : 132,
+      "procid" : 130,
+      "pid" : 6161,
+      "envVars" : [
+         {
+            "envid" : 3914
          }
       ]
-   },
-   {
-      "ancestor" : 132,
-      "descendants" : [],
-      "pid" : 6161,
-      "procid" : 130,
-      "task" : 46,
-      "program" : "sim"
    },
    {
       "descendants" : [
@@ -123402,7 +124003,11 @@
       ],
       "pid" : 5753,
       "procid" : 155,
-      "task" : 16,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 16
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
@@ -123413,55 +124018,237 @@
       ],
       "pid" : 2518,
       "procid" : 53,
-      "task" : 1,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 1
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
       "descendants" : [
          {
-            "procid" : 13
+            "procid" : 123
+         }
+      ],
+      "pid" : 20976,
+      "procid" : 122,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 50
+      },
+      "program" : "sh -c \"./sim out.44.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 144
+         }
+      ],
+      "pid" : 21054,
+      "procid" : 143,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 52
+      },
+      "program" : "sh -c \"./midpoint out.49.dat out.50.dat\""
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 40
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 5
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 41,
+      "procid" : 42,
+      "pid" : 7441,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 10
+      },
+      "program" : "sim",
+      "ancestor" : 24,
+      "procid" : 22,
+      "pid" : 25039,
+      "envVars" : [
+         {
+            "envid" : 638
          }
       ]
    },
    {
       "descendants" : [
          {
-            "procid" : 157
+            "procid" : 159
+         }
+      ],
+      "pid" : 6170,
+      "procid" : 158,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 54
+      },
+      "program" : "sh -c \"./sim spec.config\""
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 3
+      },
+      "program" : "sim",
+      "ancestor" : 48,
+      "procid" : 46,
+      "pid" : 20734,
+      "envVars" : [
+         {
+            "envid" : 1366
          }
       ]
    },
-   {},
    {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 13
+      },
+      "program" : "sim",
       "ancestor" : 15,
-      "descendants" : [],
-      "pid" : 2744,
       "procid" : 13,
-      "task" : 13,
-      "program" : "sim"
+      "pid" : 2744,
+      "envVars" : [
+         {
+            "envid" : 365
+         }
+      ]
    },
    {
+      "descendants" : [
+         {
+            "procid" : 103
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 21
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 104,
-      "descendants" : [],
-      "pid" : 2737,
       "procid" : 105,
-      "task" : 21,
-      "program" : "./sim in.dat"
+      "pid" : 2737,
+      "envVars" : []
    },
    {
+      "descendants" : [
+         {
+            "procid" : 4
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 24
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 5,
+      "procid" : 6,
+      "pid" : 2771,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 35
+         }
+      ],
+      "task" : {
+         "taskid" : 36
+      },
+      "program" : "sim",
       "ancestor" : 87,
-      "descendants" : [],
-      "pid" : 18351,
       "procid" : 85,
-      "task" : 36,
-      "program" : "sim"
+      "pid" : 18351,
+      "envVars" : [
+         {
+            "envid" : 2549
+         }
+      ]
    },
    {
+      "descendants" : [
+         {
+            "procid" : 1
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 25
+      },
+      "program" : "./sim in.dat",
       "ancestor" : 2,
-      "descendants" : [],
-      "pid" : 5823,
       "procid" : 3,
-      "task" : 25,
-      "program" : "./sim in.dat"
+      "pid" : 5823,
+      "envVars" : []
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 34
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 6
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 35,
+      "procid" : 36,
+      "pid" : 19421,
+      "envVars" : []
+   },
+   {
+      "descendants" : [],
+      "files" : [
+         {
+            "fileid" : 44
+         }
+      ],
+      "task" : {
+         "taskid" : 37
+      },
+      "program" : "sim",
+      "ancestor" : 96,
+      "procid" : 94,
+      "pid" : 3018,
+      "envVars" : [
+         {
+            "envid" : 2822
+         }
+      ]
    },
    {
       "descendants" : [
@@ -123471,26 +124258,61 @@
       ],
       "pid" : 24125,
       "procid" : 146,
-      "task" : 19,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 19
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
-      "ancestor" : 8,
-      "descendants" : [],
-      "pid" : 19491,
-      "procid" : 9,
-      "task" : 15,
-      "program" : "./sim in.dat"
+      "descendants" : [
+         {
+            "procid" : 49
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 2
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 50,
+      "procid" : 51,
+      "pid" : 23988,
+      "envVars" : []
    },
    {
-      "ancestor" : 110,
-      "descendants" : [],
-      "pid" : 20899,
-      "procid" : 111,
-      "task" : 41,
-      "program" : "./sim out.34.dat"
+      "descendants" : [
+         {
+            "procid" : 7
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 15
+      },
+      "program" : "./sim in.dat",
+      "ancestor" : 8,
+      "procid" : 9,
+      "pid" : 19491,
+      "envVars" : []
    },
-   {},
+   {
+      "descendants" : [
+         {
+            "procid" : 109
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 41
+      },
+      "program" : "./sim out.34.dat",
+      "ancestor" : 110,
+      "procid" : 111,
+      "pid" : 20899,
+      "envVars" : []
+   },
    {
       "descendants" : [
          {
@@ -123499,24 +124321,68 @@
       ],
       "pid" : 6023,
       "procid" : 38,
-      "task" : 23,
+      "envVars" : [],
+      "files" : [],
+      "task" : {
+         "taskid" : 23
+      },
       "program" : "sh -c \"./sim in.dat\""
    },
    {
-      "ancestor" : 6,
       "descendants" : [],
-      "pid" : 2884,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 24
+      },
+      "program" : "sim",
+      "ancestor" : 6,
       "procid" : 4,
-      "task" : 24,
-      "program" : "sim"
+      "pid" : 2884,
+      "envVars" : [
+         {
+            "envid" : 92
+         }
+      ]
    },
    {
-      "ancestor" : 36,
       "descendants" : [],
-      "pid" : 19482,
+      "files" : [
+         {
+            "fileid" : 2
+         }
+      ],
+      "task" : {
+         "taskid" : 6
+      },
+      "program" : "sim",
+      "ancestor" : 36,
       "procid" : 34,
-      "task" : 6,
-      "program" : "sim"
+      "pid" : 19482,
+      "envVars" : [
+         {
+            "envid" : 1002
+         }
+      ]
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 130
+         }
+      ],
+      "files" : [],
+      "task" : {
+         "taskid" : 46
+      },
+      "program" : "./sim out.41.dat out.40.dat out.39.dat out.38.dat",
+      "ancestor" : 131,
+      "procid" : 132,
+      "pid" : 6101,
+      "envVars" : []
    }
 ]
 

@@ -21,6 +21,7 @@ function setup(question) {
     json.tasks.sort(sortBy("taskid"))
     json.files.sort(sortBy("fileid"))
     json.envVars.sort(sortBy("envid"))
+    json.processes.sort(sortBy("procid"))
     console.log('Node Service Listening ...')
   })
 }
