@@ -137,108 +137,173 @@ function objectResolve(masterjson, json, args, context, type) {
   if(type == 1) {
     return context.load(0)
   }
-  var conditional, argument
+  var conditional, argument, flag
   var ids = []
 
   if(!json) { return context.loadMany(ids) }
 
-  console.log(JSON.stringify(json))
   json = preload(masterjson, json, type)
   
   //Figure out what to resolve
-  if(args.taskid) { argument = args.taskid }
-  else if(args.ruleid) { argument = args.ruleid }
-  else if(args.workerid) { argument = args.workerid }
-  else if(args.fileid) { argument = args.fileid }
-  else if(args.envid) { argument = args.envid }
-  else if(args.procid) { argument = args.procid }
-  else if(args.pid) { argument = args.pid }
-  else if(args.program) { argument = args.program }
-  else if(args.retries) { argument = args.retries }
-  else if(args.failures) { argument = args.failures }
-  else if(args.command) { argument = args.command }
-  else if(args.address) { argument = args.address }
-  else if(args.bandwidth) { argument = args.bandwidth }
-  else if(args.name) { argument = args.name }
-  else if(args.value) { argument = args.value }
-  else if(args.cores) { argument = args.cores }
-  else if(args.memory) { argument = args.memory }
-  else if(args.disk) { argument = args.disk }
-  else if(args.gpus) { argument = args.gpus }
-  else if(args.category) { argument = args.category }
-  else if(args.pid) { argument = args.pid }
-  else if(args.state) { argument = args.state }
+  if(args.hasOwnProperty("taskid")) { 
+    flag = 1
+    argument = args.taskid
+  }
+  else if(args.hasOwnProperty("ruleid")) {
+    flag = 1
+    argument = args.ruleid
+  }
+  else if(args.hasOwnProperty("workerid")) {
+    flag = 1
+    argument = args.workerid
+  }
+  else if(args.hasOwnProperty("fileid")) {
+    flag = 1
+    argument = args.fileid
+  }
+  else if(args.hasOwnProperty("envid")) {
+    flag = 1
+    argument = args.envid
+  }
+  else if(args.hasOwnProperty("procid")) {
+    flag = 1
+    argument = args.procid
+  }
+  else if(args.hasOwnProperty("pid")) {
+    flag = 1
+    argument = args.pid
+  }
+  else if(args.hasOwnProperty("program")) {
+    flag = 1
+    argument = args.program
+  }
+  else if(args.hasOwnProperty("retries")) {
+    flag = 1
+    argument = args.retries
+  }
+  else if(args.hasOwnProperty("failures")) {
+    flag = 1
+    argument = args.failures
+  }
+  else if(args.hasOwnProperty("command")) {
+    flag = 1
+    argument = args.command
+  }
+  else if(args.hasOwnProperty("address")) {
+    flag = 1
+    argument = args.address
+  }
+  else if(args.hasOwnProperty("bandwidth")) {
+    flag = 1
+    argument = args.bandwidth
+  }
+  else if(args.hasOwnProperty("name")) {
+    flag = 1
+    argument = args.name
+  }
+  else if(args.hasOwnProperty("value")) {
+    flag = 1
+    argument = args.value
+  }
+  else if(args.hasOwnProperty("cores")) {
+    flag = 1
+    argument = args.cores
+  }
+  else if(args.hasOwnProperty("memory")) {
+    flag = 1
+    argument = args.memory
+  }
+  else if(args.hasOwnProperty("disk")) {
+    flag = 1
+    argument = args.disk
+  }
+  else if(args.hasOwnProperty("gpus")) {
+    flag = 1
+    argument = args.gpus
+  }
+  else if(args.hasOwnProperty("category")) {
+    flag = 1
+    argument = args.category
+  }
+  else if(args.hasOwnProperty("pid")) {
+    flag = 1
+    argument = args.pid
+  }
+  else if(args.hasOwnProperty("state")) {
+    flag = 1
+    argument = args.state
+  }
 
   //Set conditional operator
   if(!args.conditional) { conditional = "==" }
   else { conditional = args.conditional }
 
   //If we are resolving something specific
-  if(argument) {
-    if(args.taskid) {
+  if(flag) {
+    if(args.hasOwnProperty("taskid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].taskid, argument, conditional)) {
           ids.push(json[i].taskid)
         }
       }
     }
-    else if(args.ruleid) {
+    else if(args.hasOwnProperty("ruleid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].ruleid, argument, conditional)) {
           ids.push(json[i].ruleid)
         }
       }
     }
-    else if(args.workerid) {
+    else if(args.hasOwnProperty("workerid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].workerid, argument, conditional)) {
           ids.push(json[i].workerid)
         }
       }
     }
-    else if(args.fileid) {
+    else if(args.hasOwnProperty("fileid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].fileid, argument, conditional)) {
           ids.push(json[i].fileid)
         }
       }
     }
-    else if(args.envid) {
+    else if(args.hasOwnProperty("envid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].envid, argument, conditional)) {
           ids.push(json[i].envid)
         }
       }
     }
-    else if(args.procid) {
+    else if(args.hasOwnProperty("procid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].procid, argument, conditional)) {
           ids.push(json[i].procid)
         }
       }
     }
-    else if(args.pid) {
+    else if(args.hasOwnProperty("pid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].pid, argument, conditional)) {
           ids.push(json[i].procid)
         }
       }
     }
-    else if(args.program) {
+    else if(args.hasOwnProperty("program")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].program, argument, conditional)) {
           ids.push(json[i].procid)
         }
       }
     }
-    else if(args.retries) {
+    else if(args.hasOwnProperty("retries")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].retries, argument, conditional)) {
           ids.push(json[i].ruleid)
         }
       }
     }
-    else if(args.failures) {
+    else if(args.hasOwnProperty("failures")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].failures, argument, conditional)) {
           if(type == 2) {
@@ -259,52 +324,52 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.command) {
+    else if(args.hasOwnProperty("command")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].command, argument, conditional)) {
           if(type == 3) {
             ids.push(json[i].ruleid)
           }
-          else {
+          else if(type == 4) {
             ids.push(json[i].taskid)
           }
         }
       }
     }
-    else if(args.address) {
+    else if(args.hasOwnProperty("address")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].address, argument, conditional)) {
           ids.push(json[i].workerid)
         }
       }
     }
-    else if(args.bandwidth) {
+    else if(args.hasOwnProperty("bandwidth")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].bandwidth, argument, conditional)) {
           ids.push(json[i].workerid)
         }
       }
     }
-    else if(args.name) {
+    else if(args.hasOwnProperty("name")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].name, argument, conditional)) {
-          if(type == 4) {
+          if(type == 5) {
             ids.push(json[i].fileid)
           }
-          else if(type == 5) {
+          else if(type == 6) {
             ids.push(json[i].envid)
           }
         }
       }
     }
-    else if(args.value) {
+    else if(args.hasOwnProperty("value")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].value, argument, conditional)) {
           ids.push(json[i].envid)
         }
       }
     }
-    else if(args.cores) {
+    else if(args.hasOwnProperty("cores")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].cores, argument, conditional)) {
           if(type == 3) {
@@ -316,7 +381,7 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.memory) {
+    else if(args.hasOwnProperty("memory")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].memory, argument, conditional)) {
           if(type == 3) {
@@ -328,7 +393,7 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.disk) {
+    else if(args.hasOwnProperty("disk")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].disk, argument, conditional)) {
           if(type == 3) {
@@ -340,7 +405,7 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.gpus) {
+    else if(args.hasOwnProperty("gpus")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].gpus, argument, conditional)) {
           if(type == 3) {
@@ -352,7 +417,7 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.category) {
+    else if(args.hasOwnProperty("category")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].category, argument, conditional)) {
           if(type == 3) {
@@ -364,7 +429,7 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.state) {
+    else if(args.hasOwnProperty("state")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].state, argument, conditional)) {
           if(type == 3) {
@@ -376,7 +441,7 @@ function objectResolve(masterjson, json, args, context, type) {
         }
       }
     }
-    else if(args.pid) {
+    else if(args.hasOwnProperty("pid")) {
       for(var i = 0; i < json.length; i++) {
         if(compare(json[i].pid, argument, conditional)) {
             ids.push(json[i].taskid)
