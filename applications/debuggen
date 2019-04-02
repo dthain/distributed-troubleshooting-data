@@ -186,6 +186,7 @@ while(my $line = <INPUT>) {
         $tasks{$+{taskid}}{envVars} = {};
         $tasks{$+{taskid}}{process} = {};
         $tasks{$+{taskid}}{state} = 1;
+        $tasks{$+{taskid}}{failures} = 0;
         $master{tasks}{$+{taskid}} = int($+{taskid});
         next;
     }
@@ -227,7 +228,6 @@ while(my $line = <INPUT>) {
         $tasks{$+{taskid}}{master} = $master{address};
         $tasks{$+{taskid}}{worker}{workerid} = int($wid);
         $tasks{$+{taskid}}{worker}{address} = $address;
-        $tasks{$+{taskid}}{failures} = 0;
         $currtask = $+{taskid};
         next;
     }
@@ -333,7 +333,7 @@ while(my $line = <INPUT>) {
     #wq: rx from cclvm06.virtual.crc.nd.edu (129.74.246.126:45930): missing file-298-f52f56dfdf65074d38f151ee4c184dad-out.50.dat 2
     elsif($line =~ m/wq: rx from (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): missing file-/) {
         my $address = $+{waddr} . ":" . $+{wport};
-        $tasks{$currtask}{failures}++;
+        #print(STDERR "Reporting failure for current task $currtask on worker $address on line 336.\n");
         $workers{$address}{failures}++;
         $master{failures}++;
         next;
@@ -481,6 +481,23 @@ foreach my $debug (@debugs) {
         #wq: rx from master: task 10
         elsif($line =~ m/wq: rx from master: task (?<taskid>\d+)/ and $currworker) {
             $currtask = $+{taskid};
+            next;
+        }
+
+        #wq: task 82 (pid 1110) exited normally with exit code 1
+        elsif($line =~ m/wq task (?<taskid>\d+) \(pid \d+\) exited \S+normally with exit code (?<status>\S+)/) {
+            $tasks{$+{taskid}}{exit} = int($+{status});
+            if(exists $tasks{$currtask}{rule}{ruleid}) {
+                my $rule = $tasks{$currtask}{rule}{ruleid};
+                $rules{$rule}{exit} = int($+{status});
+            }
+            next;
+        }
+
+        
+        #wq: could not rename output file /var/condor/execute/dir_20022/worker-213124-20026/t.2/out.dat to cache/file-10-7a6fc525356ac795b582a230c9e31976-out.2.dat: No such file or directory
+        elsif($line =~ m/wq: could not rename output file/) {
+            $tasks{$currtask}{failures}++;
             next;
         }
 
