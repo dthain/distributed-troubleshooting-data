@@ -307,9 +307,9 @@ while(my $line = <INPUT>) {
                 $files{$fname}{fileid} = int($fid);
                 $files{$fname}{name} = $fname;
                 $files{$fname}{accesses} = 1;
-                $files{$+{file}}{processes} = {};
+                $files{$fname}{processes} = {};
                 $files{$fname}{master} = $master{address};
-                $files{$+{file}}{failures} = 0;
+                $files{$fname}{failures} = 0;
                 $fileid++;
                 $master{files}{$fname} = int($fid);
             }
@@ -500,14 +500,14 @@ foreach my $debug (@debugs) {
                 $rules{$rule}{disk} = $tasks{$currtask}{disk};
                 foreach my $f (keys($tasks{$currtask}{inputs})) {
                     $rules{$rule}{inputs}{$f} = int($files{$f}{fileid});
-                    if(not exists $files{$+{file}}{rules}{$rule}) {
-                        $files{$+{file}}{rules}{$rule} = int($rule);
+                    if(not exists $files{$f}{rules}{$rule}) {
+                        $files{$f}{rules}{$rule} = int($rule);
                     }
                 }
                 foreach my $f (keys($tasks{$currtask}{outputs})) {
                     $rules{$rule}{outputs}{$f} = int($files{$f}{fileid});
-                    if(not exists $files{$+{file}}{rules}{$rule}) {
-                        $files{$+{file}}{rules}{$rule} = int($rule);
+                    if(not exists $files{$f}{rules}{$rule}) {
+                        $files{$f}{rules}{$rule} = int($rule);
                     }
                 }
                 if(not exists $workers{$currworker}{rules}{$rule}) { $workers{$currworker}{rules}{$rule} = int($rule); }
@@ -581,12 +581,13 @@ foreach my $ltrace (@ltraces) {
             
             if(not exists $files{$+{file}}{fileid}) {
                 $files{$+{file}}{fileid} = int($fileid);
+                $files{$+{file}}{name} = $+{file};
                 $fileid++;
-                $files{$+{file}}{result} = int($+{result});
                 $files{$+{file}}{workers} = {};
                 $files{$+{file}}{processes} = {};
                 $files{$+{file}}{accesses}++;
             }
+            $files{$+{file}}{result} = int($+{result});
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $tracefiles{$+{file}}{result} = int($+{result});
             $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
@@ -623,7 +624,7 @@ foreach my $ltrace (@ltraces) {
         }
 
         #12396   0.000368 fscheck->__xstat(1, "/disk/", 0x7ffd931d20d0) = 0
-        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->__xstat(\d+, \"(?<file>\S+)\", \S+)\s+=\s+(?<value>\S+)/) {
+        elsif($line =~ m/(?<pid>\d+)\s+\S+\s+(?<prog>\S+)->__xstat\(\d+, \"(?<file>\S+)\", \S+\)\s+=\s+(?<value>\S+)/) {
             my $result = 1;
 
             if($+{value} == -1) { $result = 0; }
