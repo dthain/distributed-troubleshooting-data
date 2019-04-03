@@ -4,7 +4,6 @@ const graphqlHTTP = require('express-graphql')
 const app = express()
 const schema = require('./schema')
 const DataLoader = require('dataloader')
-//const util = require('util')
 
 var json
 

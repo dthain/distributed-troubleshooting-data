@@ -122665,7 +122665,9 @@
          "taskid" : 45
       },
       "program" : "sim",
-      "ancestor" : 129,
+      "ancestor" : {
+         "procid" : 129
+      },
       "procid" : 127,
       "pid" : 19898,
       "envVars" : [
@@ -122685,7 +122687,9 @@
          "taskid" : 32
       },
       "program" : "./sim out.14.dat",
-      "ancestor" : 89,
+      "ancestor" : {
+         "procid" : 89
+      },
       "procid" : 90,
       "pid" : 6093,
       "envVars" : []
@@ -122716,7 +122720,9 @@
          "taskid" : 49
       },
       "program" : "sim",
-      "ancestor" : 120,
+      "ancestor" : {
+         "procid" : 120
+      },
       "procid" : 118,
       "pid" : 20036,
       "envVars" : [
@@ -122736,7 +122742,9 @@
          "taskid" : 40
       },
       "program" : "./sim out.36.dat",
-      "ancestor" : 101,
+      "ancestor" : {
+         "procid" : 101
+      },
       "procid" : 102,
       "pid" : 19768,
       "envVars" : []
@@ -122752,7 +122760,9 @@
          "taskid" : 12
       },
       "program" : "./sim in.dat",
-      "ancestor" : 17,
+      "ancestor" : {
+         "procid" : 17
+      },
       "procid" : 18,
       "pid" : 24057,
       "envVars" : []
@@ -122783,7 +122793,9 @@
          "taskid" : 12
       },
       "program" : "sim",
-      "ancestor" : 18,
+      "ancestor" : {
+         "procid" : 18
+      },
       "procid" : 16,
       "pid" : 24117,
       "envVars" : [
@@ -122818,7 +122830,9 @@
          "taskid" : 27
       },
       "program" : "sim",
-      "ancestor" : 57,
+      "ancestor" : {
+         "procid" : 57
+      },
       "procid" : 55,
       "pid" : 18282,
       "envVars" : [
@@ -122838,7 +122852,9 @@
          "taskid" : 33
       },
       "program" : "./sim out.16.dat",
-      "ancestor" : 83,
+      "ancestor" : {
+         "procid" : 83
+      },
       "procid" : 84,
       "pid" : 2881,
       "envVars" : []
@@ -122854,7 +122870,9 @@
          "taskid" : 9
       },
       "program" : "./sim in.dat",
-      "ancestor" : 26,
+      "ancestor" : {
+         "procid" : 26
+      },
       "procid" : 27,
       "pid" : 18083,
       "envVars" : []
@@ -122900,7 +122918,9 @@
          "taskid" : 27
       },
       "program" : "./sim out.24.dat",
-      "ancestor" : 56,
+      "ancestor" : {
+         "procid" : 56
+      },
       "procid" : 57,
       "pid" : 18222,
       "envVars" : []
@@ -122931,7 +122951,9 @@
          "taskid" : 41
       },
       "program" : "sim",
-      "ancestor" : 111,
+      "ancestor" : {
+         "procid" : 111
+      },
       "procid" : 109,
       "pid" : 20929,
       "envVars" : [
@@ -122951,7 +122973,9 @@
          "taskid" : 17
       },
       "program" : "sim",
-      "ancestor" : 153,
+      "ancestor" : {
+         "procid" : 153
+      },
       "procid" : 151,
       "pid" : 20812,
       "envVars" : [
@@ -122986,7 +123010,9 @@
          "taskid" : 18
       },
       "program" : "sim",
-      "ancestor" : 150,
+      "ancestor" : {
+         "procid" : 150
+      },
       "procid" : 148,
       "pid" : 18213,
       "envVars" : [
@@ -123006,7 +123032,9 @@
          "taskid" : 7
       },
       "program" : "sim",
-      "ancestor" : 33,
+      "ancestor" : {
+         "procid" : 33
+      },
       "procid" : 31,
       "pid" : 2711,
       "envVars" : [
@@ -123056,7 +123084,9 @@
          "taskid" : 35
       },
       "program" : "./sim out.18.dat",
-      "ancestor" : 77,
+      "ancestor" : {
+         "procid" : 77
+      },
       "procid" : 78,
       "pid" : 20860,
       "envVars" : []
@@ -123072,7 +123102,9 @@
          "taskid" : 34
       },
       "program" : "./sim out.13.dat",
-      "ancestor" : 92,
+      "ancestor" : {
+         "procid" : 92
+      },
       "procid" : 93,
       "pid" : 19699,
       "envVars" : []
@@ -123088,7 +123120,9 @@
          "taskid" : 39
       },
       "program" : "sim",
-      "ancestor" : 108,
+      "ancestor" : {
+         "procid" : 108
+      },
       "procid" : 106,
       "pid" : 25248,
       "envVars" : [
@@ -123108,7 +123142,9 @@
          "taskid" : 54
       },
       "program" : "sim",
-      "ancestor" : 159,
+      "ancestor" : {
+         "procid" : 159
+      },
       "procid" : 157,
       "pid" : 6231,
       "envVars" : [
@@ -123158,7 +123194,9 @@
          "taskid" : 20
       },
       "program" : "./sim in.dat",
-      "ancestor" : 137,
+      "ancestor" : {
+         "procid" : 137
+      },
       "procid" : 138,
       "pid" : 25048,
       "envVars" : []
@@ -123174,7 +123212,9 @@
          "taskid" : 42
       },
       "program" : "./sim out.33.dat",
-      "ancestor" : 113,
+      "ancestor" : {
+         "procid" : 113
+      },
       "procid" : 114,
       "pid" : 18360,
       "envVars" : []
@@ -123190,7 +123230,9 @@
          "taskid" : 28
       },
       "program" : "sim",
-      "ancestor" : 60,
+      "ancestor" : {
+         "procid" : 60
+      },
       "procid" : 58,
       "pid" : 19690,
       "envVars" : [
@@ -123210,7 +123252,9 @@
          "taskid" : 13
       },
       "program" : "./sim in.dat",
-      "ancestor" : 14,
+      "ancestor" : {
+         "procid" : 14
+      },
       "procid" : 15,
       "pid" : 2626,
       "envVars" : []
@@ -123226,7 +123270,9 @@
          "taskid" : 17
       },
       "program" : "./sim in.dat",
-      "ancestor" : 152,
+      "ancestor" : {
+         "procid" : 152
+      },
       "procid" : 153,
       "pid" : 20782,
       "envVars" : []
@@ -123257,7 +123303,9 @@
          "taskid" : 31
       },
       "program" : "./sim out.17.dat",
-      "ancestor" : 80,
+      "ancestor" : {
+         "procid" : 80
+      },
       "procid" : 81,
       "pid" : 5892,
       "envVars" : []
@@ -123273,7 +123321,9 @@
          "taskid" : 28
       },
       "program" : "./sim out.23.dat",
-      "ancestor" : 59,
+      "ancestor" : {
+         "procid" : 59
+      },
       "procid" : 60,
       "pid" : 19629,
       "envVars" : []
@@ -123289,7 +123339,9 @@
          "taskid" : 30
       },
       "program" : "sim",
-      "ancestor" : 75,
+      "ancestor" : {
+         "procid" : 75
+      },
       "procid" : 73,
       "pid" : 24256,
       "envVars" : [
@@ -123339,7 +123391,9 @@
          "taskid" : 35
       },
       "program" : "sim",
-      "ancestor" : 78,
+      "ancestor" : {
+         "procid" : 78
+      },
       "procid" : 76,
       "pid" : 20890,
       "envVars" : [
@@ -123374,7 +123428,9 @@
          "taskid" : 48
       },
       "program" : "sim",
-      "ancestor" : 69,
+      "ancestor" : {
+         "procid" : 69
+      },
       "procid" : 67,
       "pid" : 20968,
       "envVars" : [
@@ -123394,7 +123450,9 @@
          "taskid" : 51
       },
       "program" : "sim",
-      "ancestor" : 141,
+      "ancestor" : {
+         "procid" : 141
+      },
       "procid" : 139,
       "pid" : 21046,
       "envVars" : [
@@ -123414,7 +123472,9 @@
          "taskid" : 45
       },
       "program" : "./sim out.42.dat",
-      "ancestor" : 128,
+      "ancestor" : {
+         "procid" : 128
+      },
       "procid" : 129,
       "pid" : 19838,
       "envVars" : []
@@ -123475,7 +123535,9 @@
          "taskid" : 33
       },
       "program" : "sim",
-      "ancestor" : 84,
+      "ancestor" : {
+         "procid" : 84
+      },
       "procid" : 82,
       "pid" : 2996,
       "envVars" : [
@@ -123495,7 +123557,9 @@
          "taskid" : 19
       },
       "program" : "./sim in.dat",
-      "ancestor" : 146,
+      "ancestor" : {
+         "procid" : 146
+      },
       "procid" : 147,
       "pid" : 24126,
       "envVars" : []
@@ -123511,7 +123575,9 @@
          "taskid" : 47
       },
       "program" : "./sim out.48.dat",
-      "ancestor" : 134,
+      "ancestor" : {
+         "procid" : 134
+      },
       "procid" : 135,
       "pid" : 19907,
       "envVars" : []
@@ -123542,7 +123608,9 @@
          "taskid" : 48
       },
       "program" : "./sim out.20.dat",
-      "ancestor" : 68,
+      "ancestor" : {
+         "procid" : 68
+      },
       "procid" : 69,
       "pid" : 20938,
       "envVars" : []
@@ -123558,7 +123626,9 @@
          "taskid" : 42
       },
       "program" : "sim",
-      "ancestor" : 114,
+      "ancestor" : {
+         "procid" : 114
+      },
       "procid" : 112,
       "pid" : 18420,
       "envVars" : [
@@ -123578,7 +123648,9 @@
          "taskid" : 19
       },
       "program" : "sim",
-      "ancestor" : 147,
+      "ancestor" : {
+         "procid" : 147
+      },
       "procid" : 145,
       "pid" : 24186,
       "envVars" : [
@@ -123598,7 +123670,9 @@
          "taskid" : 2
       },
       "program" : "sim",
-      "ancestor" : 51,
+      "ancestor" : {
+         "procid" : 51
+      },
       "procid" : 49,
       "pid" : 24048,
       "envVars" : [
@@ -123618,7 +123692,9 @@
          "taskid" : 10
       },
       "program" : "./sim in.dat",
-      "ancestor" : 23,
+      "ancestor" : {
+         "procid" : 23
+      },
       "procid" : 24,
       "pid" : 24977,
       "envVars" : []
@@ -123664,7 +123740,9 @@
          "taskid" : 43
       },
       "program" : "sim",
-      "ancestor" : 126,
+      "ancestor" : {
+         "procid" : 126
+      },
       "procid" : 124,
       "pid" : 6092,
       "envVars" : [
@@ -123699,7 +123777,9 @@
          "taskid" : 50
       },
       "program" : "sim",
-      "ancestor" : 123,
+      "ancestor" : {
+         "procid" : 123
+      },
       "procid" : 121,
       "pid" : 21007,
       "envVars" : [
@@ -123719,7 +123799,9 @@
          "taskid" : 31
       },
       "program" : "sim",
-      "ancestor" : 81,
+      "ancestor" : {
+         "procid" : 81
+      },
       "procid" : 79,
       "pid" : 5953,
       "envVars" : [
@@ -123739,7 +123821,9 @@
          "taskid" : 16
       },
       "program" : "sim",
-      "ancestor" : 156,
+      "ancestor" : {
+         "procid" : 156
+      },
       "procid" : 154,
       "pid" : 5814,
       "envVars" : [
@@ -123774,7 +123858,9 @@
          "taskid" : 37
       },
       "program" : "./sim out.12.dat out.11.dat out.10.dat out.9.dat out.8.dat out.7.dat out.6.dat out.5.dat out.4.dat out.3.dat out.2.dat out.1.dat out.0.dat",
-      "ancestor" : 95,
+      "ancestor" : {
+         "procid" : 95
+      },
       "procid" : 96,
       "pid" : 2914,
       "envVars" : []
@@ -123790,7 +123876,9 @@
          "taskid" : 43
       },
       "program" : "./sim out.43.dat",
-      "ancestor" : 125,
+      "ancestor" : {
+         "procid" : 125
+      },
       "procid" : 126,
       "pid" : 6032,
       "envVars" : []
@@ -123806,7 +123894,9 @@
          "taskid" : 54
       },
       "program" : "./sim spec.config",
-      "ancestor" : 158,
+      "ancestor" : {
+         "procid" : 158
+      },
       "procid" : 159,
       "pid" : 6171,
       "envVars" : []
@@ -123822,7 +123912,9 @@
          "taskid" : 53
       },
       "program" : "sim",
-      "ancestor" : 162,
+      "ancestor" : {
+         "procid" : 162
+      },
       "procid" : 160,
       "pid" : 21163,
       "envVars" : [
@@ -123887,7 +123979,9 @@
          "taskid" : 23
       },
       "program" : "sim",
-      "ancestor" : 39,
+      "ancestor" : {
+         "procid" : 39
+      },
       "procid" : 37,
       "pid" : 6084,
       "envVars" : [
@@ -123907,7 +124001,9 @@
          "taskid" : 38
       },
       "program" : "./sim out.32.dat",
-      "ancestor" : 116,
+      "ancestor" : {
+         "procid" : 116
+      },
       "procid" : 117,
       "pid" : 5962,
       "envVars" : []
@@ -123923,7 +124019,9 @@
          "taskid" : 4
       },
       "program" : "sim",
-      "ancestor" : 45,
+      "ancestor" : {
+         "procid" : 45
+      },
       "procid" : 43,
       "pid" : 5946,
       "envVars" : [
@@ -123958,7 +124056,9 @@
          "taskid" : 7
       },
       "program" : "./sim in.dat",
-      "ancestor" : 32,
+      "ancestor" : {
+         "procid" : 32
+      },
       "procid" : 33,
       "pid" : 2584,
       "envVars" : []
@@ -123974,7 +124074,9 @@
          "taskid" : 26
       },
       "program" : "./sim out.22.dat",
-      "ancestor" : 62,
+      "ancestor" : {
+         "procid" : 62
+      },
       "procid" : 63,
       "pid" : 20821,
       "envVars" : []
@@ -123990,7 +124092,9 @@
          "taskid" : 11
       },
       "program" : "./sim in.dat",
-      "ancestor" : 20,
+      "ancestor" : {
+         "procid" : 20
+      },
       "procid" : 21,
       "pid" : 20743,
       "envVars" : []
@@ -124006,7 +124110,9 @@
          "taskid" : 15
       },
       "program" : "sim",
-      "ancestor" : 9,
+      "ancestor" : {
+         "procid" : 9
+      },
       "procid" : 7,
       "pid" : 19551,
       "envVars" : [
@@ -124071,7 +124177,9 @@
          "taskid" : 44
       },
       "program" : "./sim out.37.dat",
-      "ancestor" : 98,
+      "ancestor" : {
+         "procid" : 98
+      },
       "procid" : 99,
       "pid" : 6162,
       "envVars" : []
@@ -124087,7 +124195,9 @@
          "taskid" : 53
       },
       "program" : "./sim spec.config",
-      "ancestor" : 161,
+      "ancestor" : {
+         "procid" : 161
+      },
       "procid" : 162,
       "pid" : 21133,
       "envVars" : []
@@ -124103,7 +124213,9 @@
          "taskid" : 22
       },
       "program" : "./sim in.dat",
-      "ancestor" : 71,
+      "ancestor" : {
+         "procid" : 71
+      },
       "procid" : 72,
       "pid" : 19560,
       "envVars" : []
@@ -124134,7 +124246,9 @@
          "taskid" : 26
       },
       "program" : "sim",
-      "ancestor" : 63,
+      "ancestor" : {
+         "procid" : 63
+      },
       "procid" : 61,
       "pid" : 20851,
       "envVars" : [
@@ -124154,7 +124268,9 @@
          "taskid" : 39
       },
       "program" : "./sim out.35.dat",
-      "ancestor" : 107,
+      "ancestor" : {
+         "procid" : 107
+      },
       "procid" : 108,
       "pid" : 25188,
       "envVars" : []
@@ -124170,7 +124286,9 @@
          "taskid" : 38
       },
       "program" : "sim",
-      "ancestor" : 117,
+      "ancestor" : {
+         "procid" : 117
+      },
       "procid" : 115,
       "pid" : 6023,
       "envVars" : [
@@ -124205,7 +124323,9 @@
          "taskid" : 21
       },
       "program" : "sim",
-      "ancestor" : 105,
+      "ancestor" : {
+         "procid" : 105
+      },
       "procid" : 103,
       "pid" : 2860,
       "envVars" : [
@@ -124225,7 +124345,9 @@
          "taskid" : 14
       },
       "program" : "sim",
-      "ancestor" : 12,
+      "ancestor" : {
+         "procid" : 12
+      },
       "procid" : 10,
       "pid" : 6015,
       "envVars" : [
@@ -124271,7 +124393,9 @@
          "taskid" : 52
       },
       "program" : "midpoint",
-      "ancestor" : 144,
+      "ancestor" : {
+         "procid" : 144
+      },
       "procid" : 142,
       "pid" : 21085,
       "envVars" : [
@@ -124291,7 +124415,9 @@
          "taskid" : 34
       },
       "program" : "sim",
-      "ancestor" : 93,
+      "ancestor" : {
+         "procid" : 93
+      },
       "procid" : 91,
       "pid" : 19759,
       "envVars" : [
@@ -124326,7 +124452,9 @@
          "taskid" : 3
       },
       "program" : "./sim in.dat",
-      "ancestor" : 47,
+      "ancestor" : {
+         "procid" : 47
+      },
       "procid" : 48,
       "pid" : 20704,
       "envVars" : []
@@ -124342,7 +124470,9 @@
          "taskid" : 36
       },
       "program" : "./sim out.15.dat",
-      "ancestor" : 86,
+      "ancestor" : {
+         "procid" : 86
+      },
       "procid" : 87,
       "pid" : 18291,
       "envVars" : []
@@ -124373,7 +124503,9 @@
          "taskid" : 47
       },
       "program" : "sim",
-      "ancestor" : 135,
+      "ancestor" : {
+         "procid" : 135
+      },
       "procid" : 133,
       "pid" : 19967,
       "envVars" : [
@@ -124393,7 +124525,9 @@
          "taskid" : 50
       },
       "program" : "./sim out.44.dat",
-      "ancestor" : 122,
+      "ancestor" : {
+         "procid" : 122
+      },
       "procid" : 123,
       "pid" : 20977,
       "envVars" : []
@@ -124439,7 +124573,9 @@
          "taskid" : 23
       },
       "program" : "./sim in.dat",
-      "ancestor" : 38,
+      "ancestor" : {
+         "procid" : 38
+      },
       "procid" : 39,
       "pid" : 6024,
       "envVars" : []
@@ -124455,7 +124591,9 @@
          "taskid" : 29
       },
       "program" : "sim",
-      "ancestor" : 66,
+      "ancestor" : {
+         "procid" : 66
+      },
       "procid" : 64,
       "pid" : 25179,
       "envVars" : [
@@ -124475,7 +124613,9 @@
          "taskid" : 44
       },
       "program" : "sim",
-      "ancestor" : 99,
+      "ancestor" : {
+         "procid" : 99
+      },
       "procid" : 97,
       "pid" : 6222,
       "envVars" : [
@@ -124495,7 +124635,9 @@
          "taskid" : 14
       },
       "program" : "./sim in.dat",
-      "ancestor" : 11,
+      "ancestor" : {
+         "procid" : 11
+      },
       "procid" : 12,
       "pid" : 5955,
       "envVars" : []
@@ -124526,7 +124668,9 @@
          "taskid" : 1
       },
       "program" : "sim",
-      "ancestor" : 54,
+      "ancestor" : {
+         "procid" : 54
+      },
       "procid" : 52,
       "pid" : 2596,
       "envVars" : [
@@ -124561,7 +124705,9 @@
          "taskid" : 29
       },
       "program" : "./sim out.21.dat",
-      "ancestor" : 65,
+      "ancestor" : {
+         "procid" : 65
+      },
       "procid" : 66,
       "pid" : 25117,
       "envVars" : []
@@ -124577,7 +124723,9 @@
          "taskid" : 4
       },
       "program" : "./sim in.dat",
-      "ancestor" : 44,
+      "ancestor" : {
+         "procid" : 44
+      },
       "procid" : 45,
       "pid" : 5886,
       "envVars" : []
@@ -124593,7 +124741,9 @@
          "taskid" : 11
       },
       "program" : "sim",
-      "ancestor" : 21,
+      "ancestor" : {
+         "procid" : 21
+      },
       "procid" : 19,
       "pid" : 20773,
       "envVars" : [
@@ -124613,7 +124763,9 @@
          "taskid" : 1
       },
       "program" : "./sim in.dat",
-      "ancestor" : 53,
+      "ancestor" : {
+         "procid" : 53
+      },
       "procid" : 54,
       "pid" : 2519,
       "envVars" : []
@@ -124629,7 +124781,9 @@
          "taskid" : 22
       },
       "program" : "sim",
-      "ancestor" : 72,
+      "ancestor" : {
+         "procid" : 72
+      },
       "procid" : 70,
       "pid" : 19620,
       "envVars" : [
@@ -124664,7 +124818,9 @@
          "taskid" : 25
       },
       "program" : "sim",
-      "ancestor" : 3,
+      "ancestor" : {
+         "procid" : 3
+      },
       "procid" : 1,
       "pid" : 5883,
       "envVars" : [
@@ -124684,7 +124840,9 @@
          "taskid" : 32
       },
       "program" : "sim",
-      "ancestor" : 90,
+      "ancestor" : {
+         "procid" : 90
+      },
       "procid" : 88,
       "pid" : 6153,
       "envVars" : [
@@ -124704,7 +124862,9 @@
          "taskid" : 20
       },
       "program" : "sim",
-      "ancestor" : 138,
+      "ancestor" : {
+         "procid" : 138
+      },
       "procid" : 136,
       "pid" : 25108,
       "envVars" : [
@@ -124739,7 +124899,9 @@
          "taskid" : 8
       },
       "program" : "./sim in.dat",
-      "ancestor" : 29,
+      "ancestor" : {
+         "procid" : 29
+      },
       "procid" : 30,
       "pid" : 5685,
       "envVars" : []
@@ -124755,7 +124917,9 @@
          "taskid" : 52
       },
       "program" : "./midpoint out.49.dat out.50.dat",
-      "ancestor" : 143,
+      "ancestor" : {
+         "procid" : 143
+      },
       "procid" : 144,
       "pid" : 21055,
       "envVars" : []
@@ -124771,7 +124935,9 @@
          "taskid" : 51
       },
       "program" : "./sim out.47.dat out.46.dat out.45.dat",
-      "ancestor" : 140,
+      "ancestor" : {
+         "procid" : 140
+      },
       "procid" : 141,
       "pid" : 21016,
       "envVars" : []
@@ -124787,7 +124953,9 @@
          "taskid" : 40
       },
       "program" : "sim",
-      "ancestor" : 102,
+      "ancestor" : {
+         "procid" : 102
+      },
       "procid" : 100,
       "pid" : 19829,
       "envVars" : [
@@ -124807,7 +124975,9 @@
          "taskid" : 9
       },
       "program" : "sim",
-      "ancestor" : 27,
+      "ancestor" : {
+         "procid" : 27
+      },
       "procid" : 25,
       "pid" : 18144,
       "envVars" : [
@@ -124842,7 +125012,9 @@
          "taskid" : 49
       },
       "program" : "./sim out.31.dat out.30.dat out.29.dat out.28.dat out.27.dat out.26.dat out.25.dat",
-      "ancestor" : 119,
+      "ancestor" : {
+         "procid" : 119
+      },
       "procid" : 120,
       "pid" : 19976,
       "envVars" : []
@@ -124858,7 +125030,9 @@
          "taskid" : 8
       },
       "program" : "sim",
-      "ancestor" : 30,
+      "ancestor" : {
+         "procid" : 30
+      },
       "procid" : 28,
       "pid" : 5745,
       "envVars" : [
@@ -124878,7 +125052,9 @@
          "taskid" : 30
       },
       "program" : "./sim out.19.dat",
-      "ancestor" : 74,
+      "ancestor" : {
+         "procid" : 74
+      },
       "procid" : 75,
       "pid" : 24195,
       "envVars" : []
@@ -124924,7 +125100,9 @@
          "taskid" : 16
       },
       "program" : "./sim in.dat",
-      "ancestor" : 155,
+      "ancestor" : {
+         "procid" : 155
+      },
       "procid" : 156,
       "pid" : 5754,
       "envVars" : []
@@ -124940,7 +125118,9 @@
          "taskid" : 5
       },
       "program" : "sim",
-      "ancestor" : 42,
+      "ancestor" : {
+         "procid" : 42
+      },
       "procid" : 40,
       "pid" : 7593,
       "envVars" : [
@@ -124975,7 +125155,9 @@
          "taskid" : 18
       },
       "program" : "./sim in.dat",
-      "ancestor" : 149,
+      "ancestor" : {
+         "procid" : 149
+      },
       "procid" : 150,
       "pid" : 18153,
       "envVars" : []
@@ -124991,7 +125173,9 @@
          "taskid" : 46
       },
       "program" : "sim",
-      "ancestor" : 132,
+      "ancestor" : {
+         "procid" : 132
+      },
       "procid" : 130,
       "pid" : 6161,
       "envVars" : [
@@ -125071,7 +125255,9 @@
          "taskid" : 5
       },
       "program" : "./sim in.dat",
-      "ancestor" : 41,
+      "ancestor" : {
+         "procid" : 41
+      },
       "procid" : 42,
       "pid" : 7441,
       "envVars" : []
@@ -125087,7 +125273,9 @@
          "taskid" : 10
       },
       "program" : "sim",
-      "ancestor" : 24,
+      "ancestor" : {
+         "procid" : 24
+      },
       "procid" : 22,
       "pid" : 25039,
       "envVars" : [
@@ -125122,7 +125310,9 @@
          "taskid" : 3
       },
       "program" : "sim",
-      "ancestor" : 48,
+      "ancestor" : {
+         "procid" : 48
+      },
       "procid" : 46,
       "pid" : 20734,
       "envVars" : [
@@ -125142,7 +125332,9 @@
          "taskid" : 13
       },
       "program" : "sim",
-      "ancestor" : 15,
+      "ancestor" : {
+         "procid" : 15
+      },
       "procid" : 13,
       "pid" : 2744,
       "envVars" : [
@@ -125162,7 +125354,9 @@
          "taskid" : 21
       },
       "program" : "./sim in.dat",
-      "ancestor" : 104,
+      "ancestor" : {
+         "procid" : 104
+      },
       "procid" : 105,
       "pid" : 2737,
       "envVars" : []
@@ -125178,7 +125372,9 @@
          "taskid" : 24
       },
       "program" : "./sim in.dat",
-      "ancestor" : 5,
+      "ancestor" : {
+         "procid" : 5
+      },
       "procid" : 6,
       "pid" : 2771,
       "envVars" : []
@@ -125194,7 +125390,9 @@
          "taskid" : 36
       },
       "program" : "sim",
-      "ancestor" : 87,
+      "ancestor" : {
+         "procid" : 87
+      },
       "procid" : 85,
       "pid" : 18351,
       "envVars" : [
@@ -125214,7 +125412,9 @@
          "taskid" : 25
       },
       "program" : "./sim in.dat",
-      "ancestor" : 2,
+      "ancestor" : {
+         "procid" : 2
+      },
       "procid" : 3,
       "pid" : 5823,
       "envVars" : []
@@ -125230,7 +125430,9 @@
          "taskid" : 6
       },
       "program" : "./sim in.dat",
-      "ancestor" : 35,
+      "ancestor" : {
+         "procid" : 35
+      },
       "procid" : 36,
       "pid" : 19421,
       "envVars" : []
@@ -125246,7 +125448,9 @@
          "taskid" : 37
       },
       "program" : "sim",
-      "ancestor" : 96,
+      "ancestor" : {
+         "procid" : 96
+      },
       "procid" : 94,
       "pid" : 3018,
       "envVars" : [
@@ -125281,7 +125485,9 @@
          "taskid" : 2
       },
       "program" : "./sim in.dat",
-      "ancestor" : 50,
+      "ancestor" : {
+         "procid" : 50
+      },
       "procid" : 51,
       "pid" : 23988,
       "envVars" : []
@@ -125297,7 +125503,9 @@
          "taskid" : 15
       },
       "program" : "./sim in.dat",
-      "ancestor" : 8,
+      "ancestor" : {
+         "procid" : 8
+      },
       "procid" : 9,
       "pid" : 19491,
       "envVars" : []
@@ -125313,7 +125521,9 @@
          "taskid" : 41
       },
       "program" : "./sim out.34.dat",
-      "ancestor" : 110,
+      "ancestor" : {
+         "procid" : 110
+      },
       "procid" : 111,
       "pid" : 20899,
       "envVars" : []
@@ -125344,7 +125554,9 @@
          "taskid" : 24
       },
       "program" : "sim",
-      "ancestor" : 6,
+      "ancestor" : {
+         "procid" : 6
+      },
       "procid" : 4,
       "pid" : 2884,
       "envVars" : [
@@ -125364,7 +125576,9 @@
          "taskid" : 6
       },
       "program" : "sim",
-      "ancestor" : 36,
+      "ancestor" : {
+         "procid" : 36
+      },
       "procid" : 34,
       "pid" : 19482,
       "envVars" : [
@@ -125384,7 +125598,9 @@
          "taskid" : 46
       },
       "program" : "./sim out.41.dat out.40.dat out.39.dat out.38.dat",
-      "ancestor" : 131,
+      "ancestor" : {
+         "procid" : 131
+      },
       "procid" : 132,
       "pid" : 6101,
       "envVars" : []

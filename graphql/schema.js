@@ -131,6 +131,20 @@ function preload(masterjson, json, type) {
   return preloaded
 }
 
+function stringResolve(json) {
+  var strings = []
+  var keys = Object.keys(json)
+  if(keys.length == 1) {
+    strings = [keys[0]]
+  }
+  else {
+    for(var i = 0; i < keys.length; i++) {
+      strings.push(keys[i])
+    }
+  }
+  return strings
+}
+
 function objectResolve(masterjson, json, args, context, type) {
 
   //Types: 1 == Master, 2 == Worker, 3 == Rule, 4 == Task, 5 == File, 6 == EnvVar, 7 == Proc
@@ -826,7 +840,8 @@ const EnvVarType = new GraphQLObjectType({
     },
     values: {
       type: new GraphQLList(GraphQLString),
-      resolve: (json, args, context) => {return objectResolve(context.json, json.values, args, context) }
+      //resolve: (json, args, context) => {return objectResolve(context.json, json.values, args, context) }
+      resolve: (json) => { return stringResolve(json.values) }
     },
     accesses: {
       type: GraphQLInt,
