@@ -50,7 +50,7 @@ if($err) {
 }
 
 my $usr = $ENV{USER};
-my $result = system("makeflow -T wq -d all -o master.debug -N $name -r 1 bad-env.makeflow");
+my $result = system("../bin/makeflow -T wq -d all -o master.debug -N $name -r 1 bad-env.makeflow");
 cleanup();
 exit 0;
 

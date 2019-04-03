@@ -28,7 +28,7 @@ $(MAKEFLOW): $(PROG) $(INPUT) ltrace-wrapper
 	perl makeflowgen -r 100 -o $@
 
 $(DATA): $(PROG) $(INPUT) $(PERL) $(MAKEFLOW)
-	condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 10
+	../bin/condor_submit_workers -N wq-trace -E "-d all -o worker.debug --debug-rotate-max 0" 10
 	perl test --name wq-trace
 
 $(JSON): $(DATA)
