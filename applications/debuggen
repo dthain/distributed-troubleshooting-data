@@ -333,7 +333,6 @@ while(my $line = <INPUT>) {
     #wq: rx from cclvm06.virtual.crc.nd.edu (129.74.246.126:45930): missing file-298-f52f56dfdf65074d38f151ee4c184dad-out.50.dat 2
     elsif($line =~ m/wq: rx from (?<waddr>\S+) \([0-9\.]+:(?<wport>\d+)\): missing file-/) {
         my $address = $+{waddr} . ":" . $+{wport};
-        #print(STDERR "Reporting failure for current task $currtask on worker $address on line 336.\n");
         $workers{$address}{failures}++;
         $master{failures}++;
         next;
@@ -571,7 +570,7 @@ foreach my $ltrace (@ltraces) {
                 $procs{$procid}{procid} = int($procid);
                 $procs{$procid}{pid} = int($+{pid});
                 $procs{$procid}{program} = $+{cmd};
-                $procs{$procid}{ancestor} = int($traceprocs{$+{ppid}}{procid});
+                $procs{$procid}{ancestor}{procid} = int($traceprocs{$+{ppid}}{procid});
                 $procs{$procid}{descendants} = {};
                 $procs{$procid}{files} = {};
                 $procs{$procid}{envVars} = {};
@@ -604,10 +603,11 @@ foreach my $ltrace (@ltraces) {
                 $files{$+{file}}{processes} = {};
                 $files{$+{file}}{accesses}++;
             }
+            my $procid = $traceprocs{$+{pid}}{procid};
             $files{$+{file}}{result} = int($+{result});
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $tracefiles{$+{file}}{result} = int($+{result});
-            $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
+            $procs{$procid}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }
 
@@ -632,11 +632,12 @@ foreach my $ltrace (@ltraces) {
                 $files{$+{file}}{processes} = {};
                 $fileid++;
             }
+            my $procid = $traceprocs{$+{pid}}{procid};
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $files{$+{file}}{result} = hex($+{result});
             $files{$+{file}}{accesses}++;
             $tracefiles{$+{file}} = hex($+{result});
-            $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
+            $procs{$procid}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }
 
@@ -666,10 +667,11 @@ foreach my $ltrace (@ltraces) {
                 $fileid++;
             }
             if(!$result) { $files{$+{file}}{failures}++; }
+            my $procid = $traceprocs{$+{pid}}{procid};
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
             $files{$+{file}}{accesses}++;
             $tracefiles{$+{file}} = int($result);
-            $procs{$traceprocs{$+{pid}}{procid}}{files}{$+{file}} = int($files{$+{file}}{fileid});
+            $procs{$procid}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }
         
@@ -794,7 +796,7 @@ foreach my $ltrace (@ltraces) {
             foreach my $p (keys(%traceprocs)) {
                 my $procid = $traceprocs{$p}{procid};
                 if($p != $ppid and $p != $pid) {
-                    $procs{$procid}{ancestor} = int($ancestor);
+                    $procs{$procid}{ancestor}{procid} = int($ancestor);
                     $procs{$ancestor}{descendants}{$procid} = int($procid);
                 }
                 $procs{$procid}{task}{taskid} = int($tasks{$task}{taskid});
