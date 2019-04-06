@@ -16,12 +16,12 @@ $SIG{TERM} = \&cleanup;
 my $usage = "Application Test Options:
 
 Required:
-	--tasks    <integer>        Sets the number of tasks.
-	--sleep    <integer>        Sets the sleep time per task.
-	--name     <string>         Sets the name of the Work Queue master.
+	--tasks    <integer>    Sets the number of tasks.
+	--sleep    <integer>    Sets the sleep time per task.
+	--name     <string>     Sets the name of the Work Queue master.
 
 Optional:
-	--help			Display this message.
+	--help			        Display this message.
 
 Example Usage:
 
@@ -49,9 +49,9 @@ my $sleep = $OPT{sleep};
 my $name = $OPT{name};
 my $err = 0;
 
-if(!$tasks) { print(STDERR "Missing --cores option.\n"); $err++; }
-if(!$sleep) { print(STDERR "Missing --workers option.\n"); $err++; }
-if(!$name) { print(STDERR "Missing --file option.\n"); $err++; }
+if(!$tasks) { print(STDERR "Missing --tasks option.\n"); $err++; }
+if(!$sleep) { print(STDERR "Missing --sleep option.\n"); $err++; }
+if(!$name) { print(STDERR "Missing --name option.\n"); $err++; }
 if($err) {
     print(STDERR "Could not find $err required arguments.\n");
     print_help();

@@ -606,7 +606,7 @@ foreach my $ltrace (@ltraces) {
             my $procid = $traceprocs{$+{pid}}{procid};
             $files{$+{file}}{result} = int($+{result});
             $files{$+{file}}{processes}{$+{pid}} = int($traceprocs{$+{pid}}{procid});
-            $tracefiles{$+{file}}{result} = int($+{result});
+            $tracefiles{$+{file}} = int($+{result});
             $procs{$procid}{files}{$+{file}} = int($files{$+{file}}{fileid});
             next;
         }

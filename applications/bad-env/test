@@ -16,10 +16,10 @@ $SIG{TERM} = \&cleanup;
 my $usage = "Application Test Options:
 
 Required:
-	--name     <string>         Sets the name of the Work Queue master.
+	--name  <string>    Sets the name of the Work Queue master.
 
 Optional:
-	--help			Display this message.
+	--help			    Display this message.
 
 Example Usage:
 
@@ -43,7 +43,7 @@ catch Error::Simple with {
 my $name = $OPT{name};
 my $err = 0;
 
-if(!$name) { print(STDERR "Missing --file option.\n"); $err++; }
+if(!$name) { print(STDERR "Missing --name option.\n"); $err++; }
 if($err) {
     print(STDERR "Could not find $err required arguments.\n");
     print_help();
