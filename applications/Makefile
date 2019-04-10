@@ -5,6 +5,7 @@ EXAMPLE = example.complete
 SHAREDFS = shared-fs.complete
 BADENV = bad-env.complete
 BWAGATK = bwa-gatk.complete
+PLOT = bwa-gatk-performance.pdf
 
 CLEANUP = bin bwa-gatk doc etc include lib share 
 
@@ -44,6 +45,10 @@ $(BWAGATK): $(CCTOOLS) bwa-gatk/Makefile
 	cd bwa-gatk && make
 	cp bwa-gatk/master.json ../graphql/bwa-gatk.json
 	touch bwa-gatk.complete
+
+$(PLOT): $(BWAGATK) /usr/bin/gnuplot
+	cd plots && gnuplot plot-bwa-gatk.plg
+	mv plots/bwa-gatk-performance.pdf .
 
 build: $(CCTOOLS) $(ENVTRACE)
 

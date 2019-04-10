@@ -1,0 +1,1189 @@
+{
+"master": {
+   "failures" : 0,
+   "tasks" : [
+      {
+         "taskid" : 1
+      }
+   ],
+   "files" : [
+      {
+         "fileid" : 1
+      },
+      {
+         "fileid" : 2
+      },
+      {
+         "fileid" : 5
+      },
+      {
+         "fileid" : 6
+      },
+      {
+         "fileid" : 3
+      },
+      {
+         "fileid" : 4
+      },
+      {
+         "fileid" : 7
+      },
+      {
+         "fileid" : 8
+      }
+   ],
+   "workers" : [
+      {
+         "workerid" : 1
+      }
+   ],
+   "address" : "disc01.crc.nd.edu:9000",
+   "rules" : []
+}
+,
+
+"workers": [
+   {
+      "bandwidth" : 119.29,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workerid" : 1,
+      "files" : [
+         {
+            "fileid" : 1
+         },
+         {
+            "fileid" : 2
+         },
+         {
+            "fileid" : 5
+         },
+         {
+            "fileid" : 6
+         },
+         {
+            "fileid" : 3
+         },
+         {
+            "fileid" : 4
+         },
+         {
+            "fileid" : 7
+         },
+         {
+            "fileid" : 8
+         }
+      ],
+      "address" : "cclvm06.virtual.crc.nd.edu:33168",
+      "rules" : []
+   }
+]
+,
+
+"rules": []
+,
+
+"tasks": [
+   {
+      "failures" : 0,
+      "disk" : 1764,
+      "outputs" : [
+         {
+            "fileid" : 5
+         },
+         {
+            "fileid" : 6
+         },
+         {
+            "fileid" : 3
+         },
+         {
+            "fileid" : 4
+         },
+         {
+            "fileid" : 7
+         },
+         {
+            "fileid" : 8
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "files" : [],
+      "taskid" : 1,
+      "inputs" : [
+         {
+            "fileid" : 1
+         },
+         {
+            "fileid" : 2
+         }
+      ],
+      "gpus" : 0,
+      "cores" : 1,
+      "state" : 5,
+      "process" : {},
+      "memory" : 412,
+      "worker" : {
+         "workerid" : 1
+      },
+      "envVars" : [],
+      "category" : "default"
+   }
+]
+,
+
+"files": [
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 1,
+      "processes" : [
+         {
+            "procid" : 2
+         }
+      ],
+      "name" : "in.dat",
+      "accesses" : 1,
+      "result" : 3
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 2,
+      "processes" : [],
+      "name" : "ltrace-wrapper",
+      "accesses" : 1
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 6,
+      "processes" : [],
+      "name" : "ltrace.debug",
+      "accesses" : 1
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 7,
+      "processes" : [],
+      "name" : "task.1.debug",
+      "accesses" : 1
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 5,
+      "processes" : [],
+      "name" : "ltrace.1.debug",
+      "accesses" : 1
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 3,
+      "processes" : [],
+      "name" : "out.1.dat",
+      "accesses" : 1
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 4,
+      "processes" : [
+         {
+            "procid" : 2
+         }
+      ],
+      "name" : "out.dat",
+      "accesses" : 1,
+      "result" : 3
+   },
+   {
+      "failures" : 0,
+      "tasks" : [
+         {
+            "taskid" : 1
+         }
+      ],
+      "master" : "disc01.crc.nd.edu:9000",
+      "workers" : [
+         {
+            "workerid" : 1
+         }
+      ],
+      "fileid" : 8,
+      "processes" : [],
+      "name" : "worker.debug",
+      "accesses" : 1
+   }
+]
+,
+
+"envVars": [
+   {
+      "failures" : 0,
+      "envid" : 33,
+      "file" : "ltrace.1.debug",
+      "name" : "ENV",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/init/profile.sh" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 32,
+      "file" : "ltrace.1.debug",
+      "name" : "MODULES_LMALTNAME",
+      "values" : {
+         "CRC_default/1.1&CRC_default/default&CRC_default" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 90,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_JOB_IWD",
+      "values" : {
+         "/var/condor/execute/dir_25526" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 63,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_MACHINE_AD",
+      "values" : {
+         "/var/condor/execute/dir_25526/.machine.ad" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 21,
+      "file" : "ltrace.1.debug",
+      "name" : "SSH_TTY",
+      "values" : {
+         "/dev/pts/0" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 71,
+      "file" : "ltrace.1.debug",
+      "name" : "BASH_ENV",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/init/bash" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 7,
+      "file" : "ltrace.1.debug",
+      "name" : "_LMFILES__modshare",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/modules/system_modules/CRC_default/1.1:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 80,
+      "file" : "ltrace.1.debug",
+      "name" : "MODULESHOME",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 26,
+      "file" : "ltrace.1.debug",
+      "name" : "USER",
+      "values" : {
+         "nkremerh" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 18,
+      "file" : "ltrace.1.debug",
+      "name" : "SGE_CELL",
+      "values" : {
+         "crc" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 72,
+      "file" : "ltrace.1.debug",
+      "name" : "MACHTYPE",
+      "values" : {
+         "x86_64" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 16,
+      "file" : "ltrace.1.debug",
+      "name" : "SSH_CLIENT",
+      "values" : {
+         "129.74.154.71 49500 22" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 44,
+      "file" : "ltrace.1.debug",
+      "name" : "_LMFILES_",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/modules/system_modules/CRC_default/1.1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 55,
+      "file" : "ltrace.1.debug",
+      "name" : "USE_SYSTEMD",
+      "values" : {
+         "true" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 74,
+      "file" : "ltrace.1.debug",
+      "name" : "PYTHONPATH",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ltrace/current/lib/python2.6/site-packages:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ltrace/current/lib/python2.7/site-packages:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/lib/python2.6/site-packages:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/lib/python2.7/site-packages:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/lib/python2.6/site-packages:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/lib/python2.7/site-packages:/afs/crc.nd.edu/user/n/nkremerh/cctools/lib/python3.6/site-packages/" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 84,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_JOB_AD",
+      "values" : {
+         "/var/condor/execute/dir_25526/.job.ad" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 27,
+      "file" : "ltrace.1.debug",
+      "name" : "_CHIRP_DELAYED_UPDATE_PREFIX",
+      "values" : {
+         "Chirp*" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 57,
+      "file" : "ltrace.1.debug",
+      "name" : "HISTCONTROL",
+      "values" : {
+         "ignoreboth:erasedups" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 61,
+      "file" : "ltrace.1.debug",
+      "name" : "HOME",
+      "values" : {
+         "/afs/crc.nd.edu/user/n/nkremerh" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 20,
+      "file" : "ltrace.1.debug",
+      "name" : "PERL_MB_OPT",
+      "values" : {
+         "--install_base '/afs/crc.nd.edu/user/n/nkremerh/.perl5/'" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 92,
+      "file" : "ltrace.1.debug",
+      "name" : "_",
+      "values" : {
+         "/usr/bin/printenv" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 89,
+      "file" : "ltrace.1.debug",
+      "name" : "CORES",
+      "values" : {
+         "1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 10,
+      "file" : "ltrace.1.debug",
+      "name" : "SHELL",
+      "values" : {
+         "/bin/tcsh" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 31,
+      "file" : "ltrace.1.debug",
+      "name" : "BATCH_SYSTEM",
+      "values" : {
+         "HTCondor" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 35,
+      "file" : "ltrace.1.debug",
+      "name" : "HOSTTYPE",
+      "values" : {
+         "x86_64-linux" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 11,
+      "file" : "ltrace.1.debug",
+      "name" : "MODULES_CMD",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/libexec/modulecmd.tcl" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 91,
+      "file" : "ltrace.1.debug",
+      "name" : "PERL_MM_OPT=INSTALL_BASE",
+      "values" : {
+         "/afs/crc.nd.edu/user/n/nkremerh/.perl5/" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 78,
+      "file" : "ltrace.1.debug",
+      "name" : "MODULES_LMALTNAME_modshare",
+      "values" : {
+         "CRC_default/1.1&CRC_default/default&CRC_default:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 48,
+      "file" : "ltrace.1.debug",
+      "name" : "MODULEPATH",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/modules/development_tools_and_libraries:/afs/crc.nd.edu/x86_64_linux/Modules/modules/general_software:/afs/crc.nd.edu/x86_64_linux/Modules/modules/restricted_software:/afs/crc.nd.edu/x86_64_linux/Modules/modules/system_modules:/afs/crc.nd.edu/x86_64_linux/Modules/modules/deprecated_software:/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/modulefiles" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 87,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_ANCESTOR_24985",
+      "values" : {
+         "24990:1554301866:21022846" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 77,
+      "file" : "ltrace.1.debug",
+      "name" : "LD_LIBRARY_PATH_modshare",
+      "values" : {
+         "/opt/crc/usr/local/lib:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 65,
+      "file" : "ltrace.1.debug",
+      "name" : "GREP_OPTIONS=--color",
+      "values" : {
+         "auto" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 29,
+      "file" : "ltrace.1.debug",
+      "name" : "LD_LIBRARY_PATH",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ruby/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/graphviz/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/git/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/clang/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/lib:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/lib:/opt/crc/usr/local/lib" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 50,
+      "file" : "ltrace.1.debug",
+      "name" : "SGE_ROOT",
+      "values" : {
+         "/opt/sge" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 39,
+      "file" : "ltrace.1.debug",
+      "name" : "MFLAGS",
+      "values" : {
+         "-w" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 64,
+      "file" : "ltrace.1.debug",
+      "name" : "OSTYPE",
+      "values" : {
+         "linux" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 58,
+      "file" : "ltrace.1.debug",
+      "name" : "KRB5CCNAME",
+      "values" : {
+         "FILE:/tmp/krb5cc_213124_dQGQud" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 41,
+      "file" : "ltrace.1.debug",
+      "name" : "MAIL",
+      "values" : {
+         "/var/spool/mail/nkremerh" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 12,
+      "file" : "ltrace.1.debug",
+      "name" : "TERM",
+      "values" : {
+         "xterm" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 15,
+      "file" : "ltrace.1.debug",
+      "name" : "TMPDIR",
+      "values" : {
+         "/var/condor/execute/dir_25526/worker-213124-25530/t.1/cctools-temp-t.1.cDcSdL" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 81,
+      "file" : "ltrace.1.debug",
+      "name" : "OMP_NUM_THREADS",
+      "values" : {
+         "1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 52,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_SLOT",
+      "values" : {
+         "slot1_1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 60,
+      "file" : "ltrace.1.debug",
+      "name" : "SHLVL",
+      "values" : {
+         "7" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 56,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_LOWPORT",
+      "values" : {
+         "9100" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 73,
+      "file" : "ltrace.1.debug",
+      "name" : "CCLHOME",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 66,
+      "file" : "ltrace.1.debug",
+      "name" : "DISK",
+      "values" : {
+         "1764" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 45,
+      "file" : "ltrace.1.debug",
+      "name" : "SGE_EXECD_PORT",
+      "values" : {
+         "6445" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 86,
+      "file" : "ltrace.1.debug",
+      "name" : "SGE_CLUSTER_NAME",
+      "values" : {
+         "CRC" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 76,
+      "file" : "ltrace.1.debug",
+      "name" : "TMP",
+      "values" : {
+         "/var/condor/execute/dir_25526/worker-213124-25530/t.1/cctools-temp-t.1.cDcSdL" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 19,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_SCRATCH_DIR",
+      "values" : {
+         "/var/condor/execute/dir_25526" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 62,
+      "file" : "ltrace.1.debug",
+      "name" : "PATH_modshare",
+      "values" : {
+         "/opt/crc/usr/local/bin:1:/opt/sge/bin/lx-amd64:1:/usr/sbin:1:/usr/bin:1:/afs/crc.nd.edu/user/c/condor/software/sbin:1:/usr/local/sbin:1:/afs/crc.nd.edu/user/c/condor/software/bin:1:/usr/local/bin:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 54,
+      "file" : "ltrace.1.debug",
+      "name" : "WORK_QUEUE_SANDBOX",
+      "values" : {
+         "/var/condor/execute/dir_25526/worker-213124-25530" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 67,
+      "file" : "ltrace.1.debug",
+      "name" : "MANPATH_modshare",
+      "values" : {
+         "/usr/share/man/overrides:1:/usr/local/share/man:1:/usr/share/man:1:/opt/crc/usr/local/man:1:/opt/sge/man:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 70,
+      "file" : "ltrace.1.debug",
+      "name" : "VENDOR",
+      "values" : {
+         "unknown" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 68,
+      "file" : "ltrace.1.debug",
+      "name" : "MEMORY",
+      "values" : {
+         "412" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 17,
+      "file" : "ltrace.1.debug",
+      "name" : "PERL5LIB",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/lib/perl5/site_perl:/afs/crc.nd.edu/user/n/nkremerh/cctools/lib/perl5/site_perl/5.16.3:/afs/crc.nd.edu/user/n/nkremerh/.perl5/lib/perl5" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 2,
+      "file" : "ltrace.1.debug",
+      "name" : "REMOTEHOST",
+      "values" : {
+         "129.74.154.71" : 1
+      }
+   },
+   {
+      "failures" : 1,
+      "envid" : 1,
+      "processes" : [
+         {
+            "procid" : 1
+         }
+      ],
+      "file" : "ltrace.1.debug",
+      "name" : null,
+      "values" : {
+         "" : 1
+      },
+      "accesses" : 1
+   },
+   {
+      "failures" : 0,
+      "envid" : 88,
+      "file" : "ltrace.1.debug",
+      "name" : "CCTOOLS",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 30,
+      "file" : "ltrace.1.debug",
+      "name" : "TEMP",
+      "values" : {
+         "/var/condor/execute/dir_25526/worker-213124-25530/t.1/cctools-temp-t.1.cDcSdL" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 82,
+      "file" : "ltrace.1.debug",
+      "name" : "LESSOPEN",
+      "values" : {
+         "||/usr/bin/lesspipe.sh %s" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 25,
+      "file" : "ltrace.1.debug",
+      "name" : "HISTFILESIZE",
+      "values" : {
+         "10000" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 28,
+      "file" : "ltrace.1.debug",
+      "name" : "GROUP",
+      "values" : {
+         "campus" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 83,
+      "file" : "ltrace.1.debug",
+      "name" : "LOADEDMODULES_modshare",
+      "values" : {
+         "CRC_default/1.1:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 75,
+      "file" : "ltrace.1.debug",
+      "name" : "LOGNAME",
+      "values" : {
+         "nkremerh" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 40,
+      "file" : "ltrace.1.debug",
+      "name" : "PATH",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ltrace/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/sbin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/bin:/afs/crc.nd.edu/user/n/nkremerh/cctools/bin:/afs/crc.nd.edu/user/n/nkremerh/miniconda/bin:/afs/crc.nd.edu/group/ccl/software/git:/afs/nd.edu/user37/ccl/software/external/ffmpeg/bin:/afs/nd.edu/user37/ccl/software/external/povray/bin:/afs/crc.nd.edu/user/n/nkremerh/.local/bin:/afs/crc.nd.edu/user/n/nkremerh/.perl5/bin:/afs/crc.nd.edu/user/n/nkremerh/pegasus/bin:/afs/crc.nd.edu/user/n/nkremerh/nodejs/bin:/afs/crc.nd.edu/user/n/nkremerh/montage/bin:/afs/crc.nd.edu/user/n/nkremerh/latexdiff:/afs/crc.nd.edu/user/n/nkremerh/envtrace:/afs/crc.nd.edu/user/n/nkremerh/endlines:/afs/crc.nd.edu/user/n/nkremerh/cctools/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ruby/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/graphviz/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/gnuplot/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/git/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/sbin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cmake/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/clang/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/sbin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/bin:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/bin:/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/bin:/opt/crc/usr/local/bin:/opt/sge/bin/lx-amd64:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/afs/crc.nd.edu/user/c/condor/software/bin:/afs/crc.nd.edu/user/c/condor/software/sbin" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 14,
+      "file" : "ltrace.1.debug",
+      "name" : "HISTSIZE",
+      "values" : {
+         "5000" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 69,
+      "file" : "ltrace.1.debug",
+      "name" : "PERL_LOCAL_LIB_ROOT",
+      "values" : {
+         "/afs/crc.nd.edu/user/n/nkremerh/.perl5/" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 59,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_ANCESTOR_25526",
+      "values" : {
+         "25530:1554302637:3749774331" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 49,
+      "file" : "ltrace.1.debug",
+      "name" : "SGE_QMASTER_PORT",
+      "values" : {
+         "6444" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 24,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_ANCESTOR_24990",
+      "values" : {
+         "25526:1554302635:3994027736" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 53,
+      "file" : "ltrace.1.debug",
+      "name" : "CCLPLATFORM",
+      "values" : {
+         "x86_64/redhat7" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 79,
+      "file" : "ltrace.1.debug",
+      "name" : "SSH_CONNECTION",
+      "values" : {
+         "129.74.154.71 49500 129.74.128.103 22" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 22,
+      "file" : "ltrace.1.debug",
+      "name" : "SGE_LOAD_AVG",
+      "values" : {
+         "load_avg" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 42,
+      "file" : "ltrace.1.debug",
+      "name" : "CCLSOFTWARE",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 46,
+      "file" : "ltrace.1.debug",
+      "name" : "EDITOR",
+      "values" : {
+         "vim" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 23,
+      "file" : "ltrace.1.debug",
+      "name" : "MAKEFLOW_MAX_LOCAL_JOBS",
+      "values" : {
+         "2" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 13,
+      "file" : "ltrace.1.debug",
+      "name" : "MAKEFLAGS",
+      "values" : {
+         "w" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 6,
+      "file" : "ltrace.1.debug",
+      "name" : "HOSTNAME",
+      "values" : {
+         "disc01.crc.nd.edu" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 85,
+      "file" : "ltrace.1.debug",
+      "name" : "XDG_RUNTIME_DIR",
+      "values" : {
+         "/run/user/213124" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 3,
+      "file" : "ltrace.1.debug",
+      "name" : "MANPATH",
+      "values" : {
+         "/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ltrace/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/share/man:/afs/crc.nd.edu/user/n/nkremerh/cctools/share/man/:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/ruby/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/graphviz/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/gnuplot/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/git/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/clang/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/condor/current/share/man:/afs/crc.nd.edu/group/ccl/software/x86_64/redhat7/cctools/current/share/man:/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/share/man:/opt/crc/usr/local/man:/opt/sge/man:/usr/share/man/overrides:/usr/share/man:/usr/local/share/man" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 36,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_HIGHPORT",
+      "values" : {
+         "9999" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 9,
+      "file" : "ltrace.1.debug",
+      "name" : "HOST",
+      "values" : {
+         "disc01.crc.nd.edu" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 51,
+      "file" : "ltrace.1.debug",
+      "name" : "LOADEDMODULES",
+      "values" : {
+         "CRC_default/1.1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 47,
+      "file" : "ltrace.1.debug",
+      "name" : "LANG",
+      "values" : {
+         "en_US.UTF-8" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 8,
+      "file" : "ltrace.1.debug",
+      "name" : "MODULEPATH_modshare",
+      "values" : {
+         "/afs/crc.nd.edu/x86_64_linux/Modules/modules/general_software:1:/afs/crc.nd.edu/x86_64_linux/Modules/modules/development_tools_and_libraries:1:/afs/crc.nd.edu/x86_64_linux/Modules/modules/system_modules:1:/afs/crc.nd.edu/x86_64_linux/Modules/4.2.1/modulefiles:1:/afs/crc.nd.edu/x86_64_linux/Modules/modules/restricted_software:1:/afs/crc.nd.edu/x86_64_linux/Modules/modules/deprecated_software:1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 38,
+      "file" : "ltrace.1.debug",
+      "name" : "MAKELEVEL",
+      "values" : {
+         "2" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 4,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_JOB_PIDS",
+      "values" : {
+         "" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 34,
+      "file" : "ltrace.1.debug",
+      "name" : "WORKER_TMPDIR",
+      "values" : {
+         "/var/condor/execute/dir_25526/worker-213124-25530/cache/tmp" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 37,
+      "file" : "ltrace.1.debug",
+      "name" : "_CONDOR_CHIRP_CONFIG",
+      "values" : {
+         "/var/condor/execute/dir_25526/.chirp.config" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 43,
+      "file" : "ltrace.1.debug",
+      "name" : "PWD",
+      "values" : {
+         "/var/condor/execute/dir_25526/worker-213124-25530/t.1" : 1
+      }
+   },
+   {
+      "failures" : 0,
+      "envid" : 5,
+      "file" : "ltrace.1.debug",
+      "name" : "XDG_SESSION_ID",
+      "values" : {
+         "3244" : 1
+      }
+   }
+]
+,
+
+"processes": [
+   {
+      "ancestor" : {
+         "procid" : 3
+      },
+      "descendants" : [],
+      "pid" : 25535,
+      "procid" : 4,
+      "envVars" : [],
+      "files" : [],
+      "program" : "dd if=in.dat of=out.dat bs=4096 count=2500"
+   },
+   {
+      "descendants" : [],
+      "pid" : 0,
+      "procid" : 1,
+      "envVars" : [
+         {
+            "envid" : 1
+         }
+      ],
+      "files" : [],
+      "program" : null
+   },
+   {
+      "descendants" : [
+         {
+            "procid" : 4
+         }
+      ],
+      "pid" : 25534,
+      "procid" : 3,
+      "envVars" : [],
+      "files" : [],
+      "program" : "sh -c \"dd if=in.dat of=out.dat bs=4096 count=2500\""
+   },
+   {
+      "descendants" : [],
+      "pid" : 25565,
+      "procid" : 2,
+      "envVars" : [],
+      "files" : [
+         {
+            "fileid" : 1
+         },
+         {
+            "fileid" : 4
+         }
+      ],
+      "program" : "dd"
+   }
+]
+
+
+}

@@ -1,0 +1,21 @@
+set terminal pdfcairo size 3.75,2.25 font 'Times New Roman,14'
+set mono
+set output "bwa-gatk-performance.pdf"
+
+#BWA-GATK
+set title "BWA-GATK Debug Log Performance Overhead"
+#set xlabel "Rules Completed"
+set ylabel "Rules Completed"
+#set ylabel "Execution Time (s)"
+set xlabel "Execution Time (s)"
+set xtics rotate by -90
+#set key top left
+set key bottom right
+#set xrange[0:550]
+set yrange[0:565]
+#set yrange[0:4200]
+set xrange[0:5450]
+
+plot '../bwa-gatk/master.dat' using 1:2 title "Debugging Enabled" with lines,\
+	 '../bwa-gatk/nolog.dat' u 1:2 title "Debugging Not Enabled" with lines
+

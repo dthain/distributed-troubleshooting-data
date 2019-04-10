@@ -1,0 +1,102 @@
+#! /usr/bin/env perl
+
+use 5.10.0;
+use strict;
+use Error qw(:try);
+use Error::Simple;
+use Getopt::Long qw(:config no_ignore_case);
+use DateTime;
+
+my $usage = "Work Queue Log Analyzer Options:
+
+Required:
+    --input,-i  <path>  Sets the path to the Work Queue debug log.
+    --out,-o    <path>  Enables printing of output to specified file.
+
+Optional:
+    --help              Display this message.
+
+Example Usage:
+
+    perl loganalyzer --input wq.debug --output wq.dat
+
+";
+
+my %OPT;
+try {
+    GetOptions(
+        "input=s" => \$OPT{in},
+        "dot=s" => \$OPT{dot},
+        "out=s" => \$OPT{out},
+        "help|?" => sub { print $usage; exit(0); },
+    );
+}
+catch Error::Simple with {
+    my $E = shift;
+    print STDERR $E->{-text};
+    die "Failed to parse command line options.\n";
+};
+
+my $in = $OPT{in};
+my $dot = $OPT{dot};
+my $out = $OPT{out};
+my $err = 0;
+
+if(!$in) { print(STDERR "Missing --input option.\n"); $err++; }
+if(!$out) { print(STDERR "Missing --output option.\n"); $err++; }
+if($err) {
+    print(STDERR "Could not find $err required arguments.\n");
+    print_help();
+}
+
+my $start = 0;
+my $flag = 0;
+my $complete = 0;
+my $failed = 0;
+my $retries = 0;
+
+open(INPUT, $in) or die "Could not open file $in for reading.\n";
+open(OUTPUT, ">>", $out) or die "Could not open file $out for writing.\n";    
+while(my $line = <INPUT>) {
+    my $timestamp;
+    if($line =~ m/(?<year>\d+)\/(?<month>\d+)\/(?<day>\d+) (?<hour>\d+):(?<minute>\d+):(?<second>\d+)/) {
+        $timestamp = DateTime->new(year => $+{year}, month => $+{month}, day => $+{day}, hour => $+{hour}, minute => $+{minute}, second => $+{second});
+        $timestamp = $timestamp->epoch();
+        if(!$start) { $start = $timestamp; }
+    }
+
+    #makeflow: node 0 running -> complete
+    if($line =~ m/makeflow: node \d+ running -> complete/) {
+        $complete++;
+        $flag = 1;
+        next;
+    }
+
+    #makeflow: node 0 running -> failed
+    elsif($line =~ m/makeflow: node \d+ running -> failed/) {
+        $failed++;
+        $flag = 1;
+        next;
+    }
+
+    #makeflow: node 3 failed -> waiting
+    elsif($line =~ m/makeflow: node \d+ failed -> waiting/) {
+        $retries++;
+        $flag = 1;
+        next;
+    }
+
+    if($flag) {
+        my $elapsed = $timestamp - $start;
+        print(OUTPUT "$elapsed $complete $failed $retries\n");
+        $flag = 0;
+    }
+}
+close(OUTPUT);
+close(INPUT);
+
+sub print_help {
+    print $usage;
+    exit(1);
+}
+# vim: tabstop=8 shiftwidth=4 softtabstop=4 expandtab shiftround autoindent
