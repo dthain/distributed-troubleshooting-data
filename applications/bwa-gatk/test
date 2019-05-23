@@ -1,0 +1,92 @@
+#!/usr/bin/perl
+#
+#Copyright (C) 2016- The University of Notre Dame
+#This software is distributed under the GNU General Public License.
+#
+
+use strict; 
+use Scalar::Util qw(looks_like_number);
+use Error qw(:try);
+use Error::Simple;
+use Getopt::Long qw(:config no_ignore_case);
+
+$SIG{INT} = \&cleanup;
+$SIG{TERM} = \&cleanup;
+
+my $usage = "Application Test Options:
+
+Required:
+	--name  <string>    Sets the name of the Work Queue master.
+    --mode  <integer>   Sets the mode of the makeflow to execute.
+
+Optional:
+	--help			    Display this message.
+
+Example Usage:
+
+	perl test --name wq_trace --mode 1
+
+";
+
+my %OPT;
+try {
+    GetOptions(
+        "name=s" => \$OPT{name},
+        "mode=s" => \$OPT{mode},
+	   	"help|?" => sub {print $usage; exit(0)}
+	);
+} 
+catch Error::Simple with {
+    my $E = shift;
+    print STDERR $E->{-text};
+    die "Failed to parse command line options.\n";
+};
+
+my $name = $OPT{name};
+my $mode = $OPT{mode};
+my $err = 0;
+
+if(!$name) { print(STDERR "Missing --name option.\n"); $err++; }
+if(!$mode) { print(STDERR "Missing --mode option.\n"); $err++; }
+if($err) {
+    print(STDERR "Could not find $err required arguments.\n");
+    print_help();
+}
+
+my $usr = $ENV{USER};
+my $result;
+if($mode == 1) {
+    $result = system("../bin/makeflow -T wq -d all -o notrace.debug -N $name -r 0 notrace.makeflow");
+}
+else {
+    $result = system("../bin/makeflow -T wq -d all -o ltrace.debug -N $name -r 0 ltrace.makeflow");
+}
+cleanup();
+exit 0;
+
+sub cleanup {
+    system("ps -AF | grep \"$usr\" > cleanup");
+    my $i = 0;
+    open(INPUT, "cleanup");
+    while(my $line = <INPUT>) {
+	    chomp $line;
+	    my @parts = split(" ",$line);
+	    foreach my $part (@parts) {
+		    if($part =~ m/work_queue_.+/) {
+			    kill("KILL", @parts[1]);
+			    last;
+		    }
+		    $i++;
+	    }
+    }
+    close(INPUT);
+    unlink("cleanup");
+    system("condor_rm $usr");
+    print(STDERR "Cleaning up workers.\n");
+    sleep(1);
+}
+
+sub print_help {
+	print $usage;
+	exit 1;
+}
